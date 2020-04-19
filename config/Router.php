@@ -10,6 +10,7 @@ class Router
     private $frontController;
     private $errorController;
 
+
     public function __construct()
     {
         $this->frontController = new FrontController();
@@ -27,7 +28,7 @@ class Router
                     break;
                     case "auteur": $this->frontController->auteur();
                     break;
-                    case "inscription": $this->frontController->register();
+                    case "inscription": $this->frontController->register($_POST);
                     break;
                     default:$this->errorController->errorNotFound();
                 }

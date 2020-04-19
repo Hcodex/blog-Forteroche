@@ -2,6 +2,7 @@
 
 namespace App\src\controller;
 
+use App\src\DAO\UserDAO;
 use App\src\model\View;
 
 class FrontController
@@ -21,8 +22,15 @@ class FrontController
     {
         return $this->view->render('auteur');
     }
-    public function register()
+
+    public function register($post)
     {
-        return $this->view->render('register');
+        if(isset($post['submit'])) {
+            $userDAO = new UserDAO();
+            $userDAO->register($post);
+        }
+        return $this->view->render('register',[
+            'post' => $post
+        ]);
     }
 }
