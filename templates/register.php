@@ -20,12 +20,15 @@
                 <div class="form-group">
                     <label for="pseudo">Pseudo</label>
                     <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Votre pseudo" required>
+                    <small id="pseudoHelpInline" class="text-muted">
+                         <?= isset($errors['pseudo']) ? $errors['pseudo'] : ''; ?>
+                    </small>
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
                     <input type="password" class="form-control" name="password" id="password" required>   
                     <small id="passwordHelpInline" class="text-muted">
-                    Au moins 8 caractères
+                    Au moins 8 caractères  <?= isset($errors['password']) ? $errors['password'] : ''; ?>
                     </small>
                 </div>
                 <div class="form-group">
