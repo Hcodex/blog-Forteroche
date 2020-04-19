@@ -1,0 +1,150 @@
+
+htlm, body {
+	height: 100%;
+	width : 100%;
+	padding-right : 0px !important;
+	margin: 0;
+	overflow-y: scroll !important;
+}
+
+
+.navbar{
+	transition:500ms ease;
+	background:transparent;
+	color : white !important;
+  }
+
+.navbar a{
+	color : white;
+  }
+
+.navbar.scrolled{
+	background:white;
+	color : rgb(27, 27, 27);
+  }
+
+  .navbar.scrolled a{
+	color : rgb(27, 27, 27);
+  }
+
+.content{
+	background-size: contain;
+}
+
+.nav-item{
+	margin : 5px;
+}
+.cover-container{
+	height : 100vh;
+	position : relative;
+}
+/*
+.cover-heading{
+	color : white;
+	position : absolute;
+	bottom : 200px;
+	right : 15%;
+	text-shadow: 0px 0px 20px black;
+}
+*/
+.cover-header{
+	min-height : 100vh;
+	color : white;
+	background-image: url('../img/cover-background.jpg') ;
+	background-size: cover;
+	background-attachment: fixed;
+	text-shadow: 0px 0px 20px black;
+	padding : 30% 0 0 30%;
+}
+
+
+.page-header{
+	color : white;
+	text-shadow: 0px 0px 20px black;
+	background-image: url('../img/header.jpg') ;
+	background-size: contain;
+	background-attachment: fixed;
+	padding : 10% 20% 5% 20%;
+}
+
+.page-header h1,
+.page-header p,
+.cover-header h1,
+.cover-header p
+{
+	font-family: 'Anton', sans-serif;
+	opacity: .6;
+}
+
+.page-header h1,
+.cover-header h1{
+	font-size : 5em;
+	text-transform: uppercase;
+
+}
+
+h2, h1{
+	font-family: 'Anton', sans-serif;
+	text-transform: uppercase;
+}
+
+.page-header p,
+.cover-header p{
+	font-size : 2em;
+}
+
+.nav.sticky-top{
+	top: 65px;
+}
+
+.nav.sticky-top a{
+	color: white;
+	border-radius: 2px;
+	transition : 300ms all;
+}
+
+.nav.sticky-top a:hover{
+	background: white;
+	color: black;
+}
+
+
+#details{
+	padding-top : 100px;
+}
+
+.paper{
+	padding : 50px;
+	box-shadow: 0px 0px 20px black;
+
+	background: #e3eae8;
+}
+
+.roman{
+	font-family: "Times New Roman", Times, serif;
+	font-size : 1.3em;
+	padding-bottom : 30px;
+}
+.paper .title{
+	font-size : 1.7em;
+}
+
+.card{
+	margin-top : 20px;
+}
+
+.first{
+	background-image: url('../img/mountain.svg') ;
+	background-repeat: no-repeat;
+	background-size: auto 55%;
+	background-position: center right;
+}
+
+
+
+.second{
+	background-image: url('../img/mountain2.svg') ;
+	background-repeat: no-repeat;
+	background-size: auto 55%;
+	background-position: center left;
+}
