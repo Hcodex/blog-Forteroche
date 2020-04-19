@@ -27,6 +27,8 @@ class Router
                     break;
                     case "auteur": $this->frontController->auteur();
                     break;
+                    case "inscription": $this->frontController->register();
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }

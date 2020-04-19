@@ -5,11 +5,11 @@
 			<h1>Billet simple pour l'Alaska</h1>
 			<p>Le roman en ligne de Jean Forteroche</p>
 			<a class="btn btn-primary" href="index.php?route=roman" role="button">Lire le roman en ligne</a>
-			<a class="btn btn-secondary" href="#details" role="button">Plus d'infos</a>
+			<a class="btn btn-secondary" href="#page-content" role="button">Plus d'infos</a>
 	</div>
 
 
-	<section id="details" class="mb-5 pb-5">
+	<section id="page-content" class="mb-5 pb-5">
 
 		<div class="container text-justify">
 			<h2 class="text-center text-primary pb-3">Un voyage philosophique au coeur des glaciers</h2>
@@ -33,9 +33,8 @@
 				<ul>
 					<li>Reprendre automatiquement la lecture au dernier épisiode lu</li>
 					<li>Commenter les épisodes</li>
-					<li>Etre informé par e-mail de la publication d'un nouvel épisiode</li>
 				</ul>
-				<div class="w-100 text-center">
+				<div class="text-center">
 					<a class="btn btn-primary" type="button" href="index.php?route=inscription">Inscription</a>     
 				</div>
 			</div>

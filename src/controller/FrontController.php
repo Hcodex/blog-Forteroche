@@ -21,4 +21,8 @@ class FrontController
     {
         return $this->view->render('auteur');
     }
+    public function register()
+    {
+        return $this->view->render('register');
+    }
 }
