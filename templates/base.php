@@ -97,7 +97,8 @@
 </body>
 
 <footer class="bg-secondary">
-	<div class="footer-copyright bg-dark text-white text-center py-3"><p>2020 © Tous droits réservés | <a href="https://mdbootstrap.com/">Mentions légales</a> | <a href="https://mdbootstrap.com/">Politique de confidentialité</a></p>
+	<div class="footer-copyright bg-dark text-white text-center py-3">
+        <p>2020 © Tous droits réservés | <a href="index.php?route=mentions_legales">Mentions légales</a> | <a href="index.php?route=politique_confidentialite">Politique de confidentialité</a></p>
 		 <p class="my-0">Avertissement : Ce site est un projet d'étude, l'intégralité de son contenu est purement fictif</p>
 	</div>
 
