@@ -1,3 +1,4 @@
+
 <?php $this->title = "Billet simple pour l'Alaska - inscription"; ?>
 	
 <main role="main">
@@ -8,19 +9,21 @@
 	<section id="page-content">	
         <div class="container pb-5">	
             <h1 class="text-center text-primary pb-2">Formulaire d'inscription</h1>
-            <form method="post" action="../public/index.php?route=register">
+
+            
+            <form method="post" action="../public/index.php?route=inscription">
 
                 <div class="form-group">
                     <label for="email">Addresse mail</label>
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
                 </div>
                 <div class="form-group">
                     <label for="pseudo">Pseudo</label>
-                    <input type="text" class="form-control" id="pseudo" placeholder="Votre pseudo" required>
+                    <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Votre pseudo" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control" id="password" required>   
+                    <input type="password" class="form-control" name="password" id="password" required>   
                     <small id="passwordHelpInline" class="text-muted">
                     Au moins 8 caractères
                     </small>
@@ -34,9 +37,14 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Inscription</button>
+                    <input type="submit" class="btn btn-primary" value="Inscription" id="submit" name="submit">
 				</div>
             </form>
         </div>	
     </section>
 </main>
+
+
+
+
+
