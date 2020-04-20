@@ -29,17 +29,22 @@ class FrontController
     {
         if(isset($post['submit'])) {
             $errors = $this->validation->validate($post, 'User');
-            if(!$errors) {
             $userDAO = new UserDAO();
-            $userDAO->register($post);
+            if($userDAO->checkUserPseudo($post)) {
+                $errors['pseudo'] = $userDAO->checkUserPseudo($post);
+            }
+            if($userDAO->checkUserEmail($post)) {
+                $errors['email'] = $userDAO->checkUserEmail($post);
+            }
+            if(!$errors) {
+                $success = $userDAO->register($post);
             }
             return $this->view->render('register', [
                 'post' => $post,
-                'errors' => $errors
+                'errors' => $errors,
+                'success' => $success
             ]);
         }
-        return $this->view->render('register',[
-            'post' => $post
-        ]);
+        return $this->view->render('register');
     }
 }
