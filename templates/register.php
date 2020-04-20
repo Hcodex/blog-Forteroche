@@ -10,7 +10,7 @@
         <div class="container pb-5">	
             <h1 class="text-center text-primary pb-2">Formulaire d'inscription</h1>
 
-            <p class="text-center text-success font-weight-bold"><?= isset($success) ? $success : 'notset'; ?></p>
+            <p class="text-center text-success font-weight-bold"><?= isset($success) ? $success : ''; ?></p>
             
             <form method="post" action="../public/index.php?route=inscription">
 
