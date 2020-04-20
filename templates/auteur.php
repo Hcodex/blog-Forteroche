@@ -6,7 +6,7 @@
 		<h1 class="text-center">L'Auteur</h1>
 	</div>
 	<section  class="my-0 py-0">
-		<div class="d-flex align-items-center my-0 first">
+		<div class="d-lg-flex align-items-center my-0 first">
 			<div class=" w-50"><img src="./img/jean-forteroche.jpg" class="" width="100%" alt="..."></div>
 				<div class="w-100 text-justify p-5">
 					<h1 class="text-center text-primary pb-2">Jean Forteroche</h1>

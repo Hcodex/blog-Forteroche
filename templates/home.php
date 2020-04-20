@@ -17,7 +17,7 @@
 			<p>C'est au cours d'expérinences et de rencontres bouleversantes que Simon va apprendre à se déconstruire pour trouver un sens à son existance, mais pour cela il devra laisser séchaper son ancienne vie. En aura-t-il la force ? Saura-il lacher prise pour s'accomplir ? Un voyage intérieur qui questionne sur le sens de la vie et des sacrifices.</p>
 		</div>
 
-		<div class="d-flex align-items-center my-5 first">
+		<div class="d-lg-flex align-items-center my-5 first">
 			<div class=" w-100 "><img src="../public/img/mountains.png" class="" width="100%" alt="..."></div>
 			<div class="w-100 text-justify p-5">
 				<h2 class="text-center text-primary pb-3">Un roman à découvrir en ligne</h2>
@@ -26,8 +26,11 @@
 			</div>
 		</div>
 
-		<div class="d-flex align-items-center my-5 second">
-			<div class="w-100 text-justify p-5">
+		<div class="d-lg-flex align-items-center my-5 second">
+			<div class="w-100 order-lg-1">
+				<img src="../public/img/glacier.png" class="" width="100%" alt="...">
+			</div>
+			<div class="w-100 text-justify p-5 order-lg-0">
 				<h2 class="text-center text-primary pb-3">Un tableau de bord individuel</h2>
 				<p>Vous pouvez profiter librement du roman en ligne mais pour une expérience optimale vous pouvez créer un compte sur ce site. Ainsi vous pourrez :</p>
 				<ul>
@@ -38,7 +41,7 @@
 					<a class="btn btn-primary" type="button" href="index.php?route=inscription">Inscription</a>     
 				</div>
 			</div>
-			<div class=" w-100 "><img src="../public/img/glacier.png" class="" width="100%" alt="..."></div>
+
 		</div>
 	</section>
 </main>
