@@ -13,6 +13,7 @@ class FrontController
     {
         $this->view = new View();
         $this->validation = new Validation();
+        $this->userDAO = new UserDAO();
     }
 
     public function home()
@@ -29,15 +30,14 @@ class FrontController
     {
         if(isset($post['submit'])) {
             $errors = $this->validation->validate($post, 'User');
-            $userDAO = new UserDAO();
-            if($userDAO->checkUserPseudo($post)) {
-                $errors['pseudo'] = $userDAO->checkUserPseudo($post);
+            if($this->userDAO->checkUserPseudo($post)) {
+                $errors['pseudo'] = $this->userDAO->checkUserPseudo($post);
             }
-            if($userDAO->checkUserEmail($post)) {
-                $errors['email'] = $userDAO->checkUserEmail($post);
+            if($this->userDAO->checkUserEmail($post)) {
+                $errors['email'] = $this->userDAO->checkUserEmail($post);
             }
             if(!$errors) {
-                $success = $userDAO->register($post);
+                $success = $this->userDAO->register($post);
             }
             return $this->view->render('register', [
                 'post' => $post,
