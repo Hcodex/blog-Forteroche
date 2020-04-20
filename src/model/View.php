@@ -2,10 +2,17 @@
 
 namespace App\src\model;
 
+use App\config\Request;
+
 class View
 {
     private $file;
     private $title;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
 
     public function render($template, $data = [])
     {

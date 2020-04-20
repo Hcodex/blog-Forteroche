@@ -2,9 +2,11 @@
 
 namespace App\src\controller;
 
+use App\config\Request;
 use App\src\DAO\UserDAO;
 use App\src\model\View;
 use App\src\constraint\Validation;
+use App\config\Parameter;
 
 class FrontController
 {
@@ -14,6 +16,10 @@ class FrontController
         $this->view = new View();
         $this->validation = new Validation();
         $this->userDAO = new UserDAO();
+        $this->request = new Request();
+        $this->userDAO = new UserDAO();
+        $this->get = $this->request->getGet();
+        $this->post = $this->request->getPost();
     }
 
     public function home()
@@ -26,9 +32,9 @@ class FrontController
         return $this->view->render('auteur');
     }
 
-    public function register($post)
+    public function register(Parameter $post)
     {
-        if(isset($post['submit'])) {
+        if($post->get('submit')) {
             $errors = $this->validation->validate($post, 'User');
             if($this->userDAO->checkUserPseudo($post)) {
                 $errors['pseudo'] = $this->userDAO->checkUserPseudo($post);

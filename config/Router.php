@@ -9,10 +9,12 @@ class Router
 {
     private $frontController;
     private $errorController;
+    private $request;
 
 
     public function __construct()
     {
+        $this->request = new Request();
         $this->frontController = new FrontController();
         $this->errorController = new ErrorController();
     }
@@ -20,15 +22,16 @@ class Router
 
     public function run()
     {
+        $route = $this->request->getGet()->get('route');
         try{
-            if(isset($_GET['route']))
+            if(isset($route))
             {
-                switch ($_GET['route']) {
+                switch ($route) {
                     case "home": $this->frontController->home();
                     break;
                     case "auteur": $this->frontController->auteur();
                     break;
-                    case "inscription": $this->frontController->register($_POST);
+                    case "inscription": $this->frontController->register($this->request->getPost());
                     break;
                     default:$this->errorController->errorNotFound();
                 }
