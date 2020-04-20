@@ -16,21 +16,21 @@
 
                 <div class="form-group">
                     <label for="email">Addresse mail</label>
-                    <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" id="email" name="email" placeholder="name@exemple.com" value="<?= isset($post) ? htmlspecialchars($post['email']): ''; ?>" required>
+                    <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" id="email" name="email" placeholder="name@exemple.com" value="<?= isset($post) ? htmlspecialchars($post->get('email')): ''; ?>" required>
                     <div class="invalid-feedback">
                             <?= isset($errors['email']) ? $errors['email'] : ''; ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="pseudo">Pseudo</label>
-                    <input type="text" class="form-control <?= isset($errors['pseudo']) ? 'is-invalid' : '' ?>" id="pseudo" name="pseudo" placeholder="Votre pseudo" value="<?= isset($post) ? htmlspecialchars($post['pseudo']): ''; ?>" required>
+                    <input type="text" class="form-control <?= isset($errors['pseudo']) ? 'is-invalid' : '' ?>" id="pseudo" name="pseudo" placeholder="Votre pseudo" value="<?= isset($post) ? htmlspecialchars($post->get('pseudo')): ''; ?>" required>
                     <div class="invalid-feedback">
                         <?= isset($errors['pseudo']) ? $errors['pseudo'] : ''; ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" name="password" id="password" placeholder="Au moins 8 caractères " value="<?= isset($post) ? htmlspecialchars($post['password']): ''; ?>" required>   
+                    <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" name="password" id="password" placeholder="Au moins 8 caractères " value="<?= isset($post) ? htmlspecialchars($post->get('password')): ''; ?>" required>   
                     <div class="invalid-feedback">
                         <?= isset($errors['password']) ? $errors['password'] : ''; ?>
                     </div>

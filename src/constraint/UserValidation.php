@@ -1,6 +1,7 @@
 <?php
 
 namespace App\src\constraint;
+use App\config\Parameter;
 
 class USerValidation extends Validation
 {
@@ -12,9 +13,9 @@ class USerValidation extends Validation
         $this->constraint = new Constraint();
     }
 
-    public function check($post)
+    public function check(Parameter $post)
     {
-        foreach ($post as $key => $value) {
+        foreach ($post->all() as $key => $value) {
             $this->checkField($key, $value);
         }
         return $this->errors;
