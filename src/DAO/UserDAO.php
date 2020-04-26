@@ -35,6 +35,7 @@ class UserDAO extends DAO
         }
     }
 
+    
     public function checkUserEmail(Parameter $post)
     {
         $sql = 'SELECT COUNT(email) FROM user WHERE email = ?';
