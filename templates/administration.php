@@ -19,6 +19,7 @@
                     <td>Contenu</td>
                     <td>Auteur</td>
                     <td>Date</td>
+                    <td>Actions</td>
                 </tr>
                 <?php
                 foreach ($articles as $article)
@@ -30,6 +31,9 @@
                         <td><?= substr(htmlspecialchars($article->getContent()), 0, 150);?></td>
                         <td><?= htmlspecialchars($article->getAuthor());?></td>
                         <td>Créé le : <?= htmlspecialchars($article->getCreatedAt());?></td>
+                        <td>
+                            <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+                        </td>
                     </tr>
                     <?php
                 }

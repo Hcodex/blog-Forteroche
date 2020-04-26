@@ -63,6 +63,9 @@ class Router
                     case "addArticle":
                         $this->backController->addArticle($this->request->getPost());
                     break;
+                    case "editArticle":
+                        $this->backController->editArticle($this->request->getPost(), $this->request->getGet()->get('articleId'));
+                    break;
                     case "upload":
                         $this->uploadController->upload($this->request->getPost());
                     break;

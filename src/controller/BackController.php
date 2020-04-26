@@ -64,6 +64,35 @@ class BackController extends Controller
         }
     }
 
+    public function editArticle(Parameter $post, $articleId)
+    {
+        if($this->checkAdmin()) {
+            $article = $this->articleDAO->getArticle($articleId);
+            if ($post->get('submit')) {
+                $errors = $this->validation->validate($post, 'Article');
+                if (!$errors) {
+                    $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'));
+                    $this->session->set('edit_article', 'L\' article a bien été modifié');
+                    header('Location: ../public/index.php?route=administration');
+                }
+                return $this->view->render('edit_article', [
+                    'post' => $post,
+                    'errors' => $errors
+                ]);
+
+            }
+            $post->set('id', $article->getId());
+            $post->set('title', $article->getTitle());
+            $post->set('picture', $article->getPicture());
+            $post->set('content', $article->getContent());
+            $post->set('author', $article->getAuthor());
+
+            return $this->view->render('edit_article', [
+                'post' => $post
+            ]);
+        }
+    }
+
 
     public function profile()
     {

@@ -19,7 +19,7 @@
     <section  class="paper">
         <div class="container roman text-justify ">	
         <h2 class="title text-primary"><?= $article->getTitle();?></h2>    
-        <?= $article->getContent();?>
+        <?= htmlspecialchars($article->getContent());?>
         </div> 
     </section>       
 </main>

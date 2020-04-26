@@ -26,6 +26,18 @@ class ArticleDAO extends DAO
         $this->createQuery($sql, [$post->get('title'), $post->get('content'), $post->get('picture'), $userId]);
     }
 
+    public function editArticle(Parameter $post, $articleId, $userId)
+    {
+        $sql = 'UPDATE article SET title=:title, content=:content, picture=:picture, user_id=:user_id WHERE id=:articleId';
+        $this->createQuery($sql, [
+            'title' => $post->get('title'),
+            'content' => $post->get('content'),
+            'picture' => $post->get('picture'),
+            'user_id' => $userId,
+            'articleId' => $articleId
+        ]);
+    }
+
     public function getArticles()
     {
         $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
