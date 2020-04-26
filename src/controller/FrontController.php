@@ -2,25 +2,11 @@
 
 namespace App\src\controller;
 
-use App\config\Request;
-use App\src\DAO\UserDAO;
-use App\src\model\View;
-use App\src\constraint\Validation;
 use App\config\Parameter;
 
-class FrontController
+class FrontController extends Controller
 {
-    public function __construct()
-    {
-        $this->view = new View();
-        $this->validation = new Validation();
-        $this->userDAO = new UserDAO();
-        $this->request = new Request();
-        $this->userDAO = new UserDAO();
-        $this->get = $this->request->getGet();
-        $this->post = $this->request->getPost();
-        $this->session = $this->request->getSession();
-    }
+
 
     public function home()
     {
@@ -66,6 +52,7 @@ class FrontController
                 $this->session->set('pseudo', $result['result']['pseudo']);
                 $this->session->set('avatar', $result['result']['avatar']);
                 $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
+                header('Location: ../public/index.php?route=profile');
             }
             else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
@@ -75,44 +62,8 @@ class FrontController
                 ]);
             }
         }
-        header('Location: ../public/index.php?route=profile');
-    }
-
-    public function logout()
-    {
-        if($this->checkLoggedIn())
-        {
-            $this->logoutOrDelete('logout');    
-        }
-    }
-
-    private function checkLoggedIn()
-    {
-        if(!$this->session->get('pseudo')) {
-            $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
-            header('Location: ../public/index.php?route=login');
-        } else {
-            return true;
-        }
-    }
-
-    private function logoutOrDelete($param)
-    {
-        $this->session->stop();
-        $this->session->start();
-        if($param === 'logout') {
-            $this->session->set($param, 'Vous avez été correctement déconnecté, a bientôt.');
-            $this->session->set('success_message', 'Vous avez été correctement déconnecté, a bientôt.');
-        } else {
-            $this->session->set($param, 'Votre compte a bien été supprimé');
-        }
-        header('Location: ../public/index.php');
-    }
-
-    public function profile()
-    {
-        if($this->checkLoggedIn()) {
-            return $this->view->render('profile');
+        else {
+        return $this->view->render('login');
         }
     }
 }

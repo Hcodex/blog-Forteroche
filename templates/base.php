@@ -33,15 +33,18 @@
 				<li class="nav-item">
 					<a class="nav-link" href="index.php?route=auteur">L'auteur</a>
 				</li>
-				<?php
-				if ($this->session->get('pseudo')) {
-				?>
+				<?php if ($this->session->get('pseudo')) {?>
 					<li class="nav-item">
 						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=profile">Mon compte</a>                  
 					</li>
 					<li class="nav-item">
 						<a class="nav-link btn btn-danger text-white" type="button" href="index.php?route=logout">Deconnexion</a>
 					</li>
+					<?php if ($this->session->get('role')==='admin') {?>
+						<li class="nav-item">
+							<a class="nav-link btn btn-warning text-dark" type="button" href="index.php?route=administration">Admin</a>
+						</li>
+					<? } ?>
 				<? } else {?>
 				<li class="nav-item">
 					<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=inscription">Inscription</a>                  
