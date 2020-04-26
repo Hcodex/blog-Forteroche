@@ -64,8 +64,8 @@ class FrontController
                 $this->session->set('role', $result['result']['name']);
                 $this->session->set('email', $post->get('email'));
                 $this->session->set('pseudo', $result['result']['pseudo']);
+                $this->session->set('avatar', $result['result']['avatar']);
                 $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
-                /*header('Location: ../public/index.php');*/
             }
             else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
@@ -75,7 +75,7 @@ class FrontController
                 ]);
             }
         }
-        return $this->view->render('home');
+        header('Location: ../public/index.php?route=profile');
     }
 
     public function logout()
@@ -89,7 +89,7 @@ class FrontController
     private function checkLoggedIn()
     {
         if(!$this->session->get('pseudo')) {
-            $this->session->set('need_login', 'Vous devez vous connecter pour accéder à cette page');
+            $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
             header('Location: ../public/index.php?route=login');
         } else {
             return true;
