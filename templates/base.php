@@ -37,7 +37,7 @@
 				if ($this->session->get('pseudo')) {
 				?>
 					<li class="nav-item">
-						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=profil">Mon compte</a>                  
+						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=profile">Mon compte</a>                  
 					</li>
 					<li class="nav-item">
 						<a class="nav-link btn btn-danger text-white" type="button" href="index.php?route=logout">Deconnexion</a>

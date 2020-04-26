@@ -54,7 +54,6 @@ class FrontController
         return $this->view->render('register');
     }
 
-
     public function login(Parameter $post)
     {
         if($post->get('submit')) {
@@ -110,5 +109,10 @@ class FrontController
         header('Location: ../public/index.php');
     }
 
-
+    public function profile()
+    {
+        if($this->checkLoggedIn()) {
+            return $this->view->render('profile');
+        }
+    }
 }

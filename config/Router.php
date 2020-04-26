@@ -42,6 +42,9 @@ class Router
                     case "logout":
                         $this->frontController->logout();
                     break;
+                    case "profile":
+                        $this->frontController->profile();
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }
