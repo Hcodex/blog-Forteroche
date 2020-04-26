@@ -2,15 +2,9 @@
 
 namespace App\src\controller;
 
-use App\src\model\View;
 
-class ErrorController
+class ErrorController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->view = new View();
-    }
     
     public function errorNotFound()
     {

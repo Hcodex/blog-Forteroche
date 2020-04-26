@@ -4,6 +4,7 @@ namespace App\config;
 use App\src\controller\FrontController;
 use App\src\controller\BackController;
 use App\src\controller\ErrorController;
+use App\src\controller\UploadController;
 use Exception;
 
 class Router
@@ -11,6 +12,7 @@ class Router
     private $frontController;
     private $errorController;
     private $backController;
+    private $uploadController;
     private $request;
 
 
@@ -20,6 +22,7 @@ class Router
         $this->frontController = new FrontController();
         $this->backController = new BackController();
         $this->errorController = new ErrorController();
+        $this->uploadController = new UploadController();
     }
 
 
@@ -51,6 +54,12 @@ class Router
                     case "administration":
                         $this->backController->administration();
                     break;
+                    case "upload":
+                        $this->uploadController->upload($this->request->getPost());
+                    break;
+
+
+
                     default:$this->errorController->errorNotFound();
                 }
             }
