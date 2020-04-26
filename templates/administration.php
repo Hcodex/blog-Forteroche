@@ -4,5 +4,9 @@
 	
 	<div class="page-header">
 		<h1 class="text-center">Administration</h1>
-	</div>
+    </div>
+    
+    <?php
+            require_once '../templates/form_upload.php';
+            ?>
 </main>
