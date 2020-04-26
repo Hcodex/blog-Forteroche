@@ -66,4 +66,13 @@ class FrontController extends Controller
         return $this->view->render('login');
         }
     }
+
+    public function roman()
+    {
+        $articles = $this->articleDAO->getArticles();
+        return $this->view->render('roman', [
+            'articles' => $articles
+        ]);
+    }
+
 }

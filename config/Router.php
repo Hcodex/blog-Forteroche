@@ -51,6 +51,9 @@ class Router
                     case "profile":
                         $this->backController->profile();
                     break;
+                    case "roman":
+                        $this->frontController->roman();
+                    break;
                     case "administration":
                         $this->backController->administration();
                     break;
