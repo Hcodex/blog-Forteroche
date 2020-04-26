@@ -32,8 +32,36 @@ class BackController extends Controller
     public function administration()
     {
         if($this->checkAdmin()) {       
+            $articles = $this->articleDAO->getArticles();
+           
             return $this->view->render('administration', [
+                'articles' => $articles,
             ]);   
+        }
+    }
+
+    public function addArticle(Parameter $post)
+    {
+        if($this->checkAdmin()) {
+            if ($post->get('submit')) {
+                $errors = $this->validation->validate($post, 'Article');
+                if (!$errors) {
+                    $this->articleDAO->addArticle($post, $this->session->get('id'));
+                   /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
+                    $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
+                    header('Location: ../public/index.php?route=administration');
+                }
+                else{
+                $this->session->set('error_message', '<Strong>Erreur ! </strong> L\'article n\'a pas été crée');
+                return $this->view->render('add_article', [
+                    'post' => $post,
+                    'errors' => $errors
+                ]);
+                }
+            }
+            else{
+            return $this->view->render('add_article');
+            }
         }
     }
 

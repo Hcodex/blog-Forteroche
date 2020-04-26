@@ -68,7 +68,7 @@ class Article
 
     public function setCreatedAt($created_at)
     {
-        $this->created_At = $created_at;
+        $this->created_at = $created_at;
     }
 
 

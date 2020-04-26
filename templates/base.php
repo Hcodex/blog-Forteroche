@@ -85,7 +85,8 @@
 	</div>
 
 	<?php if ($this->session->get('success_message')) {?>
-		<div class="row fixed-bottom">
+
+		<div class="row fixed-top msg-box">
 			<div class="mx-auto alert alert-success alert-dismissible fade show col-md-4 col-md-offset-4 mb-5" role="alert">
 				<?= $this->session->show('success_message');?>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -95,7 +96,7 @@
 		</div> 
 	<?php }?>
 	<?php if ($this->session->get('error_message')) {?>
-		<div class="row fixed-bottom">
+		<div class="row fixed-top msg-box">
 			<div class="mx-auto alert alert-danger alert-dismissible fade show col-md-4 col-md-offset-4 mb-5" role="alert">
 				<?= $this->session->show('error_message');?>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">

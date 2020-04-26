@@ -54,12 +54,12 @@ class Router
                     case "administration":
                         $this->backController->administration();
                     break;
+                    case "addArticle":
+                        $this->backController->addArticle($this->request->getPost());
+                    break;
                     case "upload":
                         $this->uploadController->upload($this->request->getPost());
                     break;
-
-
-
                     default:$this->errorController->errorNotFound();
                 }
             }

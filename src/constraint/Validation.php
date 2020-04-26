@@ -12,6 +12,11 @@ class Validation
                 $errors = $userValidation->check($data);
                 return $errors;
             break;
+            case 'Article':
+                $articleValidation = new ArticleValidation();
+                $errors = $articleValidation->check($data);
+                return $errors;
+            break;
         }
         
     }
