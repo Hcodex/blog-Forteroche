@@ -32,8 +32,7 @@ class BackController extends Controller
     public function administration()
     {
         if($this->checkAdmin()) {       
-            $articles = $this->articleDAO->getArticles();
-           
+            $articles = $this->articleDAO->getArticles();   
             return $this->view->render('administration', [
                 'articles' => $articles,
             ]);   

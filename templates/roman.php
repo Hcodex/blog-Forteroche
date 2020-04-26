@@ -28,10 +28,7 @@
                 <?php
                 }
                 ?>
-
             </div>
-
-
         </div>	
     </section>
 </main>

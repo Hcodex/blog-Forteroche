@@ -54,6 +54,9 @@ class Router
                     case "roman":
                         $this->frontController->roman();
                     break;
+                    case "article":
+                        $this->frontController->article($this->request->getGet()->get('articleId'));
+                    break;
                     case "administration":
                         $this->backController->administration();
                     break;

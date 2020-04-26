@@ -75,4 +75,12 @@ class FrontController extends Controller
         ]);
     }
 
+    public function article($articleId)
+    {
+        $article = $this->articleDAO->getArticle($articleId);
+        return $this->view->render('article', [
+            'article' => $article
+        ]);
+    }
+
 }

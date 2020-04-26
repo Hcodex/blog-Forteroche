@@ -39,4 +39,13 @@ class ArticleDAO extends DAO
         return $articles;
     }
 
+    public function getArticle($articleId)
+    {
+        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.created_at FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
+        $result = $this->createQuery($sql, [$articleId]);
+        $article = $result->fetch();
+        $result->closeCursor();
+        return $this->buildObject($article);
+    }
+
 }
