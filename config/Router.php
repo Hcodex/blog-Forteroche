@@ -2,6 +2,7 @@
 
 namespace App\config;
 use App\src\controller\FrontController;
+use App\src\controller\BackController;
 use App\src\controller\ErrorController;
 use Exception;
 
@@ -9,6 +10,7 @@ class Router
 {
     private $frontController;
     private $errorController;
+    private $backController;
     private $request;
 
 
@@ -16,6 +18,7 @@ class Router
     {
         $this->request = new Request();
         $this->frontController = new FrontController();
+        $this->backController = new BackController();
         $this->errorController = new ErrorController();
     }
 
@@ -36,14 +39,17 @@ class Router
                     case "inscription":
                          $this->frontController->register($this->request->getPost());
                     break;
-                    case "connexion":
+                    case "login":
                         $this->frontController->login($this->request->getPost());
                     break;
                     case "logout":
-                        $this->frontController->logout();
+                        $this->backController->logout();
                     break;
                     case "profile":
-                        $this->frontController->profile();
+                        $this->backController->profile();
+                    break;
+                    case "administration":
+                        $this->backController->administration();
                     break;
                     default:$this->errorController->errorNotFound();
                 }
