@@ -10,7 +10,6 @@ use App\config\Parameter;
 
 class FrontController
 {
-
     public function __construct()
     {
         $this->view = new View();
@@ -20,6 +19,7 @@ class FrontController
         $this->userDAO = new UserDAO();
         $this->get = $this->request->getGet();
         $this->post = $this->request->getPost();
+        $this->session = $this->request->getSession();
     }
 
     public function home()
@@ -53,4 +53,62 @@ class FrontController
         }
         return $this->view->render('register');
     }
+
+
+    public function login(Parameter $post)
+    {
+        if($post->get('submit')) {
+            $result = $this->userDAO->login($post);
+            if($result && $result['isPasswordValid']) {
+                $this->session->set('login', 'Bonne lecture');
+                $this->session->set('id', $result['result']['id']);
+                $this->session->set('role', $result['result']['name']);
+                $this->session->set('email', $post->get('email'));
+                $this->session->set('pseudo', $result['result']['pseudo']);
+                $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
+                /*header('Location: ../public/index.php');*/
+            }
+            else {
+                $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
+                $this->session->set('error_message', '<Strong>Echec connexion ! </strong> Le pseudo et/ou le mot de passe sont incorrects');
+                return $this->view->render('login', [
+                    'post'=> $post,
+                ]);
+            }
+        }
+        return $this->view->render('home');
+    }
+
+    public function logout()
+    {
+        if($this->checkLoggedIn())
+        {
+            $this->logoutOrDelete('logout');    
+        }
+    }
+
+    private function checkLoggedIn()
+    {
+        if(!$this->session->get('pseudo')) {
+            $this->session->set('need_login', 'Vous devez vous connecter pour accéder à cette page');
+            header('Location: ../public/index.php?route=login');
+        } else {
+            return true;
+        }
+    }
+
+    private function logoutOrDelete($param)
+    {
+        $this->session->stop();
+        $this->session->start();
+        if($param === 'logout') {
+            $this->session->set($param, 'Vous avez été correctement déconnecté, a bientôt.');
+            $this->session->set('success_message', 'Vous avez été correctement déconnecté, a bientôt.');
+        } else {
+            $this->session->set($param, 'Votre compte a bien été supprimé');
+        }
+        header('Location: ../public/index.php');
+    }
+
+
 }

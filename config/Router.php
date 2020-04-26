@@ -27,11 +27,20 @@ class Router
             if(isset($route))
             {
                 switch ($route) {
-                    case "home": $this->frontController->home();
+                    case "home":
+                         $this->frontController->home();
                     break;
-                    case "auteur": $this->frontController->auteur();
+                    case "auteur":
+                         $this->frontController->auteur();
                     break;
-                    case "inscription": $this->frontController->register($this->request->getPost());
+                    case "inscription":
+                         $this->frontController->register($this->request->getPost());
+                    break;
+                    case "connexion":
+                        $this->frontController->login($this->request->getPost());
+                    break;
+                    case "logout":
+                        $this->frontController->logout();
                     break;
                     default:$this->errorController->errorNotFound();
                 }

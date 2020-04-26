@@ -35,7 +35,6 @@ class UserDAO extends DAO
         }
     }
 
-
     public function checkUserEmail(Parameter $post)
     {
         $sql = 'SELECT COUNT(email) FROM user WHERE email = ?';
@@ -45,4 +44,18 @@ class UserDAO extends DAO
             return '<p>Cet email est déjà utilisé</p>';
         }
     }
+
+    public function login(Parameter $post)
+    {
+        $sql = 'SELECT user.id, user.email, user.pseudo, user.role_id, user.password, role.name FROM user INNER JOIN role ON role.id = user.role_id WHERE email = ?';
+        $data = $this->createQuery($sql, [$post->get('email')]);
+        $result = $data->fetch();
+        $isPasswordValid = password_verify($post->get('password'), $result['password']);
+        return [
+            'result' => $result,
+            'isPasswordValid' => $isPasswordValid
+        ];
+    }
+
+
 }

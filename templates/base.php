@@ -33,59 +33,44 @@
 				<li class="nav-item">
 					<a class="nav-link" href="index.php?route=auteur">L'auteur</a>
 				</li>
+				<?php
+				if ($this->session->get('pseudo')) {
+				?>
+					<li class="nav-item">
+						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=profil">Mon compte</a>                  
+					</li>
+					<li class="nav-item">
+						<a class="nav-link btn btn-danger text-white" type="button" href="index.php?route=logout">Deconnexion</a>
+					</li>
+				<? } else {?>
 				<li class="nav-item">
 					<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=inscription">Inscription</a>                  
 				</li>
 				<li class="nav-item">
 					<a class="nav-link btn btn-danger text-white" type="button" href="#" data-toggle="modal" data-target="#myModal1">Connexion</a>
 				</li>
+				<? } ?>
 			</ul>
 		</div>
 	
 
 	</nav>
 </header>
-
-
 <!-- The Modal -->
 <div class="modal fade" id="myModal1">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-
 			<!-- Modal Header -->
 			<div class="modal-header">
 				<h4 class="modal-title">Se connecter</h4>
 				<button type="button" class="close" data-dismiss="modal">×</button>
 			</div>
-
 			<!-- Modal body -->
 			<div class="modal-body">
-				<form>
-					<label class="sr-only" for="usrname">e-mail</label>
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="e-mail" aria-label="E-mail" aria-describedby="basic-addon1">
-					</div>
-
-
-					<label class="sr-only" for="Password">Mot de passe</label>
-					<div class="input-group mb-2">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
-						</div>
-						<input id="Password" type="password" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" aria-describedby="basic-addon2">
-					</div>
-				</form>
+			<?php
+			 	include '../templates/form_login.php';
+			  ?>
 			</div>
-
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" >Se connecter</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-			</div>
-
 		</div>
 	</div>
 </div>
@@ -94,7 +79,29 @@
 <body>
     <div id="content">
         <?= $content ?>
-    </div>
+	</div>
+
+	<?php if ($this->session->get('success_message')) {?>
+		<div class="row fixed-bottom">
+			<div class="mx-auto alert alert-success alert-dismissible fade show col-md-4 col-md-offset-4 mb-5" role="alert">
+				<?= $this->session->show('success_message');?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div> 
+	<?php }?>
+	<?php if ($this->session->get('error_message')) {?>
+		<div class="row fixed-bottom">
+			<div class="mx-auto alert alert-danger alert-dismissible fade show col-md-4 col-md-offset-4 mb-5" role="alert">
+				<?= $this->session->show('error_message');?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div> 
+	<?php }?>
+
 </body>
 
 <footer class="bg-secondary">
@@ -102,7 +109,6 @@
         <p>2020 © Tous droits réservés | <a href="index.php?route=mentions_legales">Mentions légales</a> | <a href="index.php?route=politique_confidentialite">Politique de confidentialité</a></p>
 		 <p class="my-0">Avertissement : Ce site est un projet d'étude, l'intégralité de son contenu est purement fictif</p>
 	</div>
-
 </footer>
 
 

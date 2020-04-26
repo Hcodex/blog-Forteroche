@@ -8,7 +8,6 @@
 			<a class="btn btn-secondary" href="#page-content" role="button">Plus d'infos</a>
 	</div>
 
-
 	<section id="page-content" class="mb-5 pb-5">
 
 		<div class="container text-justify">
