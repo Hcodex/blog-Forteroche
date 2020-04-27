@@ -19,8 +19,8 @@
                         <img class="card-img-top" src="../public/img/header.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h3><?= htmlspecialchars($article->getTitle());?></h3>
-                            <p><?= substr(htmlspecialchars($article->getContent()), 0, 150);?></p>
-                            <p class='text-center'><a class="btn btn-primary mx-auto" href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>">Lire</a></p>
+                            <p><?= substr(htmlspecialchars($article->getContent()), 0, 150);?>...</p>
+                            <a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>" class="card-link">Lire la suite</a>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">Publié le : <?= htmlspecialchars($article->getCreatedAt());?></small>
