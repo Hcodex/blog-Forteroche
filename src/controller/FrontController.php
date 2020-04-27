@@ -29,13 +29,18 @@ class FrontController extends Controller
                 $errors['email'] = $this->userDAO->checkUserEmail($post);
             }
             if(!$errors) {
+                $this->session->set('success_message', '<strong>Cotre compte a été créé avec succès</strong>'); 
                 $success = $this->userDAO->register($post);
+            }
+            else{
+                $this->session->set('error_message', '<strong>Erreur dans le formulaire. </strong>Votre compte n\'a pas été crée'); 
             }
             return $this->view->render('register', [
                 'post' => $post,
                 'errors' => $errors,
                 'success' => $success
             ]);
+
         }
         return $this->view->render('register');
     }
