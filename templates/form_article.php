@@ -4,7 +4,7 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 ?>
 
 <form method="post" action="../public/index.php?route=<?= $route; ?>">
-    
+    <input id="id" name="id" type="hidden" value="<?= isset($post) ? htmlspecialchars($post->get('id')): ''; ?>">
     <div class="form-group">
         <label for="title">Titre</label>
         <input type="text" class="form-control <?= isset($errors['title']) ? 'is-invalid' : '' ?>" id="title" name="title" placeholder="Titre du chapitre" value="<?= isset($post) ? htmlspecialchars($post->get('title')): ''; ?>" required>

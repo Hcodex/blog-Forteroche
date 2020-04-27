@@ -38,6 +38,16 @@ class ArticleDAO extends DAO
         ]);
     }
 
+    public function checkArticleTitle(Parameter $post)
+    {
+        $sql = 'SELECT COUNT(title) FROM article WHERE title = ?';
+        $result = $this->createQuery($sql, [$post->get('title')]);
+        $isUnique = $result->fetchColumn();
+        if($isUnique) {
+            return 'Ce titre est déjà utilisé<br>';
+        }
+    }
+
     public function getArticles()
     {
         $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
@@ -58,6 +68,5 @@ class ArticleDAO extends DAO
         $article = $result->fetch();
         $result->closeCursor();
         return $this->buildObject($article);
-    }
-
+    }  
 }

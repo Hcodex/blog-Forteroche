@@ -44,6 +44,9 @@ class BackController extends Controller
         if($this->checkAdmin()) {
             if ($post->get('submit')) {
                 $errors = $this->validation->validate($post, 'Article');
+                if($this->articleDAO->checkArticleTitle($post)) {
+                    $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
+                }
                 if (!$errors) {
                     $this->articleDAO->addArticle($post, $this->session->get('id'));
                    /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
@@ -51,7 +54,7 @@ class BackController extends Controller
                     header('Location: ../public/index.php?route=administration');
                 }
                 else{
-                $this->session->set('error_message', '<Strong>Erreur ! </strong> L\'article n\'a pas été crée');
+                $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> '.$errors['unique'] .$errors['title'].$errors['content']);
                 return $this->view->render('add_article', [
                     'post' => $post,
                     'errors' => $errors
@@ -70,29 +73,38 @@ class BackController extends Controller
             $article = $this->articleDAO->getArticle($articleId);
             if ($post->get('submit')) {
                 $errors = $this->validation->validate($post, 'Article');
+
+                if  ($article->getTitle() !== $post->get('title')) {
+                    if($this->articleDAO->checkArticleTitle($post)) {
+                        $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
+                    }
+                }
                 if (!$errors) {
                     $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'));
-                    $this->session->set('edit_article', 'L\' article a bien été modifié');
+                    $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
                     header('Location: ../public/index.php?route=administration');
                 }
+                else{
+                    $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' .$errors['unique'] .$errors['title'].$errors['content'] ); 
+                    return $this->view->render('edit_article', [
+                        'post' => $post,
+                        'errors' => $errors
+                    ]);
+                }           
+            }
+            else {
+                $post->set('id', $article->getId());
+                $post->set('title', $article->getTitle());
+                $post->set('picture', $article->getPicture());
+                $post->set('content', $article->getContent());
+                $post->set('author', $article->getAuthor());
+
                 return $this->view->render('edit_article', [
                     'post' => $post,
-                    'errors' => $errors
                 ]);
-
             }
-            $post->set('id', $article->getId());
-            $post->set('title', $article->getTitle());
-            $post->set('picture', $article->getPicture());
-            $post->set('content', $article->getContent());
-            $post->set('author', $article->getAuthor());
-
-            return $this->view->render('edit_article', [
-                'post' => $post
-            ]);
         }
     }
-
 
     public function profile()
     {
