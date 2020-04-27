@@ -23,7 +23,7 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 
      <div class="form-group">
         <label for="content">Contenu</label>
-        <textarea class="form-control <?= isset($errors['content']) ? 'is-invalid' : '' ?>" id="content" name="content"><?= isset($post) ? htmlspecialchars($post->get('content')): ''; ?></textarea>
+        <textarea class="tinyMCE form-control <?= isset($errors['content']) ? 'is-invalid' : '' ?>" id="content" name="content"><?= isset($post) ? htmlspecialchars($post->get('content')): ''; ?></textarea>
         <div class="invalid-feedback">
                 <?= isset($errors['content']) ? $errors['content'] : ''; ?>
         </div>

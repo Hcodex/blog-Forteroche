@@ -13,7 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
 
 	<title><?= $title ?></title>
+
 	<script src="https://unpkg.com/feather-icons"></script>
+	<script src="https://cdn.tiny.cloud/1/lvd5tn4x6nhbmks284whak0h08xg7t4u2txdd9ers8cvv2ui/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 </head>
 
 <header>
@@ -124,6 +127,16 @@
 	$(window).scroll(function(){
 		$('nav').toggleClass('scrolled', $(this).scrollTop() > 50);
 	});
+	tinymce.init({
+      selector: '.tinyMCE',
+      plugins: 'code autoresize',
+      toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist outdent indent  |' + 'forecolor backcolor emoticons | help |'  + 'code'
+      ,
+      toolbar_mode: 'floating',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+    });
 </script>
 
 </body>
