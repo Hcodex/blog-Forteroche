@@ -168,7 +168,7 @@
 		$("#picture").val($(this).attr('data-img')) ;
 		$('#image_picker').modal('hide');
 	});
-
+	
 </script>
 
 </body>
