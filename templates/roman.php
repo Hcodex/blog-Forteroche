@@ -16,7 +16,14 @@
                 ?>
                  <div class="col-sm-4">  
                     <div class="card">
+
+                    <?php if ($article->getPicture()){?>
+                        <img class="card-img-top" src="<?= $article->getPicture() ?>" alt="Card image cap">
+                    <?php } else {?>
                         <img class="card-img-top" src="../public/img/header.jpg" alt="Card image cap">
+                    <?php } ?>
+
+                        
                         <div class="card-body">
                             <h3><?= htmlspecialchars($article->getTitle());?></h3>
                             <p><?= substr($article->getContent(), 0, 150);?>...</p>
