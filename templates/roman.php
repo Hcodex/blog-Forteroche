@@ -8,12 +8,13 @@
         <div class="container pb-5">	
             <h2 class="text-center text-primary pb-2">Chapitres publiés</h2> 
             
+            <div class="row">
             
-            <div class="card-deck">              
                 <?php
                 foreach ($articles as $article)
                 {
                 ?>
+                 <div class="col-sm-4">  
                     <div class="card">
                         <img class="card-img-top" src="../public/img/header.jpg" alt="Card image cap">
                         <div class="card-body">
@@ -25,6 +26,7 @@
                             <small class="text-muted">Publié le : <?= htmlspecialchars($article->getCreatedAt());?></small>
                         </div>
                     </div>
+                </div>
                 <?php
                 }
                 ?>
