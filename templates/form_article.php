@@ -1,6 +1,8 @@
 <?php
 $route = isset($post) && $post->get('id') ? 'editArticle&articleId='.$post->get('id') : 'addArticle';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
+
+include('image_picker.php');
 ?>
 
 <form method="post" action="../public/index.php?route=<?= $route; ?>">
@@ -15,11 +17,16 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 
     <div class="form-group">
         <label for="picture">Image</label>
-        <input type="text" class="form-control <?= isset($errors['picture']) ? 'is-invalid' : '' ?>" id="picture" name="picture" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture')): ''; ?>">
+        <div class="row mx-0" >
+            <input type="text" class="form-control col-md-10  <?= isset($errors['picture']) ? 'is-invalid' : '' ?>" id="picture" name="picture" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture')): ''; ?>">
+            <a class="col-md-2 btn btn-primary text-white" type="button" href="#" data-toggle="modal" data-target="#image_picker">Images</a>
+        </div>
         <div class="invalid-feedback">
-                <?= isset($errors['picture']) ? $errors['picture'] : ''; ?>
+             <?= isset($errors['picture']) ? $errors['picture'] : ''; ?>
         </div>
      </div>
+
+
 
      <div class="form-group">
         <label for="content">Contenu</label>
