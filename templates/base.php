@@ -108,7 +108,6 @@
 			</div>
 		</div> 
 	<?php }?>
-
 </body>
 
 <footer class="bg-secondary">
@@ -136,7 +135,13 @@
       toolbar_mode: 'floating',
       tinycomments_mode: 'embedded',
       tinycomments_author: 'Author name',
-    });
+    }); 
+
+	$(".img-pick").click(function(){
+		$("#picture").val($(this).attr('data-img')) ;
+		$('#image_picker').modal('hide');
+	});
+
 </script>
 
 </body>
