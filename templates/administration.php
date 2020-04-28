@@ -32,7 +32,7 @@
                         <td><?= substr(htmlspecialchars($article->getContent()), 0, 150);?></td>
                         <td><?= htmlspecialchars($article->getAuthor());?></td>
                         <td><?= htmlspecialchars($article->getPicture());?></td>
-                        <td>Créé le : <?= htmlspecialchars($article->getCreatedAt());?></td>
+                        <td>Créé le : <?= htmlspecialchars($article->getCreatedAt('FR'));?></td>
                         <td>
                             <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
                         </td>

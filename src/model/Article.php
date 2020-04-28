@@ -60,10 +60,17 @@ class Article
     }
 
 
-    public function getCreatedAt()
+    public function getCreatedAt($format = null)
     {
-        return $this->created_at;
+        if ($format === "FR") {
+            setlocale(LC_TIME, "fr_FR");
+            return strftime("%a %d %b %G à %Hh%M ", strtotime($this->created_at));
+        } else {
+            return $this->created_at;
+        }
     }
+
+
 
 
     public function setCreatedAt($created_at)

@@ -30,7 +30,7 @@
                             <a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>" class="card-link">Lire la suite</a>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Publié le : <?= htmlspecialchars($article->getCreatedAt());?></small>
+                            <small class="text-muted">Publié le : <?= htmlspecialchars($article->getCreatedAt("FR"));?></small>
                         </div>
                     </div>
                 </div>
