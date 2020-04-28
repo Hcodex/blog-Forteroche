@@ -12,6 +12,7 @@ class BackController extends Controller
         if(!$this->session->get('pseudo')) {
             $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
             header('Location: ../public/index.php?route=login');
+            exit();
         } else {
             return true;
         }
@@ -24,6 +25,7 @@ class BackController extends Controller
         if(!($this->session->get('role') === 'admin')) {
             $this->session->set('error_message', 'Vous n\'avez pas le droit d\'accéder à cette page');
             header('Location: ../public/index.php?route=profile');
+            exit();
         } else {
             return true;
         }
@@ -52,6 +54,7 @@ class BackController extends Controller
                    /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
                     $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
                     header('Location: ../public/index.php?route=administration');
+                    exit();
                 }
                 else{
                 $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> '.$errors['unique'] .$errors['title'].$errors['content']);
@@ -83,6 +86,7 @@ class BackController extends Controller
                     $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'));
                     $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
                     header('Location: ../public/index.php?route=administration');
+                    exit();
                 }
                 else{
                     $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' .$errors['unique'] .$errors['title'].$errors['content'] ); 
@@ -132,6 +136,7 @@ class BackController extends Controller
             $this->session->set($param, 'Votre compte a bien été supprimé');
         }
         header('Location: ../public/index.php');
+        exit();
     }
 
 
