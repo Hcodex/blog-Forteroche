@@ -62,15 +62,9 @@ class Article
 
     public function getCreatedAt($format = null)
     {
-        if ($format === "FR") {
-            setlocale(LC_TIME, "fr_FR");
-            return strftime("%a %d %b %G à %Hh%M ", strtotime($this->created_at));
-        } else {
-            return $this->created_at;
-        }
+       return $this->DateFormat($format, $this->created_at);
+
     }
-
-
 
 
     public function setCreatedAt($created_at)
@@ -90,15 +84,33 @@ class Article
         $this->picture = $picture;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt($format = null)
     {
-        return $this->updated_at;
+        return $this->DateFormat($format, $this->updated_at);
     }
 
 
     public function setUpdatedAt($updated_at)
     {
         $this->updated_at = $updated_at;
+    }
+
+
+    public function DateFormat($format, $date)
+    {
+        if ($date !== NULL){
+            switch ($format){
+                case "FR":
+                    setlocale(LC_TIME, "fr_FR");
+                    return strftime("%a %d %b %G à %Hh%M ", strtotime($date));
+                break;
+                case "CONDENSED":
+                    return date("d-m-Y à H:i", strtotime($date));
+                break;
+                default: 
+                return $date;
+            }
+        }
     }
 
 }

@@ -1,58 +1,52 @@
 <?php $this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
-	
+
 <main role="main">
-	
-	<div class="page-header">
-		<h1 class="text-center">Administration</h1>
+
+    <div class="page-header">
+        <h1 class="text-center">Administration</h1>
     </div>
-    <section id="page-content">	
-            <div class="container pb-5">	
-                <a class="nav-link btn btn-warning text-dark" type="button" href="index.php?route=addArticle">Ajouter un article</a>
-                <?php
-                    include('form_upload.php');
-                ?>
-
-            <table>
-                <tr>
-                    <td>Id</td>
-                    <td>Titre</td>
-                    <td>Contenu</td>
-                    <td>Auteur</td>
-                    <td>Image</td>
-                    <td>Date</td>
-                    <td>Actions</td>
-                </tr>
-                <?php
-                foreach ($articles as $article)
-                {
-                    ?>
+    <section id="page-content">
+        <div class="container pb-5">
+            <h2 class="text-primary">Gestion des articles</h2>
+            <a class="btn btn-warning text-dark my-3" type="button" href="index.php?route=addArticle">Ajouter un article</a>
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td><?= htmlspecialchars($article->getId());?></td>
-                        <td><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>"><?= htmlspecialchars($article->getTitle());?></a></td>
-                        <td><?= substr(htmlspecialchars($article->getContent()), 0, 150);?></td>
-                        <td><?= htmlspecialchars($article->getAuthor());?></td>
-                        <td><?= htmlspecialchars($article->getPicture());?></td>
-                        <td>Créé le : <?= htmlspecialchars($article->getCreatedAt('FR'));?></td>
-                        <td>
-                            <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
-                        </td>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Contenu</th>
+                        <th scope="col">Auteur</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Créé le</th>
+                        <th scope="col">Mis à jour</th>
+                        <th scope="col">Actions</th>
                     </tr>
+                </thead>
+                <tbody>
                     <?php
-                }
-                ?>
+                    foreach ($articles as $article) {
+                    ?>
+                        <tr>
+                            <td><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>"><?= htmlspecialchars($article->getTitle()); ?></a></td>
+                            <td><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
+                            <td><?= htmlspecialchars($article->getAuthor()); ?></td>
+                            <td> <img src="<?= htmlspecialchars($article->getPicture()); ?>" class="" width="60px" alt="Défaut"></td>
+                            <td><?= htmlspecialchars($article->getCreatedAt('CONDENSED')); ?></td>
+                            <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
+                            <td>
+                                <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </tbody>
             </table>
+            <h2 class="text-primary">Gestion des images</h2>
+            <?php
+            include('image_picker.php');
+            include('form_upload.php');
 
-
-
-
-
-
-
-
-
-
-
-
-            </div>	
+            ?>
+        </div>
     </section>
 </main>
