@@ -7,6 +7,7 @@ class USerValidation extends Validation
 {
     private $errors = [];
     private $constraint;
+    private $post;
 
     public function __construct()
     {
@@ -15,10 +16,10 @@ class USerValidation extends Validation
 
     public function check(Parameter $post)
     {
-        foreach ($post->all() as $key => $value) {
+        $this->post = $post;
+        foreach ( $this->post->all() as $key => $value) {
             $this->checkField($key, $value);
         }
-        $this->checkPaswordConfirm($post->get('password'), $post->get('passwordConfirm'));
         return $this->errors;
     }
 
@@ -30,6 +31,9 @@ class USerValidation extends Validation
         }
         elseif ($name === 'password') {
             $error = $this->checkPassword($name, $value);
+            $this->addError($name, $error);
+        } elseif ($name === 'passwordConfirm') {
+            $error = $this->checkPaswordConfirm($this->post->get('password'), $value);
             $this->addError($name, $error);
         }
     }
@@ -71,8 +75,7 @@ class USerValidation extends Validation
     private function checkPaswordConfirm($password, $confrim)
     {
         if($password != $confrim){
-            $error = 'Les mots de passe ne correspondent pas';
-            $this->addError('passwordConfirm', $error);
+            return 'Les mots de passe ne correspondent pas';
         }
     }
 }
