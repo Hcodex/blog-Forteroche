@@ -22,10 +22,10 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
             <?= isset($errors['picture']) ? $errors['picture'] : ''; ?>
         </div>
     </div>
+    <img id="article_img" src="<?= isset($post) ? htmlspecialchars($post->get('picture')) : ''; ?>" class="" width="100px" alt="Défaut">
     <?php include('image_picker.php'); ?>
-
-
-    <div class="form-group">
+    
+    <div class="form-group mt-2">
         <label for="content">Contenu</label>
         <textarea class="tinyMCE form-control <?= isset($errors['content']) ? 'is-invalid' : '' ?>" id="content" name="content"><?= isset($post) ? htmlspecialchars($post->get('content')) : ''; ?></textarea>
         <div class="invalid-feedback">

@@ -26,7 +26,7 @@
                         
                         <div class="card-body">
                             <h3><?= htmlspecialchars($article->getTitle());?></h3>
-                            <p><?= substr($article->getContent(), 0, 150);?>...</p>
+                            <p><?= substr(strip_tags($article->getContent()), 0, 150);?>...</p>
                             <a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>" class="card-link">Lire la suite</a>
                         </div>
                         <div class="card-footer">
