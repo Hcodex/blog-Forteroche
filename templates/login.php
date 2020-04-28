@@ -10,7 +10,7 @@
             <p class="text-center text-danger font-weight-bold"> <?= $this->session->show('error_login'); ?></p>
             <p class="text-center text-danger font-weight-bold"> <?= $this->session->show('need_login'); ?></p>
             <?php
-            require_once '../templates/form_login.php';
+                include('../templates/form_login.php');
             ?>
         </div>	
     </section>

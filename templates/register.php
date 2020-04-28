@@ -30,14 +30,14 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" name="password" id="password" placeholder="Au moins 8 caractères" value="<?= isset($post) ? htmlspecialchars($post->get('password')): ''; ?>" required>   
+                    <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" name="password" id="password" placeholder="Au moins 8 caractères" value="" required>   
                     <div class="invalid-feedback">
                         <?= isset($errors['password']) ? $errors['password'] : ''; ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="passwordConfirm">Confirmer le mot de passe</label>
-                    <input type="password" class="form-control <?= isset($errors['passwordConfirm']) ? 'is-invalid' : '' ?>" name="passwordConfirm" id="passwordConfirm" placeholder="Confirmer le mot de passe" value="<?= isset($post) ? htmlspecialchars($post->get('passwordConfirm')): ''; ?>" required>   
+                    <input type="password" class="form-control <?= isset($errors['passwordConfirm']) ? 'is-invalid' : '' ?>" name="passwordConfirm" id="passwordConfirm" placeholder="Confirmer le mot de passe" value="" required>   
                     <div class="invalid-feedback">
                         <?= isset($errors['passwordConfirm']) ? $errors['passwordConfirm'] : ''; ?>
                     </div>
