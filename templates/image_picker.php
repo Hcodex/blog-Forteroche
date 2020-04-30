@@ -4,12 +4,12 @@ if ($this->request->getGet()->get('route') === "profile") {
 	$dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
 	$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
 	$default_img = DEFAULT_AVATAR_IMG;
-	$current_img = $this->session->get('avatar') !== "" && $this->session->get('avatar') !== $default_img ? $thumb_dir.$this->session->get('avatar') : $default_img;;
+	$current_img = $this->session->get('avatar') !== NULL && $this->session->get('avatar') !== "" && $this->session->get('avatar') !== $default_img ? $thumb_dir.$this->session->get('avatar') : $default_img;;
 } elseif($this->request->getGet()->get('route') === "editArticle") {
 	$dir = ARTICLE_IMG_DIR;
 	$thumb_dir = ARTICLE_THUMB_DIR;
 	$default_img = DEFAULT_ARTICLE_IMG;
-	$current_img = $post->get('picture') !== "" && $this->session->get('picture') !== $default_img ? ARTICLE_THUMB_DIR.htmlspecialchars($post->get('picture')) : $default_img;
+	$current_img = $post->get('picture') !== NULL && $post->get('picture') !== "" && $this->session->get('picture') !== $default_img ? ARTICLE_THUMB_DIR.htmlspecialchars($post->get('picture')) : $default_img;
 } else{
 	$dir = ARTICLE_IMG_DIR;
 	$thumb_dir = ARTICLE_THUMB_DIR;

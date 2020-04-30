@@ -28,7 +28,7 @@ class UploadController extends Controller
 					$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
 					$this->setDir($img_dir, $thumb_dir);
 					$limit = $this->uploadLimit($img_dir, 3);
-					$callback = "Location: ../public/index.php?route=profile";
+					$callback = "Location: ../public/index.php?route=profile#picked_img";
 					break;
 				default:
 					$this->session->set('error_message', '<Strong>Erreur interne</strong>');
