@@ -20,10 +20,15 @@ class UploadController extends Controller
 				case "article":
 					$img_dir = ARTICLE_IMG_DIR;
 					$thumb_dir = ARTICLE_THUMB_DIR;
+					$this->setDir($img_dir, $thumb_dir);
+					$callback = "Location: ../public/index.php?route=administration";
 					break;
 				case "avatar":
-					$img_dir = AVATAR_IMG_DIR;
-					$thumb_dir = AVATAR_THUMB_DIR;
+					$img_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
+					$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
+					$this->setDir($img_dir, $thumb_dir);
+					$limit = $this->uploadLimit($img_dir, 3);
+					$callback = "Location: ../public/index.php?route=profile";
 					break;
 				default:
 					$this->session->set('error_message', '<Strong>Erreur interne</strong>');
@@ -36,14 +41,7 @@ class UploadController extends Controller
 
 			$errors = $this->fileValidation($file, $extension);
 
-			if (!$errors) {
-				if (!is_dir($img_dir)) {
-					mkdir($img_dir, 0777, true);
-				}
-
-				if (!is_dir($thumb_dir)) {
-					mkdir($thumb_dir, 0777, true);
-				};
+			if (!$errors && !$limit) {
 
 				$newName = md5(session_id() . microtime());
 
@@ -59,11 +57,10 @@ class UploadController extends Controller
 					$this->session->set('error_message', '<Strong>Echec de l\'upload</strong>');
 				}
 			}
-			header('Location: ../public/index.php?route=administration');
+			header($callback);
 			exit();
 		}
-		header('Location: ../public/index.php?route=profile');
-		exit();
+		header('Location: ../public/index.php?route=forbiden');
 	}
 
 	public function fileValidation($file, $extension)
@@ -89,6 +86,31 @@ class UploadController extends Controller
 		}
 	}
 
+	public function uploadLimit($dir, $limit)
+	{
+		$files = scandir($dir, 1);
+		$count = 0;
+		foreach ($files as $fichier) {
+			$extension = strrchr($fichier, '.');
+			if ($extension === '.jpg' || $extension === '.png' || $extension === '.jpeg' || $extension === '.gif') {
+				$count++;
+			}
+		}
+		if ($count >= $limit) {
+			$this->session->set('error_message', '<Strong>Upload impossible !</strong> Vous ne pourvez pas avoir plus de ' . $limit . ' images enregistrées');
+			return 'Max atteint';
+		}
+	}
+
+	public function setDir($img_dir, $thumb_dir)
+	{
+		if (!is_dir($img_dir)) {
+			mkdir($img_dir, 0777, true);
+		};
+		if (!is_dir($thumb_dir)) {
+			mkdir($thumb_dir, 0777, true);
+		};
+	}
 
 	public function imagethumb($img_src, $img_dest = NULL, $max_size = 100, $expand = FALSE, $square = FALSE)
 	{
