@@ -1,6 +1,5 @@
 <?php
-$dir    = '../public/img/uploads/';
-$files1 = scandir($dir, 1);
+$files1 = scandir(ARTICLE_IMG_DIR, 1);
 ?>
 <a class="col-md-2 btn btn-primary text-white" type="button" href="#" data-toggle="modal" data-target="#image_picker">Images</a>
 
@@ -20,7 +19,7 @@ $files1 = scandir($dir, 1);
 					$info->getExtension();
 					if ($info->getExtension() === 'jpg' || $info->getExtension() === 'png' || $info->getExtension() === 'jpeg' || $info->getExtension() === 'gif') {
 				?>
-						<img class="img-pick" alt="" src="<?php echo $dir . 'thumb/' . $fichier; ?>" style=" max-width : 100%; max-height:80px" data-img="<?php echo $dir . $fichier; ?>" />
+						<img class="img-pick" alt="" src="<?php echo ARTICLE_THUMB_DIR.$fichier; ?>" style=" max-width : 100%; max-height:80px" data-img="<?php echo $fichier; ?>" />
 				<?php
 					}
 				}

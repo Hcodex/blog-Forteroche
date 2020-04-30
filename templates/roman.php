@@ -18,7 +18,7 @@
                     <div class="card">
 
                     <?php if ($article->getPicture()){?>
-                        <img class="card-img-top" src="<?= $article->getPicture() ?>" alt="Card image cap">
+                        <img class="card-img-top" src="<?= ARTICLE_IMG_DIR.$article->getPicture() ?>" alt="Card image cap">
                     <?php } else {?>
                         <img class="card-img-top" src="../public/img/header.jpg" alt="Card image cap">
                     <?php } ?>

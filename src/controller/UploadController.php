@@ -13,9 +13,9 @@ class UploadController extends Controller
 		// appelle méthode vérif files
 		// création de miniature
 		// enregistrement de la miniature / photo
-        $dossier = '../public/img/uploads/';
+		$dossier = ARTICLE_IMG_DIR ;
         if(!is_dir($dossier)){
-           mkdir($dossier);
+           mkdir($dossier, 0777, true);
         }
         $fichier = basename($_FILES['fileToUpload']['name']);
         $taille_maxi = 10000000;
