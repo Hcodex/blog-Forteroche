@@ -4,12 +4,12 @@ if ($this->request->getGet()->get('route') === "profile") {
 	$dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
 	$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
 	$default_img = "../public/img/user_default.svg";
-	$current_img = $this->session->get('avatar') !== ""? $thumb_dir.$this->session->get('avatar') : $default_img;;
+	$current_img = $this->session->get('avatar') !== "" && $this->session->get('avatar') !== $default_img ? $thumb_dir.$this->session->get('avatar') : $default_img;;
 } elseif($this->request->getGet()->get('route') === "editArticle") {
 	$dir = ARTICLE_IMG_DIR;
 	$thumb_dir = ARTICLE_THUMB_DIR;
 	$default_img = "../public/img/cover-background.jpg";
-	$current_img = $post->get('picture') !== "" ? ARTICLE_THUMB_DIR.htmlspecialchars($post->get('picture')) : $default_img;
+	$current_img = $post->get('picture') !== "" && $this->session->get('picture') !== $default_img ? ARTICLE_THUMB_DIR.htmlspecialchars($post->get('picture')) : $default_img;
 } else{
 	$dir = ARTICLE_IMG_DIR;
 	$thumb_dir = ARTICLE_THUMB_DIR;
@@ -45,7 +45,7 @@ if ($this->request->getGet()->get('route') === "profile") {
 					}
 				}
 				?>
-				<img class="img-pick" alt="" src="<?=$default_img?>" style="height:80px" data-img="<?=$default_img?>" />
+				<img class="img-pick" alt="" src="<?=$default_img?>" style="height:80px" data-img="" />
 
 			</div>
 		</div>
