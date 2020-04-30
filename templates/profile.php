@@ -11,7 +11,7 @@
             <?php if ($this->session->get('avatar')){?>
                 <img src="../public/img/avatars/<?= $this->session->get('avatar') ?>" width="150px" height="150px" alt="avatar" class="img-thumbnail rounded-circle">
             <?php } else {?>
-            <img src="../public/img/avatars/user_default.svg" width="150px" alt="avatar" class="img-thumbnail rounded-circle">
+            <img src="<?php DEFAULT_AVATAR_IMG?>" width="150px" alt="avatar" class="img-thumbnail rounded-circle">
             <?php } ?>
 
 
