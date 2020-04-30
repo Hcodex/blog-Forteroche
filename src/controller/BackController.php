@@ -9,7 +9,7 @@ class BackController extends Controller
 
     private function checkLoggedIn()
     {
-        if(!$this->session->get('pseudo')) {
+        if (!$this->session->get('pseudo')) {
             $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
             header('Location: ../public/index.php?route=login');
             exit();
@@ -22,7 +22,7 @@ class BackController extends Controller
     private function checkAdmin()
     {
         $this->checkLoggedIn();
-        if(!($this->session->get('role') === 'admin')) {
+        if (!($this->session->get('role') === 'admin')) {
             $this->session->set('error_message', 'Vous n\'avez pas le droit d\'accéder à cette page');
             header('Location: ../public/index.php?route=profile');
             exit();
@@ -33,52 +33,50 @@ class BackController extends Controller
 
     public function administration()
     {
-        if($this->checkAdmin()) {       
-            $articles = $this->articleDAO->getArticles();   
+        if ($this->checkAdmin()) {
+            $articles = $this->articleDAO->getArticles();
             return $this->view->render('administration', [
                 'articles' => $articles,
-            ]);   
+            ]);
         }
     }
 
     public function addArticle(Parameter $post)
     {
-        if($this->checkAdmin()) {
+        if ($this->checkAdmin()) {
             if ($post->get('submit')) {
                 $errors = $this->validation->validate($post, 'Article');
-                if($this->articleDAO->checkArticleTitle($post)) {
+                if ($this->articleDAO->checkArticleTitle($post)) {
                     $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
                 }
                 if (!$errors) {
                     $this->articleDAO->addArticle($post, $this->session->get('id'));
-                   /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
+                    /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
                     $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
                     header('Location: ../public/index.php?route=administration');
                     exit();
+                } else {
+                    $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
+                    return $this->view->render('add_article', [
+                        'post' => $post,
+                        'errors' => $errors
+                    ]);
                 }
-                else{
-                $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> '.$errors['unique'] .$errors['title'].$errors['content']);
-                return $this->view->render('add_article', [
-                    'post' => $post,
-                    'errors' => $errors
-                ]);
-                }
-            }
-            else{
-            return $this->view->render('add_article');
+            } else {
+                return $this->view->render('add_article');
             }
         }
     }
 
     public function editArticle(Parameter $post, $articleId)
     {
-        if($this->checkAdmin()) {
+        if ($this->checkAdmin()) {
             $article = $this->articleDAO->getArticle($articleId);
             if ($post->get('submit')) {
                 $errors = $this->validation->validate($post, 'Article');
 
-                if  ($article->getTitle() !== $post->get('title')) {
-                    if($this->articleDAO->checkArticleTitle($post)) {
+                if ($article->getTitle() !== $post->get('title')) {
+                    if ($this->articleDAO->checkArticleTitle($post)) {
                         $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
                     }
                 }
@@ -87,16 +85,14 @@ class BackController extends Controller
                     $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
                     header('Location: ../public/index.php?route=administration');
                     exit();
-                }
-                else{
-                    $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' .$errors['unique'] .$errors['title'].$errors['content'] ); 
+                } else {
+                    $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
                     return $this->view->render('edit_article', [
                         'post' => $post,
                         'errors' => $errors
                     ]);
-                }           
-            }
-            else {
+                }
+            } else {
                 $post->set('id', $article->getId());
                 $post->set('title', $article->getTitle());
                 $post->set('picture', $article->getPicture());
@@ -112,16 +108,15 @@ class BackController extends Controller
 
     public function profile()
     {
-        if($this->checkLoggedIn()) {
+        if ($this->checkLoggedIn()) {
             return $this->view->render('profile');
         }
     }
 
     public function logout()
     {
-        if($this->checkLoggedIn())
-        {
-            $this->logoutOrDelete('logout');    
+        if ($this->checkLoggedIn()) {
+            $this->logoutOrDelete('logout');
         }
     }
 
@@ -129,7 +124,7 @@ class BackController extends Controller
     {
         $this->session->stop();
         $this->session->start();
-        if($param === 'logout') {
+        if ($param === 'logout') {
             $this->session->set($param, 'Vous avez été correctement déconnecté, a bientôt.');
             $this->session->set('success_message', 'Vous avez été correctement déconnecté, a bientôt.');
         } else {
@@ -140,4 +135,14 @@ class BackController extends Controller
     }
 
 
+    public function editProfile(Parameter $post, $userId)
+    {
+        if ($post->get('submit')) {
+            $this->userDAO->editUser($post,  $userId);
+            $this->session->set('avatar', $post->get('picture'));
+            $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
+            header('Location: ../public/index.php?route=profile');
+            exit();
+        }
+    }
 }

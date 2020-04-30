@@ -17,7 +17,7 @@ if ($this->request->getGet()->get('route') === "profile") {
 
 ?>
 
-<img id="article_img" src="<?=$current_img ?>" class="" width="100px" alt="Image Actuelle">
+<img id="picked_img" src="<?=$current_img ?>" class="" width="100px" alt="Image Actuelle">
 
 <a class="col-md-2 btn btn-primary text-white" type="button" href="#" data-toggle="modal" data-target="#image_picker">Images</a>
 

@@ -58,5 +58,14 @@ class UserDAO extends DAO
         ];
     }
 
+    public function editUser(Parameter $post, $userId)
+    {
+        $sql = 'UPDATE user SET avatar=:avatar WHERE id=:id';
+        $this->createQuery($sql, [
+            'avatar' => $post->get('picture'),
+            'id' => $userId,
+        ]);
+    }
+
 
 }

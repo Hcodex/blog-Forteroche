@@ -139,7 +139,7 @@
 
 	$(".img-pick").click(function(){
 		$("#picture").val($(this).attr('data-img')) ;
-		$("#article_img").attr('src', $(this).attr('src')) ;
+		$("#picked_img").attr('src', $(this).attr('src')) ;
 		$('#image_picker').modal('hide');
 	});
 
