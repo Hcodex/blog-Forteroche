@@ -44,6 +44,7 @@
             <h2 class="text-primary">Gestion des images</h2>
             <?php
             include('image_picker.php');
+            $upload_mode = "article";
             include('form_upload.php');
 
             ?>
