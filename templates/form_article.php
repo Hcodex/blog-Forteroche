@@ -22,7 +22,6 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
             <?= isset($errors['picture']) ? $errors['picture'] : ''; ?>
         </div>
     </div>
-    <img id="article_img" src="<?= isset($post) ? ARTICLE_THUMB_DIR.htmlspecialchars($post->get('picture')) : ''; ?>" class="" width="100px" alt="Défaut">
     <?php include('image_picker.php'); ?>
     
     <div class="form-group mt-2">
