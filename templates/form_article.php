@@ -17,12 +17,8 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 
     <div class="form-group">
         <label for="picture">Image</label>
-        <input type="text" class="form-control  <?= isset($errors['picture']) ? 'is-invalid' : '' ?>" id="picture" name="picture" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture')) : ''; ?>">
-        <div class="invalid-feedback">
-            <?= isset($errors['picture']) ? $errors['picture'] : ''; ?>
-        </div>
+        <input type="hidden" class="form-control  <?= isset($errors['picture']) ? 'is-invalid' : '' ?>" id="picture" name="picture" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture')) : ''; ?>">
     </div>
-    <img id="article_img" src="<?= isset($post) ? htmlspecialchars($post->get('picture')) : ''; ?>" class="" width="100px" alt="Défaut">
     <?php include('image_picker.php'); ?>
     
     <div class="form-group mt-2">

@@ -67,7 +67,7 @@ class Router
                         $this->backController->editArticle($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
                     case "upload":
-                        $this->uploadController->upload($this->request->getPost());
+                        $this->uploadController->upload($this->request->getPost(), $this->request->getGet()->get('upload_mode'));
                     break;
                     default:$this->errorController->errorNotFound();
                 }

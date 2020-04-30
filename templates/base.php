@@ -139,9 +139,15 @@
 
 	$(".img-pick").click(function(){
 		$("#picture").val($(this).attr('data-img')) ;
-		$("#article_img").attr('src', $(this).attr('data-img')) ;
+		$("#article_img").attr('src', $(this).attr('src')) ;
 		$('#image_picker').modal('hide');
 	});
+
+	$('.custom-file input').change(function (e) {
+        if (e.target.files.length) {
+            $(this).next('.custom-file-label').html(e.target.files[0].name);
+        }
+    });
 
 </script>
 

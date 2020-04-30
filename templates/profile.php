@@ -11,8 +11,19 @@
             <?php if ($this->session->get('avatar')){?>
                 <img src="../public/img/avatars/<?= $this->session->get('avatar') ?>" width="150px" height="150px" alt="avatar" class="img-thumbnail rounded-circle">
             <?php } else {?>
-            <img src="../public/img/avatars/user_default.svg" width="150px" alt="avatar" class="img-thumbnail rounded-circle">
+            <img src="<?php DEFAULT_AVATAR_IMG?>" width="150px" alt="avatar" class="img-thumbnail rounded-circle">
             <?php } ?>
+
+
+        <div class="form-group">
+        <input type="hidden" id="picture" name="picture" placeholder="Image d'illustration" value="<?= $this->session->get('avatar') ?>">
+
+
+            <?php
+            include('image_picker.php');
+            $upload_mode = "avatar";
+            include('form_upload.php');
+            ?>
            
             <h3 class="pt-4">Email</h3>
             <p><?= $this->session->get('email'); ?></p>

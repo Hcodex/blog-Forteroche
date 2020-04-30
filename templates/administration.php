@@ -29,7 +29,7 @@
                             <td><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>"><?= htmlspecialchars($article->getTitle()); ?></a></td>
                             <td><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
                             <td><?= htmlspecialchars($article->getAuthor()); ?></td>
-                            <td> <img src="<?= htmlspecialchars($article->getPicture()); ?>" class="" width="60px" alt="Défaut"></td>
+                            <td> <img src="<?= ARTICLE_THUMB_DIR.htmlspecialchars($article->getPicture()); ?>" class="" width="60px" alt="Défaut"></td>
                             <td><?= htmlspecialchars($article->getCreatedAt('CONDENSED')); ?></td>
                             <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
                             <td>
@@ -44,6 +44,7 @@
             <h2 class="text-primary">Gestion des images</h2>
             <?php
             include('image_picker.php');
+            $upload_mode = "article";
             include('form_upload.php');
 
             ?>
