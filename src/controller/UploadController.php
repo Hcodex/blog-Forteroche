@@ -14,33 +14,26 @@ class UploadController extends Controller
 		// création de miniature
 		// enregistrement de la miniature / photo
 		$dossier = ARTICLE_IMG_DIR ;
+
+		
+
         if(!is_dir($dossier)){
            mkdir($dossier, 0777, true);
         }
         $fichier = basename($_FILES['fileToUpload']['name']);
-        $taille_maxi = 10000000;
-        $taille = filesize($_FILES['fileToUpload']['tmp_name']);
-        $extensions = array('.png', '.gif', '.jpg', '.jpeg');
-        $extension = strrchr($_FILES['fileToUpload']['name'], '.'); 
+
+
+
         
         $image_src = $dossier . $fichier ;
         $image_dest = $dossier . "thumb/" . $fichier ;
         if(!is_dir($dossier . "thumb/")){
             mkdir($dossier . "thumb/");
-        };
-        
-        //Début des vérifications de sécurité...
-        if(!in_array($extension, $extensions))
-        {
-            $erreur = 'Erreur format';
-            $this->session->set('error_message', '<Strong>Echec de l\'upload !</strong>Vous devez uploader un fichier de type png, gif, jpg ou jpeg') ;
-        }
-        if($taille>$taille_maxi)
-        {
-            $erreur = 'Erreur poids';
-            $this->session->set('error_message', '<Strong>Echec de l\'upload</strong> Le fichier est trop gros');
-        }
-        if(!isset($erreur))
+		};
+		
+		$errors = $this->fileValidation();
+
+        if(!$errors)
         {
              $fichier = strtr($fichier, 
                   'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
@@ -64,6 +57,33 @@ class UploadController extends Controller
         }
         header('Location: ../public/index.php?route=administration');
 		exit();
+	}
+
+	public function fileValidation(){
+
+        $taille_maxi = 5242880; //5Mo
+        $taille = filesize($_FILES['fileToUpload']['tmp_name']);
+		$extensions = array('.png', '.gif', '.jpg', '.jpeg');
+		$extension = strrchr($_FILES['fileToUpload']['name'], '.'); 
+		$img_info = getimagesize($_FILES['fileToUpload']['tmp_name']);
+		$mime   = $img_info['mime'];
+
+		if(!in_array($extension, $extensions))
+        {
+			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong>Vous devez uploader un fichier de type png, gif, jpg ou jpeg') ;
+			return 'Erreur Type';
+		}
+        if($taille>$taille_maxi)
+        {
+			$this->session->set('error_message', '<Strong>Echec de l\'upload</strong> Le fichier est trop gros (Max 5Mo)');
+			return 'Fichier trop lourd';
+		}
+		if(!$mime)
+		{
+			$this->session->set('error_message', '<Strong>Echec de l\'upload</strong> Le ficheir est corrompu');
+			return 'Fichier corrompu';
+		}
+
 	}
 
 
