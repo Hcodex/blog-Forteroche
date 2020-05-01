@@ -143,6 +143,14 @@
 		$('#image_picker').modal('hide');
 	});
 
+	$(".img-select").click(function(){
+		$val=$(this).attr('data-img') ;
+		console.log($val);
+		$('.custom-select>option[value="'+$val+'"]').attr('selected','true');
+	});
+
+
+
 	$('.custom-file input').change(function (e) {
         if (e.target.files.length) {
             $(this).next('.custom-file-label').html(e.target.files[0].name);

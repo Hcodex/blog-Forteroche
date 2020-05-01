@@ -17,9 +17,8 @@ if ($this->request->getGet()->get('route') === "profile") {
 
 ?>
 
-<img id="picked_img" src="<?=$current_img ?>" class="" width="100px" alt="Image Actuelle">
+<img id="picked_img" src="<?=$current_img ?>" class="" width="100px" alt="Image Actuelle" data-toggle="modal" data-target="#image_picker">
 
-<a class="col-md-2 btn btn-primary text-white" type="button" href="#" data-toggle="modal" data-target="#image_picker">Images</a>
 
 <div class="modal fade" id="image_picker">
 	<div class="modal-dialog modal-dialog-centered">

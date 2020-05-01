@@ -154,6 +154,10 @@ h2, h1{
 	top : 70px;
 }
 
+#file_selector{
+	display : none;
+}
+
 
 @media screen and (max-width: 1280px)
 {

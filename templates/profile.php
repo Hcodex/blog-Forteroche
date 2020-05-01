@@ -9,6 +9,7 @@
             <h3 class="pt-4">Avatar</h3>
             <?php
             include('image_picker.php');
+            include('image_manager.php');
             $upload_mode = "avatar";
             include('form_upload.php');
             ?>

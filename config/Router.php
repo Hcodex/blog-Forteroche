@@ -72,6 +72,9 @@ class Router
                     case "upload":
                         $this->uploadController->upload($this->request->getPost(), $this->request->getGet()->get('upload_mode'));
                     break;
+                    case "filesdelete":
+                        $this->uploadController->filesDelete($this->request->getPost());
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }

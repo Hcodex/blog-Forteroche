@@ -214,4 +214,26 @@ class UploadController extends Controller
 
 		return TRUE;
 	}
+
+	public function filesDelete(Parameter $post)
+	{
+		if ($post->get('submit')) {
+			foreach ($post->get('file_selector') as $file) {
+				if (!unlink($file)) {
+					$error = "Impossible de supprimer le fichier";
+				}
+			}
+			if (!$error) {
+				$this->session->set('success_message', '<Strong>Fichier(s) supprimé(s)</strong>');
+			} else {
+				$this->session->set('error_message', '<Strong>' . $error . '</strong>');
+			}
+			header("Location: " . $_SERVER["HTTP_REFERER"]);
+			exit();
+		}
+		else{
+
+		}
+		header('Location: ../public/index.php?route=forbiden');
+	}
 }
