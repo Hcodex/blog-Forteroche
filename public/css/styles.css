@@ -62,9 +62,10 @@ htlm, body {
 	color : white;
 	text-shadow: 0px 0px 20px black;
 	background-image: url('../img/header.jpg') ;
-	background-size: contain;
+	background-size: cover;
 	background-attachment: fixed;
 	padding : 10% 20% 5% 20%;
+	background-position: center;
 }
 
 .page-header h1,
