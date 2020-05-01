@@ -41,7 +41,7 @@
                     ?>
                 </tbody>
             </table>
-            <h2 class="text-primary">Gestion des images</h2>
+            <h2 class="text-primary mt-5">Gestion des images</h2>
             <?php
             include('image_manager.php');
             $upload_mode = "article";

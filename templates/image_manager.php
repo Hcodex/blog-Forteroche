@@ -32,12 +32,13 @@ if (is_dir($dir)) {
 
 if ($route === "profile" || $route === "editArticle") {
 ?>
-    <img id="picked_img" src="<?= $current_img ?>" class="" width="100px" alt="Image Actuelle" data-toggle="modal" data-target="#image_picker">
+    <img id="picked_img" src="<?= $current_img ?>" class="border" width="180px" alt="Image Actuelle" data-toggle="modal" data-target="#image_picker">
 <?php
 }
 ?>
-<a class="col-md-2 btn btn-primary text-white" type="button" href="" data-toggle="modal" data-target="#image_manager">Images</a>
-
+<div class="my-2">
+<a class="col-md-2 btn btn-primary text-white" type="button" href="" data-toggle="modal" data-target="#image_manager">Parcourir les images</a>
+</div>
 
 <div class="modal fade" id="image_manager">
     <div class="modal-dialog modal-dialog-centered">
