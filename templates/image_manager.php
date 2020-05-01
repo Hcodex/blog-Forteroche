@@ -75,7 +75,7 @@ if ($route === "profile" || $route === "editArticle") {
                     <?php
                     if ($route !== "editArticle") {
                     ?>
-                        <input type="submit" class="btn btn-danger img-delete-btn" value="Supprimer" id="submit" name="submit">
+                        <input type="submit" class="btn btn-danger img-delete-btn" value="Supprimer" id="submit" name="submit" disabled>
                     <?php
                     }
                     if ($route === "profile" || $route === "editArticle") {

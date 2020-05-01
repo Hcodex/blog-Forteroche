@@ -136,29 +136,19 @@
 		tinycomments_author: 'Author name',
 	});
 
-	/*
-		$(".img-pick").click(function(){
-			$("#picture").val($(this).attr('data-img')) ;
-			$("#picked_img").attr('src', $(this).attr('src')) ;
-			$('#image_picker').modal('hide');
-		});
-	*/
-
 	$("#img-select-btn").click(function() {
 		$("#picture").val($('.custom-select>option[selected="selected"]').attr('data-filename'));
 		$("#picked_img").attr('src', $(".img-select.selected").attr('src'));
 		$('#image_manager').modal('hide');
 	});
 
-
-
 	$(".img-select").click(function() {
 		$val = $(this).attr('data-img')
 		$('.custom-select>option[data-filename="' + $val + '"]').attr('selected') ?
 			$('.custom-select>option[data-filename="' + $val + '"]').removeAttr('selected') : $('.custom-select>option[data-filename="' + $val + '"]').attr('selected', 'selected');
 		$(this).toggleClass('border border-primary selected');
-		$('.img-select.selected').length > 1 ?
-			$("#img-select-btn").addClass('disabled','disabled') : $("#img-select-btn").removeClass('disabled') ;
+		$('.img-select.selected').length == 1 ?
+			$("#img-select-btn").removeClass('disabled') : $("#img-select-btn").addClass('disabled','disabled') ;
 		$('.custom-select>option[selected="selected"]').length < 1 ?
 			$(".img-delete-btn").attr('disabled', 'disabled') : $(".img-delete-btn").removeAttr('disabled') ;
 	});
