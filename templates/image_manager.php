@@ -4,13 +4,13 @@ if ($route === "profile") {
     $dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
     $thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
     $default_img = DEFAULT_AVATAR_IMG;
-    $current_img = $this->session->get('avatar') !== NULL && $this->session->get('avatar') !== "" && $this->session->get('avatar') !== $default_img ? $thumb_dir . $this->session->get('avatar') : $default_img;;
+    $current_img = $this->session->get('avatar') !== NULL && $this->session->get('avatar') !== "" && $this->session->get('avatar') !== $default_img && file_exists($dir.$this->session->get('avatar')) ? $thumb_dir . $this->session->get('avatar') : $default_img;
     $select_btn_text = "Choisir comme avatar";
 } elseif ($route  === "editArticle") {
     $dir = ARTICLE_IMG_DIR;
     $thumb_dir = ARTICLE_THUMB_DIR;
     $default_img = DEFAULT_ARTICLE_IMG;
-    $current_img = $post->get('picture') !== NULL && $post->get('picture') !== "" && $this->session->get('picture') !== $default_img ? ARTICLE_THUMB_DIR . htmlspecialchars($post->get('picture')) : $default_img;
+    $current_img = $post->get('picture') !== NULL && $post->get('picture') !== "" && $this->session->get('picture') !== $default_img  && file_exists($dir.$post->get('picture'))? $thumb_dir. htmlspecialchars($post->get('picture')) : $default_img;
     $select_btn_text = "Définir comme image de l'article";
 } else {
     $dir = ARTICLE_IMG_DIR;
@@ -72,12 +72,8 @@ if ($route === "profile" || $route === "editArticle") {
                     <img class="img-select" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
                 </div>
                 <div class="modal-footer">
-                    <?php
-                    if ($route !== "editArticle") {
-                    ?>
-                        <input type="submit" class="btn btn-danger img-delete-btn" value="Supprimer" id="submit" name="submit" disabled>
-                    <?php
-                    }
+                    <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="submit" name="submit" disabled>
+                    <?
                     if ($route === "profile" || $route === "editArticle") {
                     ?>
                         <a id="img-select-btn" class="btn btn-primary text-white" type="button" href="#"><?= $select_btn_text ?></a>

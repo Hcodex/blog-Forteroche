@@ -17,7 +17,7 @@
                  <div class="col-sm-4">  
                     <div class="card">
 
-                    <?php if ($article->getPicture()){?>
+                    <?php if ($article->getPicture() && file_exists (ARTICLE_IMG_DIR.$article->getPicture())){?>
                         <img class="card-img-top" src="<?= ARTICLE_IMG_DIR.$article->getPicture() ?>" alt="Card image cap">
                     <?php } else {?>
                         <img class="card-img-top" src="<?= DEFAULT_ARTICLE_IMG ?>" alt="Card image cap">
