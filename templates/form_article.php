@@ -1,9 +1,9 @@
 <?php
+include('image_manager.php');
 $route = isset($post) && $post->get('id') ? 'editArticle&articleId=' . $post->get('id') : 'addArticle';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
-
-
 ?>
+
 
 <form method="post" action="../public/index.php?route=<?= $route; ?>">
     <input id="id" name="id" type="hidden" value="<?= isset($post) ? htmlspecialchars($post->get('id')) : ''; ?>">
@@ -19,7 +19,6 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
         <label for="picture">Image</label>
         <input type="hidden" class="form-control  <?= isset($errors['picture']) ? 'is-invalid' : '' ?>" id="picture" name="picture" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture')) : ''; ?>">
     </div>
-    <?php include('image_picker.php'); ?>
     
     <div class="form-group mt-2">
         <label for="content">Contenu</label>

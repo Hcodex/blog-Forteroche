@@ -8,7 +8,6 @@
             <h2 class="text-center text-primary pb-5"><?= $this->session->get('pseudo'); ?></h2>
             <h3 class="pt-4">Avatar</h3>
             <?php
-            include('image_picker.php');
             include('image_manager.php');
             $upload_mode = "avatar";
             include('form_upload.php');
