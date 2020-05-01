@@ -68,5 +68,5 @@ class ArticleDAO extends DAO
         $article = $result->fetch();
         $result->closeCursor();
         return $this->buildObject($article);
-    }  
+    }
 }

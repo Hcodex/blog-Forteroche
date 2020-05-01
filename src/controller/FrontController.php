@@ -83,9 +83,11 @@ class FrontController extends Controller
 
     public function article($articleId)
     {
+        $articles = $this->articleDAO->getArticles();
         $article = $this->articleDAO->getArticle($articleId);
         return $this->view->render('single', [
-            'article' => $article
+            'article' => $article,
+            'articles' => $articles
         ]);
     }
 
