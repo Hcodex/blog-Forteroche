@@ -137,7 +137,7 @@
 	});
 
 	$("#img-select-btn").click(function() {
-		$("#picture").val($('.custom-select>option[selected="selected"]').attr('data-filename'));
+		$("#picture_file_name").val($('.custom-select>option[selected="selected"]').attr('data-filename'));
 		$("#picked_img").attr('src', $(".img-select.selected").attr('src'));
 		$('#image_manager').modal('hide');
 	});

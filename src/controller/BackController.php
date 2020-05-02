@@ -95,7 +95,9 @@ class BackController extends Controller
             } else {
                 $post->set('id', $article->getId());
                 $post->set('title', $article->getTitle());
+                $post->set('picture_file_name', $article->getPictureFileName());
                 $post->set('picture', $article->getPicture());
+                $post->set('thumbail', $article->getThumbail());
                 $post->set('content', $article->getContent());
                 $post->set('author', $article->getAuthor());
 
@@ -139,7 +141,7 @@ class BackController extends Controller
     {
         if ($post->get('submit')) {
             $this->userDAO->editUser($post,  $userId);
-            $this->session->set('avatar', $post->get('picture'));
+            $this->session->set('avatar', $post->get('picture_file_name'));
             $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
             header('Location: ../public/index.php?route=profile');
             exit();

@@ -14,17 +14,8 @@
                 ?>
                     <div class="col-sm-4">
                         <div class="card">
-
-                            <?php if ($article->getPicture() && file_exists(ARTICLE_IMG_DIR . $article->getPicture())) { ?>
-                                <img class="d-none" src="<?= ARTICLE_IMG_DIR . $article->getPicture() ?>" alt="Card image cap">
-                                <div class="card-img-top" style="background-image: url('<?= ARTICLE_IMG_DIR . $article->getPicture() ?>')" alt="Card image cap"></div>
-                            <?php } else { ?>
-                                <img class="d-none" src="<?= DEFAULT_ARTICLE_IMG ?>" alt="Card image cap">
-                                <div class="card-img-top" style="background-image: url('<?= DEFAULT_ARTICLE_IMG ?>')" alt="Card image cap"></div>
-
-                            <?php } ?>
-
-
+                            <img class="d-none" src="<?= $article->getThumbail() ?>" alt="Card image cap">
+                            <div class="card-img-top" style="background-image: url('<?= $article->getThumbail() ?>')" alt="Card image cap"></div>
                             <div class="card-body">
                                 <h3><?= htmlspecialchars($article->getTitle()); ?></h3>
                                 <p><?= substr(strip_tags($article->getContent()), 0, 150); ?>...</p>

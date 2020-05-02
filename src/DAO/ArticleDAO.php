@@ -16,7 +16,9 @@ class ArticleDAO extends DAO
         $article->setAuthor($row['pseudo']);
         $article->setCreatedAt($row['created_at']);
         $article->setUpdatedAt($row['updated_at']);
+        $article->setPictureFileName($row['picture_file_name']);
         $article->setPicture($row['picture']);
+        $article->setThumbail($row['thumbail']);
         return $article;
     }
 
@@ -32,7 +34,7 @@ class ArticleDAO extends DAO
         $this->createQuery($sql, [
             'title' => $post->get('title'),
             'content' => $post->get('content'),
-            'picture' => $post->get('picture'),
+            'picture' => $post->get('picture_file_name'),
             'user_id' => $userId,
             'articleId' => $articleId
         ]);
@@ -55,6 +57,16 @@ class ArticleDAO extends DAO
         $articles = [];
         foreach ($result as $row){
             $articleId = $row['id'];
+            $picture = $row['picture'];
+            $row['picture_file_name'] = $picture;
+            if (file_exists(ARTICLE_THUMB_DIR.$picture) && $picture != NULL){
+                $row['thumbail'] =  ARTICLE_THUMB_DIR.$picture;
+                $row['picture'] =  ARTICLE_IMG_DIR.$picture;
+            }
+            else{
+                $row['thumbail'] = DEFAULT_ARTICLE_IMG;
+                $row['picture'] =  DEFAULT_ARTICLE_IMG;
+            }
             $articles[$articleId] = $this->buildObject($row);
         }
         $result->closeCursor();
@@ -67,6 +79,16 @@ class ArticleDAO extends DAO
         $result = $this->createQuery($sql, [$articleId]);
         $article = $result->fetch();
         $result->closeCursor();
+        $picture = $article['picture'];
+        $article['picture_file_name'] = $picture;
+        if (file_exists(ARTICLE_THUMB_DIR.$picture) && $picture != NULL){
+            $article['thumbail'] =  ARTICLE_THUMB_DIR.$picture;
+            $article['picture'] =  ARTICLE_IMG_DIR.$picture;
+        }
+        else{
+            $article['thumbail'] = DEFAULT_ARTICLE_IMG;
+            $article['picture'] =  DEFAULT_ARTICLE_IMG;
+        }
         return $this->buildObject($article);
     }
 }

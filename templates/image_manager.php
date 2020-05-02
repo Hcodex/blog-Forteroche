@@ -10,7 +10,7 @@ if ($route === "profile") {
     $dir = ARTICLE_IMG_DIR;
     $thumb_dir = ARTICLE_THUMB_DIR;
     $default_img = DEFAULT_ARTICLE_IMG;
-    $current_img = $post->get('picture') !== NULL && $post->get('picture') !== "" && $this->session->get('picture') !== $default_img  && file_exists($dir.$post->get('picture'))? $thumb_dir. htmlspecialchars($post->get('picture')) : $default_img;
+    $current_img = $post->get('thumbail');
     $select_btn_text = "Définir comme image de l'article";
 } else {
     $dir = ARTICLE_IMG_DIR;

@@ -12,7 +12,7 @@ $index = (array_search($article->getId(), $article_list));
 
 <main role="main">
 
-	<div class="page-header" style="background-image : url('<?=$article->getPicture() && file_exists(ARTICLE_IMG_DIR . $article->getPicture()) ? ARTICLE_IMG_DIR.$article->getPicture() : DEFAULT_ARTICLE_IMG?>')">
+	<div class="page-header" style="background-image : url('<?=$article->getPicture()?>')">
 		<h1 class="text-center">Lecture</h1>
 	</div>
 	<ul class="nav justify-content-center sticky-top bg-dark">

@@ -2,6 +2,7 @@
 include('image_manager.php');
 $route = isset($post) && $post->get('id') ? 'editArticle&articleId=' . $post->get('id') : 'addArticle';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
+var_dump($post->get('picture_file_name'));
 ?>
 
 
@@ -17,7 +18,7 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 
     <div class="form-group">
         <label for="picture">Image</label>
-        <input type="hidden" class="form-control  <?= isset($errors['picture']) ? 'is-invalid' : '' ?>" id="picture" name="picture" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture')) : ''; ?>">
+        <input type="hidden" class="form-control  <?= isset($errors['picture_file_name']) ? 'is-invalid' : '' ?>" id="picture_file_name" name="picture_file_name" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture_file_name')) : ''; ?>">
     </div>
     
     <div class="form-group mt-2">

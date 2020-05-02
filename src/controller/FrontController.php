@@ -85,6 +85,7 @@ class FrontController extends Controller
     {
         $articles = $this->articleDAO->getArticles();
         $article = $this->articleDAO->getArticle($articleId);
+
         return $this->view->render('single', [
             'article' => $article,
             'articles' => $articles

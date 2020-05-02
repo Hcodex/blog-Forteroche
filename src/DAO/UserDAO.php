@@ -62,7 +62,7 @@ class UserDAO extends DAO
     {
         $sql = 'UPDATE user SET avatar=:avatar WHERE id=:id';
         $this->createQuery($sql, [
-            'avatar' => $post->get('picture'),
+            'avatar' => $post->get('picture_file_name'),
             'id' => $userId,
         ]);
     }

@@ -14,7 +14,7 @@
             ?>
             <form method="post" action='../public/index.php?route=editProfile'>
                 <div class="form-group">
-                    <input type="hidden" id="picture" name="picture" placeholder="Image d' illustration" value="<?= $this->session->get('avatar') ?>">
+                    <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?= $this->session->get('avatar') ?>">
 
                 <h3 class="pt-4">Email</h3>
                 <p><?= $this->session->get('email'); ?></p>

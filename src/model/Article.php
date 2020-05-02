@@ -9,6 +9,8 @@ class Article
     private $content;
     private $author;
     private $picture;
+    private $thumbail;
+    private $picture_file_name;
     private $created_at;
     private $updated_at;
 
@@ -72,6 +74,16 @@ class Article
         $this->created_at = $created_at;
     }
 
+    public function getPictureFileName()
+    {
+        return $this->picture_file_name;
+    }
+
+
+    public function setPictureFileName($picture_file_name)
+    {
+        $this->picture_file_name = $picture_file_name;
+    }
 
     public function getPicture()
     {
@@ -83,6 +95,18 @@ class Article
     {
         $this->picture = $picture;
     }
+
+    public function getThumbail()
+    {
+        return $this->thumbail;
+    }
+
+
+    public function setThumbail($thumbail)
+    {
+        $this->thumbail = $thumbail;
+    }
+
 
     public function getUpdatedAt($format = null)
     {
