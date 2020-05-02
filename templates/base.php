@@ -149,9 +149,9 @@
 			$('.custom-select>option[data-filename="' + $val + '"]').removeAttr('selected') : $('.custom-select>option[data-filename="' + $val + '"]').attr('selected', 'selected');
 		$(this).toggleClass('border border-primary selected');
 		$('.img-select.selected').length == 1 ?
-			$("#img-select-btn").removeClass('disabled') : $("#img-select-btn").addClass('disabled','disabled') ;
+			$("#img-select-btn").removeClass('disabled') : $("#img-select-btn").addClass('disabled', 'disabled');
 		$('.custom-select>option[selected="selected"]').length < 1 ?
-			$(".img-delete-btn").attr('disabled', 'disabled') : $(".img-delete-btn").removeAttr('disabled') ;
+			$(".img-delete-btn").attr('disabled', 'disabled') : $(".img-delete-btn").removeAttr('disabled');
 	});
 
 	$('.custom-file input').change(function(e) {
@@ -161,15 +161,16 @@
 	});
 
 
-	$('#image_manager').on('hide.bs.modal', function (e) {
+	$('#image_manager').on('hide.bs.modal', function(e) {
 		$('.img-select.selected').removeClass('selected border-primary border');
 		$('.custom-select>option').removeAttr('selected')
-})
+	});
 
-
-
-
-
+	function setConfrimModal(data) {
+		//you can do anything with data, or pass more data to this function. i set this data to modal header for example
+		$("#confirmModal #confirmBtn").attr('href', data);
+		$("#confirmModal").modal();
+	}
 
 </script>
 

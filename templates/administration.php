@@ -18,7 +18,7 @@
                         <th scope="col">Image</th>
                         <th scope="col">Créé le</th>
                         <th scope="col">Mis à jour</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,8 +32,9 @@
                             <td> <img src="<?=$article->getThumbail();?>" class="" width="60px" alt="Défaut"></td>
                             <td><?= htmlspecialchars($article->getCreatedAt('CONDENSED')); ?></td>
                             <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
-                            <td>
-                                <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+                            <td class="text-center">
+                                <a class="btn btn-primary mb-1" href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+                                <button class="btn btn-danger" onclick="setConfrimModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')" type="button" >Supprimer</button>
                             </td>
                         </tr>
                     <?php
@@ -49,5 +50,27 @@
 
             ?>
         </div>
+
+        <div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression Article</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-danger">
+                    <p>Attention, l'article sélectionné va être supprimé définitivement !</p>
+                </div>
+                <div class="modal-footer">
+                    <a id="confirmBtn" href="" type="button" class="btn btn-primary">Supprimer</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+
     </section>
 </main>

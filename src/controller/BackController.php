@@ -108,6 +108,15 @@ class BackController extends Controller
         }
     }
 
+    public function deleteArticle($articleId)
+    {
+        if($this->checkAdmin()) {
+            $this->articleDAO->deleteArticle($articleId);
+            $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
+            header('Location: ../public/index.php?route=administration');
+        }
+    }
+
     public function profile()
     {
         if ($this->checkLoggedIn()) {

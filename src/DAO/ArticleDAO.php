@@ -91,4 +91,11 @@ class ArticleDAO extends DAO
         }
         return $this->buildObject($article);
     }
+
+    public function deleteArticle($articleId)
+    {
+        $sql = 'DELETE FROM article WHERE id = ?';
+        $this->createQuery($sql, [$articleId]);
+    }
+
 }

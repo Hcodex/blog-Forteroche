@@ -66,6 +66,9 @@ class Router
                     case "editArticle":
                         $this->backController->editArticle($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
+                    case "deleteArticle":
+                        $this->backController->deleteArticle($this->request->getGet()->get('articleId'));
+                    break;
                     case "editProfile":
                         $this->backController->editProfile($this->request->getPost(), $this->request->getSession()->get('id'));
                     break;
