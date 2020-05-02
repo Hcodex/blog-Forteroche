@@ -15,10 +15,9 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="picture">Image</label>
-        <input type="hidden" class="form-control  <?= isset($errors['picture_file_name']) ? 'is-invalid' : '' ?>" id="picture_file_name" name="picture_file_name" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture_file_name')) : ''; ?>">
-    </div>
+
+    <input type="hidden" class="form-control  <?= isset($errors['picture_file_name']) ? 'is-invalid' : '' ?>" id="picture_file_name" name="picture_file_name" placeholder="Image d'illustration" value="<?= isset($post) ? htmlspecialchars($post->get('picture_file_name')) : ''; ?>">
+
     
     <div class="form-group mt-2">
         <label for="content">Contenu</label>

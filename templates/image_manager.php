@@ -6,7 +6,7 @@ if ($route === "profile") {
     $default_img = DEFAULT_AVATAR_IMG;
     $current_img = $this->session->get('avatar');
     $select_btn_text = "Choisir comme avatar";
-} elseif ($route  === "editArticle") {
+} elseif ($route  === "editArticle")  {
     $dir = ARTICLE_IMG_DIR;
     $thumb_dir = ARTICLE_THUMB_DIR;
     $default_img = DEFAULT_ARTICLE_IMG;
@@ -16,6 +16,8 @@ if ($route === "profile") {
     $dir = ARTICLE_IMG_DIR;
     $thumb_dir = ARTICLE_THUMB_DIR;
     $default_img = DEFAULT_ARTICLE_IMG;
+    $current_img = DEFAULT_ARTICLE_IMG;
+    $select_btn_text = "Définir comme image de l'article";
 }
 
 $img_list = array();
@@ -30,7 +32,7 @@ if (is_dir($dir)) {
     }
 }
 
-if ($route === "profile" || $route === "editArticle") {
+if ($route === "profile" || $route === "editArticle" || $route === "addArticle") {
 ?>
     <img id="picked_img" src="<?= $current_img ?>" class="border" width="180px" alt="Image Actuelle" data-toggle="modal" data-target="#image_picker">
 <?php
@@ -79,7 +81,7 @@ if ($route === "profile" || $route === "editArticle") {
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="submit" name="submit" disabled>
                     <?
-                    if ($route === "profile" || $route === "editArticle") {
+                    if ($route === "profile" || $route === "editArticle" || $route === "addArticle") {
                     ?>
                         <a id="img-select-btn" class="btn btn-primary text-white" type="button" href="#"><?= $select_btn_text ?></a>
                     <?php
