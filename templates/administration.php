@@ -11,14 +11,14 @@
             <a class="btn btn-warning text-dark my-3" type="button" href="index.php?route=addArticle">Ajouter un article</a>
             <table class="table table-striped">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">Titre</th>
                         <th scope="col">Contenu</th>
                         <th scope="col">Auteur</th>
                         <th scope="col">Image</th>
                         <th scope="col">Créé le</th>
                         <th scope="col">Mis à jour</th>
-                        <th scope="col text-center">Actions</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,8 +33,8 @@
                             <td><?= htmlspecialchars($article->getCreatedAt('CONDENSED')); ?></td>
                             <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
                             <td class="text-center">
-                                <a class="btn btn-primary mb-1" href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
-                                <button class="btn btn-danger" onclick="setConfrimModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')" type="button" >Supprimer</button>
+                                <a class="btn btn-primary mb-1 p-1" href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+                                <button class="btn btn-danger p-1" onclick="setConfrimModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')" type="button" >Supprimer</button>
                             </td>
                         </tr>
                     <?php
@@ -52,15 +52,15 @@
         </div>
 
         <div id="confirmModal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Suppression Article</h5>
+                    <h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression Article</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-danger">
+                <div class="modal-body">
                     <p>Attention, l'article sélectionné va être supprimé définitivement !</p>
                 </div>
                 <div class="modal-footer">
