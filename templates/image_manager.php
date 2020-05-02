@@ -25,7 +25,7 @@ if (is_dir($dir)) {
         $info = new SplFileInfo($fichier);
         $info->getExtension();
         if ($info->getExtension() === 'jpg' || $info->getExtension() === 'png' || $info->getExtension() === 'jpeg' || $info->getExtension() === 'gif') {
-            array_push($img_list, array($dir . $fichier, $thumb_dir . $fichier, $fichier));
+            array_push($img_list, array('picture' => $dir . $fichier, 'thumbail' => $thumb_dir . $fichier, 'fileName' => $fichier));
         }
     }
 }
@@ -55,8 +55,8 @@ if ($route === "profile" || $route === "editArticle") {
                         <?php
                         foreach ($img_list as $img) {
                         ?>
-                            <option value="<?= $img[0]; ?>" data-filename="<?= $img[2] ?>"></option>
-                            <option value="<?= $img[1]; ?>" data-filename="<?= $img[2] ?>"></option>
+                            <option value="<?= $img['picture']; ?>" data-filename="<?= $img['fileName'] ?>"></option>
+                            <option value="<?= $img['thumbail']; ?>" data-filename="<?= $img['fileName'] ?>"></option>
 
                         <?php
                         }
@@ -64,11 +64,11 @@ if ($route === "profile" || $route === "editArticle") {
                         ?>
                     </select>
                     <?php
-                        foreach ($img_list as $img) {
+                    foreach ($img_list as $img) {
                     ?>
-                            <img class="img-select" alt="" src="<?= $img[1] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img[2] ?>" />
+                        <img class="img-select" alt="" src="<?= $img['thumbail'] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img['fileName'] ?>" />
                     <?php
-                        }
+                    }
                     ?>
                     <div>
                         <p class="mt-3 mb-0">Image par défaut :</p>
