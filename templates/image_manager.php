@@ -4,7 +4,7 @@ if ($route === "profile") {
     $dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
     $thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
     $default_img = DEFAULT_AVATAR_IMG;
-    $current_img = $this->session->get('avatar') !== NULL && $this->session->get('avatar') !== "" && $this->session->get('avatar') !== $default_img && file_exists($dir.$this->session->get('avatar')) ? $thumb_dir . $this->session->get('avatar') : $default_img;
+    $current_img = $this->session->get('avatar');
     $select_btn_text = "Choisir comme avatar";
 } elseif ($route  === "editArticle") {
     $dir = ARTICLE_IMG_DIR;
@@ -15,6 +15,7 @@ if ($route === "profile") {
 } else {
     $dir = ARTICLE_IMG_DIR;
     $thumb_dir = ARTICLE_THUMB_DIR;
+    $default_img = DEFAULT_ARTICLE_IMG;
 }
 
 
@@ -37,7 +38,7 @@ if ($route === "profile" || $route === "editArticle") {
 }
 ?>
 <div class="my-2">
-<a class="col-md-2 btn btn-primary text-white" type="button" href="" data-toggle="modal" data-target="#image_manager">Parcourir les images</a>
+    <a class="col-md-2 btn btn-primary text-white" type="button" href="" data-toggle="modal" data-target="#image_manager">Parcourir les images</a>
 </div>
 
 <div class="modal fade" id="image_manager">
@@ -64,14 +65,20 @@ if ($route === "profile" || $route === "editArticle") {
                         ?>
                     </select>
                     <?php
-                    foreach ($img_list as $img) {
+                    if ($img_list !== NULL) {
+                        foreach ($img_list as $img) {
                     ?>
-                        <img class="img-select" alt="" src="<?= $img[1] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img[2] ?>" />
+                            <img class="img-select" alt="" src="<?= $img[1] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img[2] ?>" />
                     <?php
+                        }
                     }
                     ?>
-                    <img class="img-select" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
+                    <div>
+                        <p class="mt-3 mb-0">Image par défaut :</p>
+                        <img class="img-select" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="submit" name="submit" disabled>
                     <?

@@ -140,6 +140,7 @@
 		$("#picture_file_name").val($('.custom-select>option[selected="selected"]').attr('data-filename'));
 		$("#picked_img").attr('src', $(".img-select.selected").attr('src'));
 		$('#image_manager').modal('hide');
+
 	});
 
 	$(".img-select").click(function() {
@@ -158,6 +159,18 @@
 			$(this).next('.custom-file-label').html(e.target.files[0].name);
 		}
 	});
+
+
+	$('#image_manager').on('hide.bs.modal', function (e) {
+		$('.img-select.selected').removeClass('selected border-primary border');
+		$('.custom-select>option').removeAttr('selected')
+})
+
+
+
+
+
+
 </script>
 
 </body>

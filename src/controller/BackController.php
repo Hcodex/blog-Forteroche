@@ -141,7 +141,10 @@ class BackController extends Controller
     {
         if ($post->get('submit')) {
             $this->userDAO->editUser($post,  $userId);
-            $this->session->set('avatar', $post->get('picture_file_name'));
+            $user = $this->userDAO->getUser($userId);
+            $this->session->set('avatar', $user->getAvatar());
+            $this->session->set('avatar_file_name', $user->getAvatarFileName());
+            $this->session->set('avatar_thumbail', $user->getThumbail());
             $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
             header('Location: ../public/index.php?route=profile');
             exit();

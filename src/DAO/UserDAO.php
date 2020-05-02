@@ -15,6 +15,9 @@ class UserDAO extends DAO
         $user->setEmail($row['email']);
         $user->setCreatedAt($row['created_at']);
         $user->setRole($row['role_id']);
+        $user->setAvatarFileName($row['avatar_file_name']);
+        $user->setAvatar($row['avatar']);
+        $user->setThumbail($row['thumbail']);
         return $user;
     } 
 
@@ -51,6 +54,17 @@ class UserDAO extends DAO
         $sql = 'SELECT user.id, user.email, user.pseudo, user.avatar, user.role_id, user.password, role.name FROM user INNER JOIN role ON role.id = user.role_id WHERE email = ?';
         $data = $this->createQuery($sql, [$post->get('email')]);
         $result = $data->fetch();
+        $picture = $result['avatar'];
+        $result['avatar_file_name'] = $picture;
+        if (file_exists(AVATAR_IMG_DIR.$result['id'].'/'.$picture) && $picture != NULL){
+            $result['avatar_thumbail'] =  AVATAR_IMG_DIR.$result['id'].'/thumb/'.$picture;
+            $result['avatar'] =  AVATAR_IMG_DIR.$result['id'].'/'.$picture;
+        }
+        else{
+            $result['avatar_thumbail'] = DEFAULT_AVATAR_IMG;
+            $result['avatar'] =  DEFAULT_AVATAR_IMG;
+        }
+
         $isPasswordValid = password_verify($post->get('password'), $result['password']);
         return [
             'result' => $result,
@@ -66,6 +80,30 @@ class UserDAO extends DAO
             'id' => $userId,
         ]);
     }
+
+
+    public function getUser($UserId)
+    {
+        $sql = 'SELECT user.email, user.email, user.pseudo, user.avatar, user.role_id, user.password, role.name FROM user INNER JOIN role ON role.id = user.role_id WHERE user.id = ?';
+        $result = $this->createQuery($sql, [$UserId]);
+        $user = $result->fetch();
+        $result->closeCursor();
+        $picture = $user['avatar'];
+        $user['avatar_file_name'] = $picture;
+        if (file_exists(AVATAR_IMG_DIR.$UserId.'/'.$picture) && $picture != NULL){
+            $user['avatar_thumbail'] =  AVATAR_IMG_DIR.$UserId.'/thumb/'.$picture;
+            $user['avatar'] =  AVATAR_IMG_DIR.$UserId.'/'.$picture;
+        }
+        else{
+            $user['avatar_thumbail'] = DEFAULT_AVATAR_IMG;
+            $user['avatar'] =  DEFAULT_AVATAR_IMG;
+        }
+        return $this->buildObject($user);
+    }
+
+
+
+
 
 
 }

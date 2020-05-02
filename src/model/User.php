@@ -10,6 +10,9 @@ class User
     private $password;
     private $created_at;
     private $role;
+    private $avatar;
+    private $thumbail;
+    private $avatar_file_name;
 
     public function getId()
     {
@@ -72,4 +75,39 @@ class User
     {
         $this->role = $role;
     }
+
+    public function getAvatarFileName()
+    {
+        return $this->avatar_file_name;
+    }
+
+
+    public function setAvatarFileName($avatar_file_name)
+    {
+        $this->avatar_file_name = $avatar_file_name;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    public function getThumbail()
+    {
+        return $this->thumbail;
+    }
+
+
+    public function setThumbail($thumbail)
+    {
+        $this->thumbail = $thumbail;
+    }
+
+
 }

@@ -5,7 +5,7 @@
     </div>
     <section id="page-content">
         <div class="container pb-5">
-            <h2 class="text-center text-primary pb-5"><?= $this->session->get('pseudo'); ?></h2>
+            <h2 class="text-center text-primary pb-5"><?= htmlspecialchars($this->session->get('pseudo')); ?></h2>
             <h3 class="pt-4">Avatar</h3>
             <?php
             include('image_manager.php');
@@ -14,12 +14,12 @@
             ?>
             <form method="post" action='../public/index.php?route=editProfile'>
                 <div class="form-group">
-                    <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?= $this->session->get('avatar') ?>">
+                    <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?=  htmlspecialchars($this->session->get('avatar_file_name')) ?>">
 
                 <h3 class="pt-4">Email</h3>
-                <p><?= $this->session->get('email'); ?></p>
+                <p><?= htmlspecialchars($this->session->get('email')); ?></p>
                 <h3 class="pt-4">Rôle</h3>
-                <p><?= $this->session->get('role'); ?></p>
+                <p><?=  htmlspecialchars($this->session->get('role')); ?></p>
 
                 <div class="text-center">
                     <input type="submit" class="btn btn-primary" value="Mettre à jour" id="submit" name="submit">
