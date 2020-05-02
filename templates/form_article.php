@@ -2,7 +2,6 @@
 include('image_manager.php');
 $route = isset($post) && $post->get('id') ? 'editArticle&articleId=' . $post->get('id') : 'addArticle';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
-var_dump($post->get('picture_file_name'));
 ?>
 
 
