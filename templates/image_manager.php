@@ -18,9 +18,8 @@ if ($route === "profile") {
     $default_img = DEFAULT_ARTICLE_IMG;
 }
 
-
+$img_list = array();
 if (is_dir($dir)) {
-    $img_list = array();
     $files = scandir($dir, 1);
     foreach ($files as $fichier) {
         $info = new SplFileInfo($fichier);
@@ -65,13 +64,11 @@ if ($route === "profile" || $route === "editArticle") {
                         ?>
                     </select>
                     <?php
-                    if ($img_list !== NULL) {
                         foreach ($img_list as $img) {
                     ?>
                             <img class="img-select" alt="" src="<?= $img[1] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img[2] ?>" />
                     <?php
                         }
-                    }
                     ?>
                     <div>
                         <p class="mt-3 mb-0">Image par défaut :</p>
