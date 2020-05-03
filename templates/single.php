@@ -12,7 +12,7 @@ $index = (array_search($article->getId(), $article_list));
 
 <main role="main">
 
-	<div class="page-header" style="background-image : url('<?=$article->getPicture()?>')">
+	<div class="page-header" style="background-image : url('<?= $article->getPicture() ?>')">
 		<h1 class="text-center">Lecture</h1>
 	</div>
 	<ul class="nav justify-content-center sticky-top bg-dark">
@@ -53,7 +53,12 @@ $index = (array_search($article->getId(), $article_list));
 			<h2 class="title text-primary"><?= htmlspecialchars($article->getTitle()); ?></h2>
 			<?= $article->getContent(); ?>
 		</div>
+		<div class="container">
+			<h2 class="text-primary">Commenter</h2>
+			<?php include('form_comment.php'); ?>
+		</div>
 	</section>
+
 
 	<div class="modal fade" id="modalchapitres" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
