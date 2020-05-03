@@ -45,9 +45,7 @@
             <h2 class="text-primary mt-5">Gestion des images</h2>
             <?php
             include('image_manager.php');
-            $upload_mode = "article";
             include('form_upload.php');
-
             ?>
         </div>
 

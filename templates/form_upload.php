@@ -1,3 +1,12 @@
+<?php
+$route = $this->request->getGet()->get('route');
+if ($route === "administration") {
+    $upload_mode = "article";
+}elseif   ($route === "profile"){
+    $upload_mode = "avatar";
+}
+
+?>
 <div class="my-3">
     <b>Envoyer une image</b>
     <form method="post" action="../public/index.php?route=upload&upload_mode=<?= $upload_mode ?>" enctype="multipart/form-data">

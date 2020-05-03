@@ -9,7 +9,6 @@
             <h3 class="pt-4">Avatar</h3>
             <?php
             include('image_manager.php');
-            $upload_mode = "avatar";
             include('form_upload.php');
             ?>
             <form method="post" action='../public/index.php?route=editProfile'>
