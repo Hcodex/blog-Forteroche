@@ -71,10 +71,10 @@ $index = (array_search($article->getId(), $article_list));
 						<div class="col">
 							<div class="card-body">
 								<div class="media">
-									<img src="<?= DEFAULT_AVATAR_IMG ?>" class="align-self-center mr-3" alt="...">
+									<img src="<?= htmlspecialchars($comment->getAvatar()); ?>" class="align-self-center mr-3" alt="...">
 									<div class="media-body">
 										<h5 class="mt-0"><?= htmlspecialchars($comment->getUser()); ?></h5>
-										<p><?= htmlspecialchars($comment->getContent()); ?></p>
+										<p><?= htmlspecialchars(strip_tags($comment->getContent())); ?></p>
 									</div>
 								</div>
 							</div>

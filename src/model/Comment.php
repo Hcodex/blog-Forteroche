@@ -9,6 +9,8 @@ class Comment
     private $content;
     private $created_at;
     private $reported;
+    private $pseudo;
+    private $avatar;
 
     public function getId()
     {
@@ -82,4 +84,26 @@ class Comment
             }
         }
     }
+
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
+    }
+
 }
