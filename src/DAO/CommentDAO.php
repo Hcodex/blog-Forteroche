@@ -46,6 +46,19 @@ class CommentDAO extends DAO
         return $comments;
     }
 
+    public function getReportedComments()
+    {
+        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported = ? ORDER BY created_at DESC';
+        $result = $this->createQuery($sql, [1]);
+        $comments = [];
+        foreach ($result as $row) {
+            $commentId = $row['id'];
+            $comments[$commentId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $comments;
+    }
+
     public function editComment(Parameter $post, $articleId, $userId)
     {
         $sql = 'UPDATE comment SET content=:content WHERE article_id=:articleId AND user_id=:userId';
