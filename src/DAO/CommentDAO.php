@@ -38,7 +38,7 @@ class CommentDAO extends DAO
             if (file_exists(AVATAR_IMG_DIR. $userId.'/thumb/' . $picture) && $picture != NULL) {
                 $row['avatar'] =  AVATAR_IMG_DIR. $userId.'/thumb/' . $picture;
             } else {
-                $row['avatar'] = DEFAULT_ARTICLE_IMG;
+                $row['avatar'] = DEFAULT_AVATAR_IMG;
             }
             $comments[$commentId] = $this->buildObject($row);
         }
