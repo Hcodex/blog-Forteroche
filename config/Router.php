@@ -85,6 +85,9 @@ class Router
                         $this->frontController->editComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
                     default:$this->errorController->errorNotFound();
+                    case "reportComment":
+                        $this->frontController->reportComment($this->request->getGet()->get('commentId'));
+                    break;
                 }
             }
             else{

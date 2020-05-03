@@ -172,21 +172,24 @@
 		$("#confirmModal").modal();
 	}
 
-	$('.comment-text-area').on("input", function(){
-    var maxlength = $(this).attr("maxlength");
-    var currentLength = $(this).val().length;
+	$('.comment-text-area').on("input", function() {
+		var maxlength = $(this).attr("maxlength");
+		var currentLength = $(this).val().length;
 
-    if( currentLength >= maxlength ){
-		$('#char_counter').text(currentLength+"/"+maxlength+'max')
-		$('#char_counter').removeClass('text-muted');
-		$('#char_counter').addClass('text-danger');
-    }else{
-		$('#char_counter').text(currentLength+"/"+maxlength+'max')
-		$('#char_counter').addClass('text-muted');
-		$('#char_counter').removeClass('text-danger');
-    }
-});
+		if (currentLength >= maxlength) {
+			$('#char_counter').text(currentLength + "/" + maxlength + 'max')
+			$('#char_counter').removeClass('text-muted');
+			$('#char_counter').addClass('text-danger');
+		} else {
+			$('#char_counter').text(currentLength + "/" + maxlength + 'max')
+			$('#char_counter').addClass('text-muted');
+			$('#char_counter').removeClass('text-danger');
+		}
+	});
 
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 </script>
 
 </body>

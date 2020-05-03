@@ -158,4 +158,11 @@ class FrontController extends Controller
             'comments' => $comments
         ]);
     }
+
+    public function reportComment($commentId)
+    {
+        $this->commentDAO->reportComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire signalé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    }
 }

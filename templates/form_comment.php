@@ -2,7 +2,7 @@
 $route = "addComment";
 foreach ($comments as $comment) {
     if ($this->session->get('pseudo') === $comment->getPseudo()) {
-        $mycomment = htmlspecialchars($comment->getContent());
+        $mycomment = htmlspecialchars(strip_tags($comment->getContent()));
         $route = "editComment";
     }
 }

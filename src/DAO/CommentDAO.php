@@ -55,4 +55,10 @@ class CommentDAO extends DAO
             'articleId' => $articleId
         ]);
     }
+
+    public function reportComment($commentId)
+    {
+        $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
+        $this->createQuery($sql, [1, $commentId]);
+    }
 }
