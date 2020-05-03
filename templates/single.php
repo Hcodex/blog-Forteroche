@@ -61,31 +61,35 @@ $index = (array_search($article->getId(), $article_list));
 			if ($this->session->get('pseudo')) include('form_comment.php');
 			?>
 		</div>
-		<div class="container mt-5">
-			<h3>Commentaires des lecteurs :</h3>
-			<?php
-			foreach ($comments as $comment) {
-			?>
-				<div class="card mb-3">
-					<div class="row">
-						<div class="col">
-							<div class="card-body">
-								<div class="media">
-									<img src="<?= htmlspecialchars($comment->getAvatar()); ?>" class="align-self-center mr-3 comment-avatar" alt="Avatar <?= htmlspecialchars($comment->getPseudo()); ?>">
-									<div class="media-body">
-										<h5 class="mt-0 text-primary"><?= htmlspecialchars($comment->getPseudo()); ?></h5>
-										<p><?= htmlspecialchars(strip_tags($comment->getContent())); ?></p>
+		<?php
+		if (count($comments) !== 0) {
+		?>
+			<div class="container mt-5">
+				<h3>Commentaires des lecteurs :</h3>
+				<?php
+				foreach ($comments as $comment) {
+				?>
+					<div class="card mb-3">
+						<div class="row">
+							<div class="col">
+								<div class="card-body">
+									<div class="media">
+										<img src="<?= htmlspecialchars($comment->getAvatar()); ?>" class="align-self-center mr-3 comment-avatar" alt="Avatar <?= htmlspecialchars($comment->getPseudo()); ?>">
+										<div class="media-body">
+											<h5 class="mt-0 text-primary"><?= htmlspecialchars($comment->getPseudo()); ?></h5>
+											<p><?= htmlspecialchars(strip_tags($comment->getContent())); ?></p>
+										</div>
 									</div>
 								</div>
+								<div class="card-footer small table-activeext-muted">Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></small></div>
 							</div>
-							<div class="card-footer small table-activeext-muted">Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></small></div>
 						</div>
 					</div>
-				</div>
 			<?php
+				}
 			}
 			?>
-		</div>
+			</div>
 	</section>
 
 
