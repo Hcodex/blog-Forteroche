@@ -60,6 +60,10 @@ $index = (array_search($article->getId(), $article_list));
 			<?php
 			if ($this->session->get('pseudo')) {
 				include('form_comment.php');
+			} else {
+			?>
+				<p>Vous devez être connecté pour commenter</p>
+			<?php
 			}
 			?>
 		</div>
@@ -67,7 +71,6 @@ $index = (array_search($article->getId(), $article_list));
 		if (count($comments) !== 0) {
 		?>
 			<div class="container mt-5">
-				<h3>Commentaires des lecteurs :</h3>
 				<?php
 				foreach ($comments as $comment) {
 				?>
@@ -96,9 +99,9 @@ $index = (array_search($article->getId(), $article_list));
 										<a class="btn float-right py-0 text-success" href="#" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé par le modérateur"><i data-feather="check-circle"></i> </a>
 
 									<?php
-									} else{
+									} else {
 									?>
-									<a class="btn float-right py-0 text-muted" href="../public/index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
+										<a class="btn float-right py-0 text-muted" href="../public/index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
 									<?php
 									}
 									?>
