@@ -44,13 +44,22 @@ class BackController extends Controller
     public function addArticle(Parameter $post)
     {
         if ($this->checkAdmin()) {
-            if ($post->get('submit')) {
+            if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
                 $errors = $this->validation->validate($post, 'Article');
                 if ($this->articleDAO->checkArticleTitle($post)) {
                     $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
                 }
                 if (!$errors) {
-                    $this->articleDAO->addArticle($post, $this->session->get('id'));
+                    if ($post->get('publish')) {
+                        $status = 1;
+                    }
+                    if ($post->get('toCorrect')) {
+                        $status = 2;
+                    }
+                    if ($post->get('draft')) {
+                        $status = 0;
+                    }
+                    $this->articleDAO->addArticle($post, $this->session->get('id'), $status);
                     /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
                     $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
                     header('Location: ../public/index.php?route=administration');
