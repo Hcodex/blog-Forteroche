@@ -1,4 +1,4 @@
-<?php $this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
+<?php $this->title = "Billet simple pour l'Alaska - Admin"; ?>
 
 <main role="main">
 
