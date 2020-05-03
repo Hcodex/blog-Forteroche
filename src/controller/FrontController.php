@@ -7,6 +7,17 @@ use App\config\Parameter;
 class FrontController extends Controller
 {
 
+    private function checkLoggedIn()
+    {
+        if (!$this->session->get('pseudo')) {
+            $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
+            header('Location: ../public/index.php?route=login');
+            exit();
+        } else {
+            return true;
+        }
+    }
+
 
     public function home()
     {
@@ -92,12 +103,14 @@ class FrontController extends Controller
 
     public function addComment(Parameter $post, $articleId)
     {
-        if ($post->get('submit')) {
+        if ($this->checkLoggedIn()) {
+              if ($post->get('submit')) {
             $userId = $this->session->get('id');
             $this->commentDAO->addComment($post, $articleId, $userId);
             $this->session->set('success_message', '<Strong>Votre commentaire a été ajouté</strong>');
             header("Location: " . $_SERVER["HTTP_REFERER"]);
             exit();
+        }
         }
         $article = $this->articleDAO->getArticle($articleId);
        

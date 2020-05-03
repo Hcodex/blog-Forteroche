@@ -53,10 +53,9 @@ $index = (array_search($article->getId(), $article_list));
 			<h2 class="title text-primary"><?= htmlspecialchars($article->getTitle()); ?></h2>
 			<?= $article->getContent(); ?>
 		</div>
-		<div class="container">
-			<h2 class="text-primary">Commenter</h2>
-			<?php include('form_comment.php'); ?>
-		</div>
+		<?php
+		if ($this->session->get('pseudo')) include('form_comment.php');
+		?>
 	</section>
 
 
