@@ -77,7 +77,7 @@ class FrontController extends Controller
 
     public function roman()
     {
-        $articles = $this->articleDAO->getArticles();
+        $articles = $this->articleDAO->getPublishedArticles();
         return $this->view->render('roman', [
             'articles' => $articles
         ]);
@@ -85,7 +85,7 @@ class FrontController extends Controller
 
     public function article($articleId)
     {
-        $articles = $this->articleDAO->getArticles();
+        $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
 
         return $this->view->render('single', [

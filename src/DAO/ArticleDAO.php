@@ -74,6 +74,29 @@ class ArticleDAO extends DAO
         return $articles;
     }
 
+    public function getPublishedArticles()
+    {
+        $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at FROM article INNER JOIN user ON article.user_id = user.id WHERE article.status = 1 ORDER BY article.id DESC ';
+        $result = $this->createQuery($sql);
+        $articles = [];
+        foreach ($result as $row){
+            $articleId = $row['id'];
+            $picture = $row['picture'];
+            $row['picture_file_name'] = $picture;
+            if (file_exists(ARTICLE_THUMB_DIR.$picture) && $picture != NULL){
+                $row['thumbail'] =  ARTICLE_THUMB_DIR.$picture;
+                $row['picture'] =  ARTICLE_IMG_DIR.$picture;
+            }
+            else{
+                $row['thumbail'] = DEFAULT_ARTICLE_IMG;
+                $row['picture'] =  DEFAULT_ARTICLE_IMG;
+            }
+            $articles[$articleId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $articles;
+    }
+
     public function getArticle($articleId)
     {
         $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
