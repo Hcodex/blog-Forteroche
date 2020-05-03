@@ -28,6 +28,8 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
     </div>
 
     <div class="text-center">
-        <input type="submit" class="btn btn-primary" value="Publier" id="submit" name="submit">
+        <input type="submit" class="btn btn-primary" value="Sauvegarder brouillon" id="draft" name="draft">
+        <input type="submit" class="btn btn-primary" value="Soumettre au correcteur" id="toCorrect" name="toCorrect">
+        <input type="submit" class="btn btn-primary" value="Publier" id="publish" name="publish">
     </div>
 </form>

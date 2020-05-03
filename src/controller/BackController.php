@@ -72,7 +72,7 @@ class BackController extends Controller
     {
         if ($this->checkAdmin()) {
             $article = $this->articleDAO->getArticle($articleId);
-            if ($post->get('submit')) {
+            if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
                 $errors = $this->validation->validate($post, 'Article');
 
                 if ($article->getTitle() !== $post->get('title')) {
@@ -81,7 +81,17 @@ class BackController extends Controller
                     }
                 }
                 if (!$errors) {
-                    $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'));
+                    if($post->get('publish')){
+                        $status = 1;
+                    }
+                    if($post->get('toCorrect')){
+                        $status = 2;
+                    }
+                    if($post->get('draft')){
+                        $status = 0;
+                    }
+
+                    $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'), $status);
                     $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
                     header('Location: ../public/index.php?route=administration');
                     exit();
@@ -110,7 +120,7 @@ class BackController extends Controller
 
     public function deleteArticle($articleId)
     {
-        if ($this->checkAdmin()) {
+        if($this->checkAdmin()) {
             $this->articleDAO->deleteArticle($articleId);
             $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
             header('Location: ../public/index.php?route=administration');
@@ -148,17 +158,15 @@ class BackController extends Controller
 
     public function editProfile(Parameter $post, $userId)
     {
-        if ($this->checkLoggedIn()) {
-            if ($post->get('submit')) {
-                $this->userDAO->editUser($post,  $userId);
-                $user = $this->userDAO->getUser($userId);
-                $this->session->set('avatar', $user->getAvatar());
-                $this->session->set('avatar_file_name', $user->getAvatarFileName());
-                $this->session->set('avatar_thumbail', $user->getThumbail());
-                $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
-                header('Location: ../public/index.php?route=profile');
-                exit();
-            }
+        if ($post->get('submit')) {
+            $this->userDAO->editUser($post,  $userId);
+            $user = $this->userDAO->getUser($userId);
+            $this->session->set('avatar', $user->getAvatar());
+            $this->session->set('avatar_file_name', $user->getAvatarFileName());
+            $this->session->set('avatar_thumbail', $user->getThumbail());
+            $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
+            header('Location: ../public/index.php?route=profile');
+            exit();
         }
     }
 }
