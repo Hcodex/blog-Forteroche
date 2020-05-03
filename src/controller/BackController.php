@@ -110,7 +110,7 @@ class BackController extends Controller
 
     public function deleteArticle($articleId)
     {
-        if($this->checkAdmin()) {
+        if ($this->checkAdmin()) {
             $this->articleDAO->deleteArticle($articleId);
             $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
             header('Location: ../public/index.php?route=administration');
@@ -148,15 +148,17 @@ class BackController extends Controller
 
     public function editProfile(Parameter $post, $userId)
     {
-        if ($post->get('submit')) {
-            $this->userDAO->editUser($post,  $userId);
-            $user = $this->userDAO->getUser($userId);
-            $this->session->set('avatar', $user->getAvatar());
-            $this->session->set('avatar_file_name', $user->getAvatarFileName());
-            $this->session->set('avatar_thumbail', $user->getThumbail());
-            $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
-            header('Location: ../public/index.php?route=profile');
-            exit();
+        if ($this->checkLoggedIn()) {
+            if ($post->get('submit')) {
+                $this->userDAO->editUser($post,  $userId);
+                $user = $this->userDAO->getUser($userId);
+                $this->session->set('avatar', $user->getAvatar());
+                $this->session->set('avatar_file_name', $user->getAvatarFileName());
+                $this->session->set('avatar_thumbail', $user->getThumbail());
+                $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
+                header('Location: ../public/index.php?route=profile');
+                exit();
+            }
         }
     }
 }
