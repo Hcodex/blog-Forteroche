@@ -104,20 +104,26 @@ class FrontController extends Controller
     public function addComment(Parameter $post, $articleId)
     {
         if ($this->checkLoggedIn()) {
-              if ($post->get('submit')) {
-            $userId = $this->session->get('id');
-            $this->commentDAO->addComment($post, $articleId, $userId);
-            $this->session->set('success_message', '<Strong>Votre commentaire a été ajouté</strong>');
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
+            if ($post->get('submit')) {
+                $errors = $this->validation->validate($post, 'Comment');
+                if (!$errors) {
+                    $userId = $this->session->get('id');
+                    $this->commentDAO->addComment($post, $articleId, $userId);
+                    $this->session->set('success_message', '<Strong>Votre commentaire a été ajouté</strong>');
+                    header("Location: " . $_SERVER["HTTP_REFERER"]);
+                    exit();
+                }
+                $this->session->set('error_message', '<Strong>Echec !</strong> Votre commentaire n\'a pas été ajouté');
+            }
         }
-        }
+        $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
-       
+
         return $this->view->render('single', [
             'article' => $article,
-
-            'post' => $post
+            'articles' => $articles,
+            'post' => $post,
+            'errors' => $errors
         ]);
     }
 }
