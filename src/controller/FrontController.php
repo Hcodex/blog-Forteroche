@@ -94,10 +94,11 @@ class FrontController extends Controller
     {
         $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
-
+        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
         return $this->view->render('single', [
             'article' => $article,
-            'articles' => $articles
+            'articles' => $articles,
+            'comments' => $comments,
         ]);
     }
 

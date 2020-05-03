@@ -53,9 +53,27 @@ $index = (array_search($article->getId(), $article_list));
 			<h2 class="title text-primary"><?= htmlspecialchars($article->getTitle()); ?></h2>
 			<?= $article->getContent(); ?>
 		</div>
-		<?php
-		if ($this->session->get('pseudo')) include('form_comment.php');
-		?>
+		<div class="container">
+			<hr>
+			<h2 class="text-primary">Commentaires</h2>
+
+			<?php
+			if ($this->session->get('pseudo')) include('form_comment.php');
+			?>
+		</div>
+		<div class="container mt-5">
+			<h3>Commentaires des lecteurs :</p>
+			<?php
+			foreach ($comments as $comment) {
+			?>
+				<h4><?= htmlspecialchars($comment->getUser()); ?></h4>
+				<p><?= htmlspecialchars($comment->getContent()); ?></p>
+				<p>Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></p>
+				<br>
+			<?php
+			}
+			?>
+		</div>
 	</section>
 
 

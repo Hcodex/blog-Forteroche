@@ -24,4 +24,17 @@ class CommentDAO extends DAO
         $this->createQuery($sql, [$userId, $post->get('content'), 0, $articleId]);
     }
 
+    public function getCommentsFromArticle($articleId)
+    {
+        $sql = 'SELECT id, user_id, content, created_at, reported FROM comment WHERE article_id = ? ORDER BY created_at DESC';
+        $result = $this->createQuery($sql, [$articleId]);
+        $comments = [];
+        foreach ($result as $row) {
+            $commentId = $row['id'];
+            $comments[$commentId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $comments;
+    }
+
 }
