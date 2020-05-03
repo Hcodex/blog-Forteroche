@@ -1,4 +1,4 @@
-<form method="post" action="../public/index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">
+<form method="post" action="../public/index.php?route=addComment&articleId=<?= htmlspecialchars($article->getId()); ?>">
     <div class="form-group">
         <label for="content">Votre commentaire</label>
         <textarea id="content" class="form-control <?= isset($errors['content']) ? 'is-invalid' : '' ?>" name="content"><?= isset($post) ? htmlspecialchars($post->get('content')) : ''; ?></textarea>

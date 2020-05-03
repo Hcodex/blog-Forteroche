@@ -62,14 +62,26 @@ $index = (array_search($article->getId(), $article_list));
 			?>
 		</div>
 		<div class="container mt-5">
-			<h3>Commentaires des lecteurs :</p>
+			<h3>Commentaires des lecteurs :</h3>
 			<?php
 			foreach ($comments as $comment) {
 			?>
-				<h4><?= htmlspecialchars($comment->getUser()); ?></h4>
-				<p><?= htmlspecialchars($comment->getContent()); ?></p>
-				<p>Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></p>
-				<br>
+				<div class="card mb-3">
+					<div class="row">
+						<div class="col">
+							<div class="card-body">
+								<div class="media">
+									<img src="<?= DEFAULT_AVATAR_IMG ?>" class="align-self-center mr-3" alt="...">
+									<div class="media-body">
+										<h5 class="mt-0"><?= htmlspecialchars($comment->getUser()); ?></h5>
+										<p><?= htmlspecialchars($comment->getContent()); ?></p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer small table-activeext-muted">Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></small></div>
+						</div>
+					</div>
+				</div>
 			<?php
 			}
 			?>
