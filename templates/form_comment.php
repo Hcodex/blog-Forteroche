@@ -1,7 +1,3 @@
-<?php
-$route = isset($post) && $post->get('id') ? 'editComment' : 'addComment';
-$submit = $route === 'addComment' ? 'Commenter' : 'Mettre à jour';
-?>
 <div class="container">
     <h2 class="text-primary">Commenter</h2>
     <form method="post" action="../public/index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">
@@ -12,7 +8,6 @@ $submit = $route === 'addComment' ? 'Commenter' : 'Mettre à jour';
                 <?= isset($errors['content']) ? $errors['content'] : ''; ?>
             </div>
         </div>
-        <input class="btn btn-primary" type="submit" value="<?= $submit; ?>" id="submit" name="submit">
-
+        <input class="btn btn-primary" type="submit" value="Commenter" id="submit" name="submit">
     </form>
 </div>
