@@ -78,6 +78,9 @@ class Router
                     case "filesdelete":
                         $this->uploadController->filesDelete($this->request->getPost());
                     break;
+                    case "addComment":
+                        $this->frontController->addComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }
