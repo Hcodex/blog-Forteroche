@@ -58,7 +58,9 @@ $index = (array_search($article->getId(), $article_list));
 			<h2 class="text-primary">Commentaires</h2>
 
 			<?php
-			if ($this->session->get('pseudo')) include('form_comment.php');
+			if ($this->session->get('pseudo')) {
+				include('form_comment.php');
+			}
 			?>
 		</div>
 		<?php

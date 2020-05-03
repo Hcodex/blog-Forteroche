@@ -119,12 +119,43 @@ class FrontController extends Controller
         }
         $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
-
+        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+        
         return $this->view->render('single', [
             'article' => $article,
             'articles' => $articles,
             'post' => $post,
-            'errors' => $errors
+            'errors' => $errors,
+            'comments' => $comments
+        ]);
+    }
+
+
+    public function editComment(Parameter $post, $articleId)
+    {
+        if ($this->checkLoggedIn()) {
+            $article = $this->articleDAO->getArticle($articleId);
+            if ($post->get('submit')) {
+                $errors = $this->validation->validate($post, 'Comment');
+                if (!$errors) {
+                    $userId = $this->session->get('id');
+                    $this->commentDAO->editComment($post, $articleId, $userId);
+                    $this->session->set('success_message', '<strong>Votre commentaire a bien été modifié</strong>');
+                    header("Location: " . $_SERVER["HTTP_REFERER"]);
+                    exit();
+                }
+                $this->session->set('error_message', '<Strong>Echec !</strong> Votre commentaire n\'a pas été mise à jour');
+            }
+        }
+        $articles = $this->articleDAO->getPublishedArticles();
+        $article = $this->articleDAO->getArticle($articleId);
+        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+        return $this->view->render('single', [
+            'article' => $article,
+            'articles' => $articles,
+            'post' => $post,
+            'errors' => $errors,
+            'comments' => $comments
         ]);
     }
 }

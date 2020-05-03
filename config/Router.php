@@ -81,6 +81,9 @@ class Router
                     case "addComment":
                         $this->frontController->addComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
+                    case "editComment":
+                        $this->frontController->editComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }
