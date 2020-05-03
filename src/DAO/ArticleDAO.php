@@ -16,6 +16,7 @@ class ArticleDAO extends DAO
         $article->setAuthor($row['pseudo']);
         $article->setCreatedAt($row['created_at']);
         $article->setUpdatedAt($row['updated_at']);
+        $article->setStatus($row['status']);
         $article->setPictureFileName($row['picture_file_name']);
         $article->setPicture($row['picture']);
         $article->setThumbail($row['thumbail']);
@@ -53,7 +54,7 @@ class ArticleDAO extends DAO
 
     public function getArticles()
     {
-        $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
+        $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at, article.status FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
         $result = $this->createQuery($sql);
         $articles = [];
         foreach ($result as $row){

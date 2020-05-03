@@ -18,6 +18,7 @@
                         <th scope="col">Image</th>
                         <th scope="col">Créé le</th>
                         <th scope="col">Mis à jour</th>
+                        <th scope="col">Statut</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -32,6 +33,7 @@
                             <td> <img src="<?=$article->getThumbail();?>" class="" width="60px" alt="Défaut"></td>
                             <td><?= htmlspecialchars($article->getCreatedAt('CONDENSED')); ?></td>
                             <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
+                            <td><?= htmlspecialchars($article->getStatus()); ?></td>
                             <td class="text-center">
                                 <a class="btn btn-primary mb-1 p-1" href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
                                 <button class="btn btn-danger p-1" onclick="setConfrimModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')" type="button" >Supprimer</button>

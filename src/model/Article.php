@@ -13,6 +13,7 @@ class Article
     private $picture_file_name;
     private $created_at;
     private $updated_at;
+    private $status;
 
     public function getId()
     {
@@ -136,5 +137,27 @@ class Article
             }
         }
     }
+
+    public function setStatus($status)
+    {
+        switch ($status){
+            case "0":
+                $this->status = "brouillon";
+            break;
+            case "1":
+                $this->status = "publié";
+            break;
+            case "2":
+                $this->status = "A relire";
+            break;
+        }
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+
 
 }
