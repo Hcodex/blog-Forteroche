@@ -70,7 +70,7 @@ class Router
                         $this->backController->deleteArticle($this->request->getGet()->get('articleId'));
                     break;
                     case "editProfile":
-                        $this->backController->editProfile($this->request->getPost(), $this->request->getSession()->get('id'));
+                        $this->backController->editProfile($this->request->getPost());
                     break;
                     case "upload":
                         $this->uploadController->upload($this->request->getPost(), $this->request->getGet()->get('upload_mode'));
