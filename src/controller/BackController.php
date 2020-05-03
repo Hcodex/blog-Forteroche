@@ -183,4 +183,31 @@ class BackController extends Controller
             }
         }
     }
+
+    public function approveComment($commentId)
+    {
+        if ($this->checkAdmin()) {
+        $this->commentDAO->approveComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+    public function deleteComment($commentId)
+    {
+        if ($this->checkAdmin()) {
+        $this->commentDAO->deleteComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+    public function archiveComment($commentId)
+    {
+        if ($this->checkAdmin()) {
+        $this->commentDAO->archiveComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        }
+    }
 }

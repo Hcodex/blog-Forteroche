@@ -84,9 +84,19 @@ class Router
                     case "editComment":
                         $this->frontController->editComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
-                    default:$this->errorController->errorNotFound();
+
                     case "reportComment":
                         $this->frontController->reportComment($this->request->getGet()->get('commentId'));
+                    break;
+                    case "approveComment":
+                        $this->backController->approveComment($this->request->getGet()->get('commentId'));
+                    break;
+                    default:$this->errorController->errorNotFound();
+                    case "deleteComment":
+                        $this->backController->deleteComment($this->request->getGet()->get('commentId'));
+                    break;
+                    case "archiveComment":
+                        $this->backController->archiveComment($this->request->getGet()->get('commentId'));
                     break;
                 }
             }

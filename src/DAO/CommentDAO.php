@@ -28,7 +28,7 @@ class CommentDAO extends DAO
 
     public function getCommentsFromArticle($articleId)
     {
-        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE article_id = ? ORDER BY created_at DESC';
+        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE article_id = ? AND comment.reported <> 3 ORDER BY created_at DESC';
         $result = $this->createQuery($sql, [$articleId]);
         $comments = [];
         foreach ($result as $row) {
@@ -48,8 +48,8 @@ class CommentDAO extends DAO
 
     public function getReportedComments()
     {
-        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported = ? ORDER BY created_at DESC';
-        $result = $this->createQuery($sql, [1]);
+        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported = ? OR reported = ? ORDER BY reported ASC, created_at DESC';
+        $result = $this->createQuery($sql, [1, 3]);
         $comments = [];
         foreach ($result as $row) {
             $commentId = $row['id'];
@@ -61,11 +61,12 @@ class CommentDAO extends DAO
 
     public function editComment(Parameter $post, $articleId, $userId)
     {
-        $sql = 'UPDATE comment SET content=:content WHERE article_id=:articleId AND user_id=:userId';
+        $sql = 'UPDATE comment SET content=:content, reported=:reported WHERE article_id=:articleId AND user_id=:userId';
         $this->createQuery($sql, [
             'content' => $post->get('content'),
             'userId' => $userId,
-            'articleId' => $articleId
+            'articleId' => $articleId,
+            'reported' => 0
         ]);
     }
 
@@ -74,4 +75,24 @@ class CommentDAO extends DAO
         $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
         $this->createQuery($sql, [1, $commentId]);
     }
+
+    public function approveComment($commentId)
+    {
+        $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
+        $this->createQuery($sql, [2, $commentId]);
+    }
+
+    public function deleteComment($commentId)
+    {
+        $sql = 'DELETE FROM comment WHERE id = ?';
+        $this->createQuery($sql, [$commentId]);
+    }
+
+    public function archiveComment($commentId)
+    {
+        $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
+        $this->createQuery($sql, [3, $commentId]);
+    }
+
 }
+

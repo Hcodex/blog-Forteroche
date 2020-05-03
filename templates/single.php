@@ -86,14 +86,19 @@ $index = (array_search($article->getId(), $article_list));
 								<div class="card-footer table-active">
 									<small class="text-muted"> Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></small>
 									<?php
-									if ($comment->isReported()) {
+									if ($comment->isReported() == 1) {
 									?>
 										<a class="btn float-right py-0 text-danger" href="#" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est déjà signalé"><i data-feather="alert-triangle"></i> </a>
 
 									<?php
-									} else {
+									} elseif ($comment->isReported() == 2) {
 									?>
-										<a class="btn float-right py-0 text-muted" href="../public/index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
+										<a class="btn float-right py-0 text-success" href="#" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé par le modérateur"><i data-feather="check-circle"></i> </a>
+
+									<?php
+									} else{
+									?>
+									<a class="btn float-right py-0 text-muted" href="../public/index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
 									<?php
 									}
 									?>
