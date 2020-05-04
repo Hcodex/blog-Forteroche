@@ -120,10 +120,6 @@ $index = (array_search($article->getId(), $article_list));
 									<?php
 									}
 									?>
-
-
-
-
 								</div>
 							</div>
 						</div>
