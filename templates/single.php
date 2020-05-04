@@ -87,12 +87,12 @@ $index = (array_search($article->getId(), $article_list));
 									<?php
 									if ($comment->isReported() == 1) {
 									?>
-										<a class="btn float-right py-0 text-danger" href="#" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est déjà signalé"><i data-feather="alert-triangle"></i> </a>
+										<span class="float-right py-0 text-danger" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est déjà signalé"><i data-feather="alert-triangle"></i> </span>
 
 									<?php
 									} elseif ($comment->isReported() == 2) {
 									?>
-										<a class="btn float-right py-0 text-success" href="#" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé par le modérateur"><i data-feather="check-circle"></i> </a>
+										<span class="float-right py-0 text-success" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé par le modérateur"><i data-feather="check-circle"></i> </span>
 
 									<?php
 									} else {
