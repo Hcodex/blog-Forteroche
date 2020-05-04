@@ -24,4 +24,15 @@ abstract class Controller
         $this->post = $this->request->getPost();
         $this->session = $this->request->getSession();
     }
+
+    public function checkLoggedIn()
+    {
+        if (!$this->session->get('pseudo')) {
+            $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
+            header('Location: ../public/index.php?route=login');
+            exit();
+        } else {
+            return true;
+        }
+    }
 }

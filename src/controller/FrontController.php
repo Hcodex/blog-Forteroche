@@ -6,19 +6,6 @@ use App\config\Parameter;
 
 class FrontController extends Controller
 {
-
-    private function checkLoggedIn()
-    {
-        if (!$this->session->get('pseudo')) {
-            $this->session->set('error_message', 'Vous devez vous connecter pour accéder à cette page');
-            header('Location: ../public/index.php?route=login');
-            exit();
-        } else {
-            return true;
-        }
-    }
-
-
     public function home()
     {
         return $this->view->render('home');
