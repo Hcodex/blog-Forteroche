@@ -31,27 +31,31 @@ class FrontController extends Controller
 
     public function register(Parameter $post)
     {
-        if ($post->get('submit')) {
-            $errors = $this->validation->validate($post, 'User');
-            if ($this->userDAO->checkUserPseudo($post)) {
-                $errors['pseudo'] = $this->userDAO->checkUserPseudo($post);
+        if (!$this->session->get('pseudo')) {
+            if ($post->get('submit')) {
+                $errors = $this->validation->validate($post, 'User');
+                if ($this->userDAO->checkUserPseudo($post)) {
+                    $errors['pseudo'] = $this->userDAO->checkUserPseudo($post);
+                }
+                if ($this->userDAO->checkUserEmail($post)) {
+                    $errors['email'] = $this->userDAO->checkUserEmail($post);
+                }
+                if (!$errors) {
+                    $this->session->set('success_message', '<strong>Cotre compte a été créé avec succès</strong>');
+                    $success = $this->userDAO->register($post);
+                } else {
+                    $this->session->set('error_message', '<strong>Erreur dans le formulaire. </strong>Votre compte n\'a pas été crée');
+                }
+                return $this->view->render('register', [
+                    'post' => $post,
+                    'errors' => $errors,
+                    'success' => $success
+                ]);
             }
-            if ($this->userDAO->checkUserEmail($post)) {
-                $errors['email'] = $this->userDAO->checkUserEmail($post);
-            }
-            if (!$errors) {
-                $this->session->set('success_message', '<strong>Cotre compte a été créé avec succès</strong>');
-                $success = $this->userDAO->register($post);
-            } else {
-                $this->session->set('error_message', '<strong>Erreur dans le formulaire. </strong>Votre compte n\'a pas été crée');
-            }
-            return $this->view->render('register', [
-                'post' => $post,
-                'errors' => $errors,
-                'success' => $success
-            ]);
+            return $this->view->render('register');
         }
-        return $this->view->render('register');
+        header('Location: ../public/index.php?route=profile');
+        exit();
     }
 
     public function login(Parameter $post)
@@ -120,7 +124,7 @@ class FrontController extends Controller
         $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
-        
+
         return $this->view->render('single', [
             'article' => $article,
             'articles' => $articles,
