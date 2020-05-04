@@ -68,10 +68,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Pseudo</th>
-                        <th scope="col">Commentaire</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Action</th>
+                        <th class="col-sm-2" scope="col">Pseudo</th>
+                        <th class="col-sm-7"scope="col">Commentaire</th>
+                        <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
+                        <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,7 +82,7 @@
                             <tr>
                                 <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                                 <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                                <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                                <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
                                 <td class="text-center">
                                     <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                         <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
@@ -111,10 +111,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Pseudo</th>
-                        <th scope="col">Commentaire</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Action</th>
+                        <th class="col-sm-2" scope="col">Pseudo</th>
+                        <th class="col-sm-7"scope="col">Commentaire</th>
+                        <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
+                        <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,7 +125,7 @@
                             <tr>
                                 <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                                 <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                                <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                                <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
                                 <td class="text-center">
                                     <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
                                     <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
@@ -151,10 +151,10 @@
             <table class="table table-striped">
                 <thead>
                     <tr class="text-center">
-                        <th scope="col">Pseudo</th>
-                        <th scope="col">Commentaire</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Action</th>
+                        <th class="col-sm-2" scope="col">Pseudo</th>
+                        <th class="col-sm-7"scope="col">Commentaire</th>
+                        <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
+                        <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -165,7 +165,7 @@
                             <tr>
                                 <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                                 <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                                <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                                <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
                                 <td class="text-center">
                                     <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                         <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
