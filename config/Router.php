@@ -98,6 +98,9 @@ class Router
                     case "archiveComment":
                         $this->backController->archiveComment($this->request->getGet()->get('commentId'));
                     break;
+                    case "hideComment":
+                        $this->backController->hideComment($this->request->getGet()->get('commentId'));
+                    break;
                 }
             }
             else{

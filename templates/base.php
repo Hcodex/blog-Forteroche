@@ -166,17 +166,11 @@
 		$('.custom-select>option').removeAttr('selected')
 	});
 
-	function setArticleConfirmModal(data) {
+	function setConfirmModal(data) {
 		//you can do anything with data, or pass more data to this function. i set this data to modal header for example
-		$("#articleConfirmModal #confirmBtn").attr('href', data);
-		$("#articleConfirmModal").modal();
-	}
-
-	function setCommentConfirmModal(data) {
-		//you can do anything with data, or pass more data to this function. i set this data to modal header for example
-		$("#commentConfirmModal #confirmBtn").attr('href', '../public/index.php?route=deleteComment&commentId='+data);
-		$("#commentConfirmModal #archiveBtn").attr('href', '../public/index.php?route=archiveComment&commentId='+data);
-		$("#commentConfirmModal").modal();
+		event.preventDefault();
+		$("#confirmModal #confirmBtn").attr('href', data);
+		$("#confirmModal").modal();
 	}
 
 	$('.comment-text-area').on("input", function() {

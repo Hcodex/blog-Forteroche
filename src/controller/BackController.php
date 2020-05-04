@@ -210,4 +210,13 @@ class BackController extends Controller
         header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
     }
+
+    public function hideComment($commentId)
+    {
+        if ($this->checkAdmin()) {
+        $this->commentDAO->hideComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        }
+    }
 }

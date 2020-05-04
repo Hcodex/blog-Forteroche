@@ -35,8 +35,12 @@
                             <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
                             <td><?= htmlspecialchars($article->getStatus()); ?></td>
                             <td class="text-center">
-                                <a class="btn btn-primary mb-1 p-1" href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
-                                <button class="btn btn-danger p-1" onclick="setArticleConfirmModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')" type="button">Supprimer</button>
+                                <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
+                                    <i class="text-success" data-feather="edit" data-toggle="tooltip" data-placement="bottom" title="Editer"></i>
+                                </a>
+                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')">
+                                    <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                </a>
                             </td>
                         </tr>
                     <?php
@@ -44,26 +48,6 @@
                     ?>
                 </tbody>
             </table>
-        </div>
-
-        <div id="articleConfirmModal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression Article</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Attention, l'article sélectionné va être supprimé définitivement !</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <section>
@@ -78,8 +62,51 @@
 
     <section>
         <div class="container pb-5">
-            <h2 class="text-primary">Commentaires signalés</h2>
+            <h2 class="text-primary">Commentaires</h2>
 
+            <h3 class="h4 mt-4">Commentaires signalés</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">Commentaire</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($comments as $comment) {
+                        if ($comment->isReported() == 1) {
+                    ?>
+                            <tr>
+                                <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                                <td><?= htmlspecialchars($comment->getContent()) ?></td>
+                                <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                                <td class="text-center">
+                                    <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+                                    </a>
+                                    <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
+                                    </a>
+                                    <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+                                    </a>
+                                    <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                    <?php
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+
+            <h3 class="h4 mt-4">Commentaires approuvés</h3>
 
             <table class="table table-striped">
                 <thead>
@@ -93,56 +120,112 @@
                 <tbody>
                     <?php
                     foreach ($comments as $comment) {
+                        if ($comment->isReported() == 2) {
                     ?>
-                        <tr>
-                            <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
-                            <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                            <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
-
-
-                            <td class="text-center">
-                                <?php if ($comment->isReported() != 3) {
-                                ?>
-                                    <a class="btn btn-primary mb-1 p-1" href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">Approuver</a>
-                                    <button class="btn btn-warning mb-1 p-1" onclick="setCommentConfirmModal('<?= $comment->getId(); ?>')" type="button" data-toggle="tooltip" data-placement="bottom" title="Archiver ou supprimer un commentaire">
-                                    <i data-feather="trash"></i> / <i data-feather="save"></i>
-                                </button>
-                                <?php
-                                } else {
-                                ?>
-                                    <i class="text-success" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est archivé"></i> <button class="btn btn-danger mb-1 p-1" onclick="setCommentConfirmModal('<?= $comment->getId(); ?>')" type="button">Supprimer</button> 
-                                <?php
-                                }
-                                ?>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                                <td><?= htmlspecialchars($comment->getContent()) ?></td>
+                                <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                                <td class="text-center">
+                                    <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
+                                    <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
+                                    </a>
+                                    <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+                                    </a>
+                                    <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                    </a>
+                                </td>
+                            </tr>
                     <?php
+                        }
                     }
                     ?>
                 </tbody>
             </table>
+
+            <h3 class="h4 mt-4">Commentaires masqués</h3>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">Commentaire</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($comments as $comment) {
+                        if ($comment->isReported() == 3 || $comment->isReported() == 4) {
+                    ?>
+                            <tr>
+                                <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                                <td><?= htmlspecialchars($comment->getContent()) ?></td>
+                                <td><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                                <td class="text-center">
+                                    <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+                                    </a>
+                                    <i class="text-success" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est masqué"></i>
+                                    <?php if ($comment->isReported() == 4) {
+                                    ?>
+                                        <i class="text-success" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est archivé"></i>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                            <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+                                        </a>
+                                    <?php
+                                    }
+                                    ?>
+                                    <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                    <?php
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+
+
+
         </div>
 
-        <div id="commentConfirmModal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression Commentaire</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Attention, le commentaire sélectionné va être supprimé définitivement !</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a id="archiveBtn" href="" type="button" class="btn btn-warning">Archiver</a>
-                        <a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                    </div>
+
+
+
+
+
+
+    </section>
+
+
+    <div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Attention, l'élément sélectionné va être supprimé définitivement !</p>
+                </div>
+                <div class="modal-footer">
+                    <a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
 </main>

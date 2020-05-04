@@ -28,8 +28,8 @@ class CommentDAO extends DAO
 
     public function getCommentsFromArticle($articleId)
     {
-        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE article_id = ? AND comment.reported <> 3 ORDER BY created_at DESC';
-        $result = $this->createQuery($sql, [$articleId]);
+        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE article_id = ? AND comment.reported <> ? AND comment.reported <> ? ORDER BY created_at DESC';
+        $result = $this->createQuery($sql, [$articleId, 3, 4]);
         $comments = [];
         foreach ($result as $row) {
             $commentId = $row['id'];
@@ -48,8 +48,8 @@ class CommentDAO extends DAO
 
     public function getReportedComments()
     {
-        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported = ? OR reported = ? ORDER BY reported ASC, created_at DESC';
-        $result = $this->createQuery($sql, [1, 3]);
+        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported <> ? ORDER BY reported ASC, created_at DESC';
+        $result = $this->createQuery($sql, [0]);
         $comments = [];
         foreach ($result as $row) {
             $commentId = $row['id'];
@@ -89,6 +89,12 @@ class CommentDAO extends DAO
     }
 
     public function archiveComment($commentId)
+    {
+        $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
+        $this->createQuery($sql, [4, $commentId]);
+    }
+
+    public function hideComment($commentId)
     {
         $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
         $this->createQuery($sql, [3, $commentId]);
