@@ -21,74 +21,72 @@ class BackController extends Controller
 
     public function administration()
     {
-        if ($this->checkAdmin()) {
-            $articles = $this->articleDAO->getArticles();
-            $comments = $this->commentDAO->getReportedComments();
+        $this->checkAdmin();
+        $articles = $this->articleDAO->getArticles();
+        $comments = $this->commentDAO->getReportedComments();
 
-            $commentsReported = array();
-            $commentsApproved = array();
-            $commentsHided = array();
+        $commentsReported = array();
+        $commentsApproved = array();
+        $commentsHided = array();
 
-            foreach ($comments as $comment) {
-                if ($comment->isReported() == 1) {
-                    $commentsReported[] = $comment;
-                } elseif ($comment->isReported() == 2) {
-                    $commentsApproved[] = $comment;
-                } elseif ($comment->isReported() == 3 || $comment->isReported() == 4) {
-                    $commentsHided[] = $comment;
-                }
+        foreach ($comments as $comment) {
+            if ($comment->isReported() == 1) {
+                $commentsReported[] = $comment;
+            } elseif ($comment->isReported() == 2) {
+                $commentsApproved[] = $comment;
+            } elseif ($comment->isReported() == 3 || $comment->isReported() == 4) {
+                $commentsHided[] = $comment;
             }
+        }
 
-            /*
+        /*
             echo '<pre>';
             print_r($commentsReported);
             print_r($commentsApproved);
             print_r($commentsHided);
             die();
             */
-            return $this->view->render('administration', [
-                'articles' => $articles,
-                'commentsReported' => $commentsReported,
-                'commentsApproved' => $commentsApproved,
-                'commentsHided' => $commentsHided
-            ]);
-        }
+        return $this->view->render('administration', [
+            'articles' => $articles,
+            'commentsReported' => $commentsReported,
+            'commentsApproved' => $commentsApproved,
+            'commentsHided' => $commentsHided
+        ]);
     }
 
 
     public function addArticle(Parameter $post)
     {
-        if ($this->checkAdmin()) {
-            if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
-                $errors = $this->validation->validate($post, 'Article');
-                if ($this->articleDAO->checkArticleTitle($post)) {
-                    $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
-                }
-                if (!$errors) {
-                    if ($post->get('publish')) {
-                        $status = 1;
-                    }
-                    if ($post->get('toCorrect')) {
-                        $status = 2;
-                    }
-                    if ($post->get('draft')) {
-                        $status = 0;
-                    }
-                    $this->articleDAO->addArticle($post, $this->session->get('id'), $status);
-                    /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
-                    $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
-                    header('Location: ../public/index.php?route=administration');
-                    exit();
-                } else {
-                    $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
-                    return $this->view->render('add_article', [
-                        'post' => $post,
-                        'errors' => $errors
-                    ]);
-                }
-            } else {
-                return $this->view->render('add_article');
+        $this->checkAdmin();
+        if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
+            $errors = $this->validation->validate($post, 'Article');
+            if ($this->articleDAO->checkArticleTitle($post)) {
+                $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
             }
+            if (!$errors) {
+                if ($post->get('publish')) {
+                    $status = 1;
+                }
+                if ($post->get('toCorrect')) {
+                    $status = 2;
+                }
+                if ($post->get('draft')) {
+                    $status = 0;
+                }
+                $this->articleDAO->addArticle($post, $this->session->get('id'), $status);
+                /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
+                $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
+                header('Location: ../public/index.php?route=administration');
+                exit();
+            } else {
+                $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
+                return $this->view->render('add_article', [
+                    'post' => $post,
+                    'errors' => $errors
+                ]);
+            }
+        } else {
+            return $this->view->render('add_article');
         }
     }
 
@@ -143,26 +141,23 @@ class BackController extends Controller
 
     public function deleteArticle($articleId)
     {
-        if ($this->checkAdmin()) {
-            $this->articleDAO->deleteArticle($articleId);
-            $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
-            header('Location: ../public/index.php?route=administration');
-            exit();
-        }
+        $this->checkAdmin();
+        $this->articleDAO->deleteArticle($articleId);
+        $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
+        header('Location: ../public/index.php?route=administration');
+        exit();
     }
 
     public function profile()
     {
-        if ($this->checkLoggedIn()) {
-            return $this->view->render('profile');
-        }
+        $this->checkLoggedIn();
+        return $this->view->render('profile');
     }
 
     public function logout()
     {
-        if ($this->checkLoggedIn()) {
-            $this->logoutOrDelete('logout');
-        }
+        $this->checkLoggedIn();
+        $this->logoutOrDelete('logout');
     }
 
     private function logoutOrDelete($param)
