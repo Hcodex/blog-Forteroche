@@ -91,7 +91,6 @@ class Router
                     case "approveComment":
                         $this->backController->approveComment($this->request->getGet()->get('commentId'));
                     break;
-                    default:$this->errorController->errorNotFound();
                     case "deleteComment":
                         $this->backController->deleteComment($this->request->getGet()->get('commentId'));
                     break;
@@ -101,6 +100,7 @@ class Router
                     case "hideComment":
                         $this->backController->hideComment($this->request->getGet()->get('commentId'));
                     break;
+                    default:$this->errorController->errorNotFound();
                 }
             }
             else{
