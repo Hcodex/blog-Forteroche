@@ -147,6 +147,7 @@ class BackController extends Controller
             $this->articleDAO->deleteArticle($articleId);
             $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
             header('Location: ../public/index.php?route=administration');
+            exit();
         }
     }
 
@@ -202,6 +203,7 @@ class BackController extends Controller
             $this->commentDAO->approveComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
         }
     }
 
@@ -211,6 +213,7 @@ class BackController extends Controller
             $this->commentDAO->deleteComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
         }
     }
 
@@ -220,6 +223,7 @@ class BackController extends Controller
             $this->commentDAO->archiveComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
         }
     }
 
@@ -229,6 +233,7 @@ class BackController extends Controller
             $this->commentDAO->hideComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
             header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
         }
     }
 }
