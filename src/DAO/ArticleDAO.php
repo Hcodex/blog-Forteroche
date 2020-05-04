@@ -119,6 +119,10 @@ class ArticleDAO extends DAO
 
     public function deleteArticle($articleId)
     {
+        $sql = 'UPDATE comment SET article_id = ? WHERE article_id= ? AND reported = ? ';
+        $this->createQuery($sql, [NULL,  $articleId, 4]);
+        $sql = 'DELETE FROM comment WHERE article_id = ?';
+        $this->createQuery($sql, [$articleId]);
         $sql = 'DELETE FROM article WHERE id = ?';
         $this->createQuery($sql, [$articleId]);
     }
