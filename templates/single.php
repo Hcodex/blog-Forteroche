@@ -3,8 +3,8 @@
 
 <?php
 $article_list = array();
-foreach ($articles as $article2) {
-	array_push($article_list, $article2->getId());
+foreach ($articles as $articleIndex) {
+	array_push($article_list, $articleIndex->getId());
 }
 $index = (array_search($article->getId(), $article_list));
 ?>
@@ -141,9 +141,9 @@ $index = (array_search($article->getId(), $article_list));
 				<div class="modal-body">
 					<div class="list-group">
 						<?php
-						foreach ($articles as $article2) {
+						foreach ($articles as $articleIndex) {
 						?>
-							<a href="../public/index.php?route=article&articleId=<?= $article2->getId() ?>" class="list-group-item list-group-item-action <?= $article2->getId() === $article->getId() ? 'active' : ''; ?>"><?= $article2->getTitle() ?></a>
+							<a href="../public/index.php?route=article&articleId=<?= $articleIndex->getId() ?>" class="list-group-item list-group-item-action <?= $articleIndex->getId() === $article->getId() ? 'active' : ''; ?>"><?= $articleIndex->getTitle() ?></a>
 						<?php
 						}
 						?>
