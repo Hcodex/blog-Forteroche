@@ -168,5 +168,6 @@ class FrontController extends Controller
         $this->commentDAO->reportComment($commentId);
         $this->session->set('success_message', '<strong>Commentaire signalé</strong>');
         header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit();
     }
 }

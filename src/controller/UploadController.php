@@ -61,6 +61,7 @@ class UploadController extends Controller
 			exit();
 		}
 		header('Location: ../public/index.php?route=forbiden');
+		exit();
 	}
 
 	public function fileValidation($file, $extension)
@@ -235,5 +236,6 @@ class UploadController extends Controller
 
 		}
 		header('Location: ../public/index.php?route=forbiden');
+		exit();
 	}
 }
