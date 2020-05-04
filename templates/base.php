@@ -108,90 +108,109 @@
 			</div>
 		</div>
 	<?php } ?>
-</body>
 
-<footer class="bg-secondary">
-	<div class="footer-copyright bg-dark text-white text-center py-3">
-		<p>2020 © Tous droits réservés | <a href="index.php?route=mentions_legales">Mentions légales</a> | <a href="index.php?route=politique_confidentialite">Politique de confidentialité</a></p>
-		<p class="my-0">Avertissement : Ce site est un projet d'étude, l'intégralité de son contenu est purement fictif</p>
-	</div>
-</footer>
+    <div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Attention, l'élément sélectionné va être supprimé définitivement !</p>
+                </div>
+                <div class="modal-footer">
+                    <a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<footer class="bg-secondary">
+		<div class="footer-copyright bg-dark text-white text-center py-3">
+			<p>2020 © Tous droits réservés | <a href="index.php?route=mentions_legales">Mentions légales</a> | <a href="index.php?route=politique_confidentialite">Politique de confidentialité</a></p>
+			<p class="my-0">Avertissement : Ce site est un projet d'étude, l'intégralité de son contenu est purement fictif</p>
+		</div>
+	</footer>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script>
-	feather.replace();
-	$(window).scroll(function() {
-		$('nav').toggleClass('scrolled', $(this).scrollTop() > 50);
-	});
-	tinymce.init({
-		selector: '.tinyMCE',
-		plugins: 'code autoresize',
-		toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
-			'bullist numlist outdent indent  |' + 'forecolor backcolor emoticons | help |' + 'code',
-		toolbar_mode: 'floating',
-		tinycomments_mode: 'embedded',
-		tinycomments_author: 'Author name',
-	});
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script>
+		feather.replace();
+		$(window).scroll(function() {
+			$('nav').toggleClass('scrolled', $(this).scrollTop() > 50);
+		});
+		tinymce.init({
+			selector: '.tinyMCE',
+			plugins: 'code autoresize',
+			toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+				'bullist numlist outdent indent  |' + 'forecolor backcolor emoticons | help |' + 'code',
+			toolbar_mode: 'floating',
+			tinycomments_mode: 'embedded',
+			tinycomments_author: 'Author name',
+		});
 
-	$("#img-select-btn").click(function() {
-		$("#picture_file_name").val($('.custom-select>option[selected="selected"]').attr('data-filename'));
-		$("#picked_img").attr('src', $(".img-select.selected").attr('src'));
-		$('#image_manager').modal('hide');
+		$("#img-select-btn").click(function() {
+			$("#picture_file_name").val($('.custom-select>option[selected="selected"]').attr('data-filename'));
+			$("#picked_img").attr('src', $(".img-select.selected").attr('src'));
+			$('#image_manager').modal('hide');
 
-	});
+		});
 
-	$(".img-select").click(function() {
-		$val = $(this).attr('data-img')
-		$('.custom-select>option[data-filename="' + $val + '"]').attr('selected') ?
-			$('.custom-select>option[data-filename="' + $val + '"]').removeAttr('selected') : $('.custom-select>option[data-filename="' + $val + '"]').attr('selected', 'selected');
-		$(this).toggleClass('border border-primary selected');
-		$('.img-select.selected').length == 1 ?
-			$("#img-select-btn").removeClass('disabled') : $("#img-select-btn").addClass('disabled', 'disabled');
-		$('.custom-select>option[selected="selected"]').length < 1 ?
-			$(".img-delete-btn").attr('disabled', 'disabled') : $(".img-delete-btn").removeAttr('disabled');
-	});
+		$(".img-select").click(function() {
+			$val = $(this).attr('data-img')
+			$('.custom-select>option[data-filename="' + $val + '"]').attr('selected') ?
+				$('.custom-select>option[data-filename="' + $val + '"]').removeAttr('selected') : $('.custom-select>option[data-filename="' + $val + '"]').attr('selected', 'selected');
+			$(this).toggleClass('border border-primary selected');
+			$('.img-select.selected').length == 1 ?
+				$("#img-select-btn").removeClass('disabled') : $("#img-select-btn").addClass('disabled', 'disabled');
+			$('.custom-select>option[selected="selected"]').length < 1 ?
+				$(".img-delete-btn").attr('disabled', 'disabled') : $(".img-delete-btn").removeAttr('disabled');
+		});
 
-	$('.custom-file input').change(function(e) {
-		if (e.target.files.length) {
-			$(this).next('.custom-file-label').html(e.target.files[0].name);
+		$('.custom-file input').change(function(e) {
+			if (e.target.files.length) {
+				$(this).next('.custom-file-label').html(e.target.files[0].name);
+			}
+		});
+
+
+		$('#image_manager').on('hide.bs.modal', function(e) {
+			$('.img-select.selected').removeClass('selected border-primary border');
+			$('.custom-select>option').removeAttr('selected')
+		});
+
+		function setConfirmModal(data) {
+			//you can do anything with data, or pass more data to this function. i set this data to modal header for example
+			event.preventDefault();
+			$("#confirmModal #confirmBtn").attr('href', data);
+			$("#confirmModal").modal();
 		}
-	});
 
+		$('.comment-text-area').on("input", function() {
+			var maxlength = $(this).attr("maxlength");
+			var currentLength = $(this).val().length;
 
-	$('#image_manager').on('hide.bs.modal', function(e) {
-		$('.img-select.selected').removeClass('selected border-primary border');
-		$('.custom-select>option').removeAttr('selected')
-	});
+			if (currentLength >= maxlength) {
+				$('#char_counter').text(currentLength + "/" + maxlength + 'max')
+				$('#char_counter').removeClass('text-muted');
+				$('#char_counter').addClass('text-danger');
+			} else {
+				$('#char_counter').text(currentLength + "/" + maxlength + 'max')
+				$('#char_counter').addClass('text-muted');
+				$('#char_counter').removeClass('text-danger');
+			}
+		});
 
-	function setConfirmModal(data) {
-		//you can do anything with data, or pass more data to this function. i set this data to modal header for example
-		event.preventDefault();
-		$("#confirmModal #confirmBtn").attr('href', data);
-		$("#confirmModal").modal();
-	}
-
-	$('.comment-text-area').on("input", function() {
-		var maxlength = $(this).attr("maxlength");
-		var currentLength = $(this).val().length;
-
-		if (currentLength >= maxlength) {
-			$('#char_counter').text(currentLength + "/" + maxlength + 'max')
-			$('#char_counter').removeClass('text-muted');
-			$('#char_counter').addClass('text-danger');
-		} else {
-			$('#char_counter').text(currentLength + "/" + maxlength + 'max')
-			$('#char_counter').addClass('text-muted');
-			$('#char_counter').removeClass('text-danger');
-		}
-	});
-
-	$(function() {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
-</script>
+		$(function() {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 
 </body>
 
