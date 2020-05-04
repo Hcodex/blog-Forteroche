@@ -11,6 +11,7 @@ class Comment
     private $reported;
     private $pseudo;
     private $avatar;
+    private $article_id;
 
     public function getId()
     {
@@ -104,6 +105,16 @@ class Comment
     public function setPseudo($pseudo)
     {
         $this->pseudo = $pseudo;
+    }
+
+    public function getArticleId()
+    {
+        return $this->article_id;
+    }
+
+    public function setArticleId($article_id)
+    {
+        $this->article_id= $article_id;
     }
 
 }

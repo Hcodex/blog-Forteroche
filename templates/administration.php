@@ -69,38 +69,40 @@
                 <thead>
                     <tr class="text-center">
                         <th class="col-sm-2" scope="col">Pseudo</th>
-                        <th class="col-sm-7"scope="col">Commentaire</th>
+                        <th class="col-sm-7" scope="col">Commentaire</th>
                         <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
                         <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($comments as $comment) {
-                        if ($comment->isReported() == 1) {
+                    foreach ($commentsReported as $comment) {
                     ?>
-                            <tr>
-                                <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
-                                <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                                <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
-                                <td class="text-center">
-                                    <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
-                                    </a>
-                                    <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
-                                    </a>
-                                    <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
-                                    </a>
-                                    <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
-                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
-                                    </a>
+                        <tr>
+                            <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                            <td>
+                                <a href="../public/index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
+                                    <?= htmlspecialchars($comment->getContent()) ?>
+                                </a>
+                            </td>
+                            <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                            <td class="text-center">
+                                <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                    <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+                                </a>
+                                <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                    <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
+                                </a>
+                                <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                    <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+                                </a>
+                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                    <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                </a>
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                     <?php
-                        }
                     }
                     ?>
                 </tbody>
@@ -112,35 +114,37 @@
                 <thead>
                     <tr class="text-center">
                         <th class="col-sm-2" scope="col">Pseudo</th>
-                        <th class="col-sm-7"scope="col">Commentaire</th>
+                        <th class="col-sm-7" scope="col">Commentaire</th>
                         <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
                         <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($comments as $comment) {
-                        if ($comment->isReported() == 2) {
+                    foreach ($commentsApproved as $comment) {
                     ?>
-                            <tr>
-                                <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
-                                <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                                <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
-                                <td class="text-center">
-                                    <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
-                                    <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
-                                    </a>
-                                    <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
-                                    </a>
-                                    <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
-                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                            <td>
+                                <a href="../public/index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
+                                    <?= htmlspecialchars($comment->getContent()) ?>
+                                </a>
+                            </td>
+                            <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                            <td class="text-center">
+                                <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
+                                <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                    <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
+                                </a>
+                                <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                    <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+                                </a>
+                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                    <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                </a>
+                            </td>
+                        </tr>
                     <?php
-                        }
                     }
                     ?>
                 </tbody>
@@ -152,44 +156,42 @@
                 <thead>
                     <tr class="text-center">
                         <th class="col-sm-2" scope="col">Pseudo</th>
-                        <th class="col-sm-7"scope="col">Commentaire</th>
+                        <th class="col-sm-7" scope="col">Commentaire</th>
                         <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
                         <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($comments as $comment) {
-                        if ($comment->isReported() == 3 || $comment->isReported() == 4) {
+                    foreach ($commentsHided as $comment) {
                     ?>
-                            <tr>
-                                <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
-                                <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                                <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
-                                <td class="text-center">
-                                    <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+                        <tr>
+                            <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                            <td><?= htmlspecialchars($comment->getContent()) ?></td>
+                            <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                            <td class="text-center">
+                                <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                    <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+                                </a>
+                                <i class="text-success" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est masqué"></i>
+                                <?php if ($comment->isReported() == 4) {
+                                ?>
+                                    <i class="text-success" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est archivé"></i>
+                                <?php
+                                } else {
+                                ?>
+                                    <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                        <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                     </a>
-                                    <i class="text-success" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est masqué"></i>
-                                    <?php if ($comment->isReported() == 4) {
-                                    ?>
-                                        <i class="text-success" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est archivé"></i>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
-                                            <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
-                                        </a>
-                                    <?php
-                                    }
-                                    ?>
-                                    <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
-                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <?php
+                                }
+                                ?>
+                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                    <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+                                </a>
+                            </td>
+                        </tr>
                     <?php
-                        }
                     }
                     ?>
                 </tbody>

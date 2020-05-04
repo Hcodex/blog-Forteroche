@@ -36,12 +36,37 @@ class BackController extends Controller
         if ($this->checkAdmin()) {
             $articles = $this->articleDAO->getArticles();
             $comments = $this->commentDAO->getReportedComments();
+
+            $commentsReported = array();
+            $commentsApproved = array();
+            $commentsHided = array();
+
+            foreach ($comments as $comment) {
+                if ($comment->isReported() == 1) {
+                    $commentsReported[] = $comment;
+                } elseif ($comment->isReported() == 2) {
+                    $commentsApproved[] = $comment;
+                } elseif ($comment->isReported() == 3 || $comment->isReported() == 4) {
+                    $commentsHided[] = $comment;
+                }
+            }
+
+            /*
+            echo '<pre>';
+            print_r($commentsReported);
+            print_r($commentsApproved);
+            print_r($commentsHided);
+            die();
+            */
             return $this->view->render('administration', [
                 'articles' => $articles,
-                'comments' => $comments,
+                'commentsReported' => $commentsReported,
+                'commentsApproved' => $commentsApproved,
+                'commentsHided' => $commentsHided
             ]);
         }
     }
+
 
     public function addArticle(Parameter $post)
     {
@@ -81,51 +106,50 @@ class BackController extends Controller
 
     public function editArticle(Parameter $post, $articleId)
     {
-        if ($this->checkAdmin()) {
-            $article = $this->articleDAO->getArticle($articleId);
-            if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
-                $errors = $this->validation->validate($post, 'Article');
+        $this->checkAdmin();
+        $article = $this->articleDAO->getArticle($articleId);
+        if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
+            $errors = $this->validation->validate($post, 'Article');
 
-                if ($article->getTitle() !== $post->get('title')) {
-                    if ($this->articleDAO->checkArticleTitle($post)) {
-                        $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
-                    }
+            if ($article->getTitle() !== $post->get('title')) {
+                if ($this->articleDAO->checkArticleTitle($post)) {
+                    $errors['unique'] = $this->articleDAO->checkArticleTitle($post);
                 }
-                if (!$errors) {
-                    if ($post->get('publish')) {
-                        $status = 1;
-                    }
-                    if ($post->get('toCorrect')) {
-                        $status = 2;
-                    }
-                    if ($post->get('draft')) {
-                        $status = 0;
-                    }
+            }
+            if (!$errors) {
+                if ($post->get('publish')) {
+                    $status = 1;
+                }
+                if ($post->get('toCorrect')) {
+                    $status = 2;
+                }
+                if ($post->get('draft')) {
+                    $status = 0;
+                }
 
-                    $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'), $status);
-                    $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
-                    header('Location: ../public/index.php?route=administration');
-                    exit();
-                } else {
-                    $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
-                    return $this->view->render('edit_article', [
-                        'post' => $post,
-                        'errors' => $errors
-                    ]);
-                }
+                $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'), $status);
+                $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
+                header('Location: ../public/index.php?route=administration');
+                exit();
             } else {
-                $post->set('id', $article->getId());
-                $post->set('title', $article->getTitle());
-                $post->set('picture_file_name', $article->getPictureFileName());
-                $post->set('picture', $article->getPicture());
-                $post->set('thumbail', $article->getThumbail());
-                $post->set('content', $article->getContent());
-                $post->set('author', $article->getAuthor());
-
+                $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
                 return $this->view->render('edit_article', [
                     'post' => $post,
+                    'errors' => $errors
                 ]);
             }
+        } else {
+            $post->set('id', $article->getId());
+            $post->set('title', $article->getTitle());
+            $post->set('picture_file_name', $article->getPictureFileName());
+            $post->set('picture', $article->getPicture());
+            $post->set('thumbail', $article->getThumbail());
+            $post->set('content', $article->getContent());
+            $post->set('author', $article->getAuthor());
+
+            return $this->view->render('edit_article', [
+                'post' => $post,
+            ]);
         }
     }
 
@@ -187,36 +211,36 @@ class BackController extends Controller
     public function approveComment($commentId)
     {
         if ($this->checkAdmin()) {
-        $this->commentDAO->approveComment($commentId);
-        $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
+            $this->commentDAO->approveComment($commentId);
+            $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
     }
 
     public function deleteComment($commentId)
     {
         if ($this->checkAdmin()) {
-        $this->commentDAO->deleteComment($commentId);
-        $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
+            $this->commentDAO->deleteComment($commentId);
+            $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
     }
 
     public function archiveComment($commentId)
     {
         if ($this->checkAdmin()) {
-        $this->commentDAO->archiveComment($commentId);
-        $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
+            $this->commentDAO->archiveComment($commentId);
+            $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
     }
 
     public function hideComment($commentId)
     {
         if ($this->checkAdmin()) {
-        $this->commentDAO->hideComment($commentId);
-        $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
+            $this->commentDAO->hideComment($commentId);
+            $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
         }
     }
 }

@@ -232,9 +232,6 @@ class UploadController extends Controller
 			header("Location: " . $_SERVER["HTTP_REFERER"]);
 			exit();
 		}
-		else{
-
-		}
 		header('Location: ../public/index.php?route=forbiden');
 		exit();
 	}
