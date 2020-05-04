@@ -12,7 +12,7 @@
                 <?php
                 foreach ($articles as $article) {
                 ?>
-                    <div class="col-sm-4">
+                    <div class="col-md-6 col-lg-4">
                         <div class="card">
                             <img class="d-none" src="<?= $article->getThumbail() ?>" alt="Card image cap">
                             <div class="card-img-top" style="background-image: url('<?= $article->getThumbail() ?>')" alt="Card image cap"></div>

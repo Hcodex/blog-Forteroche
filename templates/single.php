@@ -21,28 +21,24 @@ $index = (array_search($article->getId(), $article_list));
 			if ($index + 1 < count($article_list)) {
 				$previous_article = $article_list[$index + 1];
 			?>
-				<a class="nav-link active" href="../public/index.php?route=article&articleId=<?= $previous_article; ?>">Chapitre précédent</a>
-			<?php
-			} else {
-			?>
-				<a class="nav-link active disabled text-secondary" href="">Chapitre précédent</a>
+				<a class="nav-link px-0" href="../public/index.php?route=article&articleId=<?= $previous_article; ?>">
+					<i data-feather="chevron-left" data-toggle="tooltip" data-placement="bottom" title="Chapitre précédent"></i>
+				</a>
 			<?php
 			}
 			?>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#" data-toggle="modal" data-target="#modalchapitres">Sélection du chapitre</a>
+			<a class="nav-link  px-0" href="#" data-toggle="modal" data-target="#modalchapitres">Sélection du chapitre</a>
 		</li>
 		<li class="nav-item">
 			<?php
 			if ($index > 0) {
 				$next_article = $article_list[$index - 1];
 			?>
-				<a class="nav-link" href="../public/index.php?route=article&articleId=<?= $next_article; ?>">Chapitre suivant</a>
-			<?php
-			} else {
-			?>
-				<a class="nav-link disabled text-secondary" href="">Chapitre suivant</a>
+				<a class="nav-link px-0" href="../public/index.php?route=article&articleId=<?= $next_article; ?>">
+					<i data-feather="chevron-right" data-toggle="tooltip" data-placement="bottom" title="Chapitre suivant"></i>
+				</a>
 			<?php
 			}
 			?>
@@ -103,20 +99,21 @@ $index = (array_search($article->getId(), $article_list));
 									?>
 										<a class="btn float-right py-0 text-muted" href="../public/index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
 									<?php
-									}if ( $this->session->get('role') === 'admin') {	
+									}
+									if ($this->session->get('role') === 'admin') {
 									?>
-                                    <a class="btn float-right py-0" href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
-                                    </a>
-                                    <a class="btn float-right py-0" href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
-                                    </a>
-                                    <a class="btn float-right py-0" href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
-                                        <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
-                                    </a>
-                                    <a class="btn float-right py-0" href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
-                                        <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
-                                    </a>
+										<a class="btn float-right py-0" href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+											<i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+										</a>
+										<a class="btn float-right py-0" href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+											<i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
+										</a>
+										<a class="btn float-right py-0" href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+											<i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+										</a>
+										<a class="btn float-right py-0" href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+											<i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+										</a>
 									<?php
 									}
 									?>
