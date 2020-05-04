@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="d-lg-flex align-items-center my-5 first">
-			<div class=" w-100 "><img src="../public/img/mountains.png" class="" width="100%" alt="..."></div>
+			<div class=" w-100 "><img src="img/mountains.png" class="" width="100%" alt="..."></div>
 			<div class="w-100 text-justify p-5">
 				<h2 class="text-center text-primary pb-3">Un roman à découvrir en ligne</h2>
 				<p>Ce roman sera intégralement publié en ligne sous forme d'épisodes, au rythme moyen d'un épisode par semaine. Pourquoi ce choix ? 
@@ -27,7 +27,7 @@
 
 		<div class="d-lg-flex align-items-center my-5 second">
 			<div class="w-100 order-lg-1">
-				<img src="../public/img/glacier.png" class="" width="100%" alt="...">
+				<img src="img/glacier.png" class="" width="100%" alt="...">
 			</div>
 			<div class="w-100 text-justify p-5 order-lg-0">
 				<h2 class="text-center text-primary pb-3">Un tableau de bord individuel</h2>

@@ -9,7 +9,7 @@ foreach ($comments as $comment) {
 $submit = $route === 'addComment' ? 'Ajouter' : 'Mettre à jour';
 ?>
 
-<form method="post" action="../public/index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">
+<form method="post" action="index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">
     <div class="form-group">
         <label for="content">Votre commentaire</label>
         <textarea id="content" class="comment-text-area form-control <?= isset($errors['content']) ? 'is-invalid' : '' ?>" name="content" maxlength=600><?= isset($post) ? htmlspecialchars($post->get('content')) : $mycomment; ?></textarea>

@@ -27,7 +27,7 @@
                     foreach ($articles as $article) {
                     ?>
                         <tr>
-                            <td><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>"><?= htmlspecialchars($article->getTitle()); ?></a></td>
+                            <td><a href="index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>"><?= htmlspecialchars($article->getTitle()); ?></a></td>
                             <td><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
                             <td><?= htmlspecialchars($article->getAuthor()); ?></td>
                             <td> <img src="<?= $article->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
@@ -35,10 +35,10 @@
                             <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
                             <td><?= htmlspecialchars($article->getStatus()); ?></td>
                             <td class="text-center">
-                                <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
+                                <a href="index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
                                     <i class="text-success" data-feather="edit" data-toggle="tooltip" data-placement="bottom" title="Editer"></i>
                                 </a>
-                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')">
+                                <a href="#" onclick="setConfirmModal('index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
                             </td>
@@ -81,22 +81,22 @@
                         <tr>
                             <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                             <td>
-                                <a href="../public/index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
+                                <a href="index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
                                     <?= htmlspecialchars($comment->getContent()) ?>
                                 </a>
                             </td>
                             <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
                             <td class="text-center">
-                                <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                                 </a>
-                                <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                <a href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
                                 </a>
-                                <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                <a href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                 </a>
-                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                <a href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
 
@@ -126,20 +126,20 @@
                         <tr>
                             <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                             <td>
-                                <a href="../public/index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
+                                <a href="index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
                                     <?= htmlspecialchars($comment->getContent()) ?>
                                 </a>
                             </td>
                             <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
                             <td class="text-center">
                                 <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
-                                <a href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                <a href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
                                 </a>
-                                <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                <a href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                 </a>
-                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                <a href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
                             </td>
@@ -170,7 +170,7 @@
                             <td><?= htmlspecialchars($comment->getContent()) ?></td>
                             <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
                             <td class="text-center">
-                                <a href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                                 </a>
                                 <i class="text-success" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est masqué"></i>
@@ -180,13 +180,13 @@
                                 <?php
                                 } else {
                                 ?>
-                                    <a href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                    <a href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
                                         <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                     </a>
                                 <?php
                                 }
                                 ?>
-                                <a href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                <a href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
                             </td>

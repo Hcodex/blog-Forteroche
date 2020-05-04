@@ -41,7 +41,7 @@ class FrontController extends Controller
             }
             return $this->view->render('register');
         }
-        header('Location: ../public/index.php?route=profile');
+        header('Location: index.php?route=profile');
         exit();
     }
 
@@ -59,7 +59,7 @@ class FrontController extends Controller
                 $this->session->set('avatar', $result['result']['avatar']);
                 $this->session->set('avatar_thumbail', $result['result']['avatar_thumbail']);
                 $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
-                header('Location: ../public/index.php?route=profile');
+                header('Location: index.php?route=profile');
                 exit();
             } else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');

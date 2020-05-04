@@ -21,18 +21,18 @@ class UploadController extends Controller
 					$img_dir = ARTICLE_IMG_DIR;
 					$thumb_dir = ARTICLE_THUMB_DIR;
 					$this->setDir($img_dir, $thumb_dir);
-					$callback = "Location: ../public/index.php?route=administration";
+					$callback = "Location: index.php?route=administration";
 					break;
 				case "avatar":
 					$img_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
 					$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
 					$this->setDir($img_dir, $thumb_dir);
 					$limit = $this->uploadLimit($img_dir, 3);
-					$callback = "Location: ../public/index.php?route=profile#picked_img";
+					$callback = "Location: index.php?route=profile#picked_img";
 					break;
 				default:
 					$this->session->set('error_message', '<Strong>Erreur interne</strong>');
-					header('Location: ../public/index.php?route=administration');
+					header('Location: index.php?route=administration');
 					exit();
 			}
 
@@ -60,7 +60,7 @@ class UploadController extends Controller
 			header($callback);
 			exit();
 		}
-		header('Location: ../public/index.php?route=forbiden');
+		header('Location: index.php?route=forbiden');
 		exit();
 	}
 
@@ -232,7 +232,7 @@ class UploadController extends Controller
 			header("Location: " . $_SERVER["HTTP_REFERER"]);
 			exit();
 		}
-		header('Location: ../public/index.php?route=forbiden');
+		header('Location: index.php?route=forbiden');
 		exit();
 	}
 }

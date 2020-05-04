@@ -7,8 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Bootstrap CSS -->
-	<link href="../public/css/bootstrap.css" rel="stylesheet">
-	<link rel="stylesheet" href="../public/css/styles.css">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/styles.css">
 
 	<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 

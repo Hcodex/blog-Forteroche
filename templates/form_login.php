@@ -1,4 +1,4 @@
-<form  method="post" action="../public/index.php?route=login">
+<form  method="post" action="index.php?route=login">
         <div class="form-group">
             <label for="email">Addresse mail</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="name@exemple.com" value="<?= isset($post) ? htmlspecialchars($post->get('email')): ''; ?>" required>

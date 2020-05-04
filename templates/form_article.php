@@ -5,7 +5,7 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 ?>
 
 
-<form method="post" action="../public/index.php?route=<?= $route; ?>">
+<form method="post" action="index.php?route=<?= $route; ?>">
     <input id="id" name="id" type="hidden" value="<?= isset($post) ? htmlspecialchars($post->get('id')) : ''; ?>">
     <div class="form-group">
         <label for="title">Titre</label>

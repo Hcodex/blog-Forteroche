@@ -12,7 +12,7 @@ class BackController extends Controller
         $this->checkLoggedIn();
         if (!($this->session->get('role') === 'admin')) {
             $this->session->set('error_message', 'Vous n\'avez pas le droit d\'accéder à cette page');
-            header('Location: ../public/index.php?route=profile');
+            header('Location: index.php?route=profile');
             exit();
         } else {
             return true;
@@ -76,7 +76,7 @@ class BackController extends Controller
                 $this->articleDAO->addArticle($post, $this->session->get('id'), $status);
                 /* $this->session->set('add_article', 'Le nouvel article a bien été ajouté');*/
                 $this->session->set('success_message', '<Strong>Articlé créé avec succès !</strong>');
-                header('Location: ../public/index.php?route=administration');
+                header('Location: index.php?route=administration');
                 exit();
             } else {
                 $this->session->set('error_message', '<Strong>L\'article n\'a pas été créé : </strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
@@ -115,7 +115,7 @@ class BackController extends Controller
 
                 $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'), $status);
                 $this->session->set('success_message', '<strong>L\' article a bien été modifié</strong>');
-                header('Location: ../public/index.php?route=administration');
+                header('Location: index.php?route=administration');
                 exit();
             } else {
                 $this->session->set('error_message', '<strong>L\' article n\'a pas été modifié</strong> ' . $errors['unique'] . $errors['title'] . $errors['content']);
@@ -144,7 +144,7 @@ class BackController extends Controller
         $this->checkAdmin();
         $this->articleDAO->deleteArticle($articleId);
         $this->session->set('success_message', '<strong>L\'article a bien été supprimé</strong>');
-        header('Location: ../public/index.php?route=administration');
+        header('Location: index.php?route=administration');
         exit();
     }
 
@@ -170,7 +170,7 @@ class BackController extends Controller
         } else {
             $this->session->set($param, 'Votre compte a bien été supprimé');
         }
-        header('Location: ../public/index.php');
+        header('Location: index.php');
         exit();
     }
 
@@ -186,7 +186,7 @@ class BackController extends Controller
             $this->session->set('avatar_file_name', $user->getAvatarFileName());
             $this->session->set('avatar_thumbail', $user->getThumbail());
             $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
-            header('Location: ../public/index.php?route=profile');
+            header('Location: index.php?route=profile');
             exit();
         }
     }

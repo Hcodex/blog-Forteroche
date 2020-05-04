@@ -12,7 +12,7 @@
 
             <p class="text-center text-success font-weight-bold"><?= isset($success) ? $success : ''; ?></p>
             
-            <form method="post" action="../public/index.php?route=inscription">
+            <form method="post" action="index.php?route=inscription">
 
                 <div class="form-group">
                     <label for="email">Addresse mail</label>

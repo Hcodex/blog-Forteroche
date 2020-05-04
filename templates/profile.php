@@ -11,7 +11,7 @@
             include('image_manager.php');
             include('form_upload.php');
             ?>
-            <form method="post" action='../public/index.php?route=editProfile'>
+            <form method="post" action='index.php?route=editProfile'>
                 <div class="form-group">
                     <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?=  htmlspecialchars($this->session->get('avatar_file_name')) ?>">
 
@@ -28,5 +28,5 @@
 
         </div>
     </section>
-    <a href="../public/index.php">Retour à l'accueil</a>
+    <a href="index.php">Retour à l'accueil</a>
 </main>

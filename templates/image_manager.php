@@ -51,7 +51,7 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
                 <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
             <!-- Modal body -->
-            <form method="post" action="../public/index.php?route=filesdelete">
+            <form method="post" action="index.php?route=filesdelete">
                 <div class="modal-body">
                     <select class="custom-select" id="file_selector" name="file_selector[]" multiple>
                         <?php

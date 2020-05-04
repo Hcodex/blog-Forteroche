@@ -21,7 +21,7 @@ $index = (array_search($article->getId(), $article_list));
 			if ($index + 1 < count($article_list)) {
 				$previous_article = $article_list[$index + 1];
 			?>
-				<a class="nav-link px-0" href="../public/index.php?route=article&articleId=<?= $previous_article; ?>">
+				<a class="nav-link px-0" href="index.php?route=article&articleId=<?= $previous_article; ?>">
 					<i data-feather="chevron-left" data-toggle="tooltip" data-placement="bottom" title="Chapitre précédent"></i>
 				</a>
 			<?php
@@ -36,7 +36,7 @@ $index = (array_search($article->getId(), $article_list));
 			if ($index > 0) {
 				$next_article = $article_list[$index - 1];
 			?>
-				<a class="nav-link px-0" href="../public/index.php?route=article&articleId=<?= $next_article; ?>">
+				<a class="nav-link px-0" href="index.php?route=article&articleId=<?= $next_article; ?>">
 					<i data-feather="chevron-right" data-toggle="tooltip" data-placement="bottom" title="Chapitre suivant"></i>
 				</a>
 			<?php
@@ -97,21 +97,21 @@ $index = (array_search($article->getId(), $article_list));
 									<?php
 									} else {
 									?>
-										<a class="btn float-right py-0 text-muted" href="../public/index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
+										<a class="btn float-right py-0 text-muted" href="index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
 									<?php
 									}
 									if ($this->session->get('role') === 'admin') {
 									?>
-										<a class="btn float-right py-0" href="../public/index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+										<a class="btn float-right py-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
 											<i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
 										</a>
-										<a class="btn float-right py-0" href="../public/index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+										<a class="btn float-right py-0" href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
 											<i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
 										</a>
-										<a class="btn float-right py-0" href="../public/index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+										<a class="btn float-right py-0" href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
 											<i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
 										</a>
-										<a class="btn float-right py-0" href="#" onclick="setConfirmModal('../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+										<a class="btn float-right py-0" href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
 											<i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
 										</a>
 									<?php
@@ -143,7 +143,7 @@ $index = (array_search($article->getId(), $article_list));
 						<?php
 						foreach ($articles as $articleIndex) {
 						?>
-							<a href="../public/index.php?route=article&articleId=<?= $articleIndex->getId() ?>" class="list-group-item list-group-item-action <?= $articleIndex->getId() === $article->getId() ? 'active' : ''; ?>"><?= $articleIndex->getTitle() ?></a>
+							<a href="index.php?route=article&articleId=<?= $articleIndex->getId() ?>" class="list-group-item list-group-item-action <?= $articleIndex->getId() === $article->getId() ? 'active' : ''; ?>"><?= $articleIndex->getTitle() ?></a>
 						<?php
 						}
 						?>
