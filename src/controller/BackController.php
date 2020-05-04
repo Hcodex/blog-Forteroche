@@ -177,58 +177,53 @@ class BackController extends Controller
 
     public function editProfile(Parameter $post)
     {
-        if ($this->checkLoggedIn()) {
-            if ($post->get('submit')) {
-                $userId = $this->session->get('id');
-                $this->userDAO->editUser($post,  $userId);
-                $user = $this->userDAO->getUser($userId);
-                $this->session->set('avatar', $user->getAvatar());
-                $this->session->set('avatar_file_name', $user->getAvatarFileName());
-                $this->session->set('avatar_thumbail', $user->getThumbail());
-                $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
-                header('Location: ../public/index.php?route=profile');
-                exit();
-            }
+        $this->checkLoggedIn();
+        if ($post->get('submit')) {
+            $userId = $this->session->get('id');
+            $this->userDAO->editUser($post,  $userId);
+            $user = $this->userDAO->getUser($userId);
+            $this->session->set('avatar', $user->getAvatar());
+            $this->session->set('avatar_file_name', $user->getAvatarFileName());
+            $this->session->set('avatar_thumbail', $user->getThumbail());
+            $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
+            header('Location: ../public/index.php?route=profile');
+            exit();
         }
     }
 
     public function approveComment($commentId)
     {
-        if ($this->checkAdmin()) {
-            $this->commentDAO->approveComment($commentId);
-            $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
-        }
+        $this->checkAdmin();
+        $this->commentDAO->approveComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit();
     }
 
     public function deleteComment($commentId)
     {
-        if ($this->checkAdmin()) {
-            $this->commentDAO->deleteComment($commentId);
-            $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
-        }
+        $this->checkAdmin();
+        $this->commentDAO->deleteComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit();
     }
 
     public function archiveComment($commentId)
     {
-        if ($this->checkAdmin()) {
-            $this->commentDAO->archiveComment($commentId);
-            $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
-        }
+        $this->checkAdmin();
+        $this->commentDAO->archiveComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit();
     }
 
     public function hideComment($commentId)
     {
-        if ($this->checkAdmin()) {
-            $this->commentDAO->hideComment($commentId);
-            $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
-        }
+        $this->checkAdmin();
+        $this->commentDAO->hideComment($commentId);
+        $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        exit();
     }
 }
