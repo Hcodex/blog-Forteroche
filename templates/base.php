@@ -109,25 +109,25 @@
 		</div>
 	<?php } ?>
 
-    <div id="confirmModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Attention, l'élément sélectionné va être supprimé définitivement !</p>
-                </div>
-                <div class="modal-footer">
-                    <a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div id="confirmModal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Attention, l'élément sélectionné va être supprimé définitivement !</p>
+				</div>
+				<div class="modal-footer">
+					<a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<footer class="bg-secondary">
 		<div class="footer-copyright bg-dark text-white text-center py-3">
@@ -137,7 +137,7 @@
 	</footer>
 
 
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script>
@@ -210,6 +210,50 @@
 		$(function() {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
+
+
+
+		$("#myForm").submit(function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				type: 'POST',
+				url: 'index?route=ajax',
+				data: new FormData(this),
+				contentType: false,
+            	processData: false,
+				xhr: function(){
+				//upload Progress
+				var xhr = $.ajaxSettings.xhr();
+				if (xhr.upload) {
+					xhr.upload.addEventListener('progress', function(event) {
+						var percent = 0;
+						var position = event.loaded || event.position;
+						var total = event.total;
+						if (event.lengthComputable) {
+							percent = Math.ceil(position / total * 100);
+						}
+						if (percent == 100){
+							$('.progress-bar').text("Envoi terminé");
+							$('.progress-bar').width(percent +"%")
+						}
+						else {
+							$('.progress-bar').text(percent +"%");
+							$('.progress-bar').width(percent +"%");
+						}
+					}, true);
+				}
+				return xhr;
+				},
+				//end upload progress
+				success: function(data) {
+					alert(data);
+				},
+				error: function() {
+					alert('La requête n\'a pas abouti');
+				}
+			});
+		});
 	</script>
 
 </body>

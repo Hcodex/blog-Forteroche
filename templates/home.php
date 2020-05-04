@@ -2,10 +2,10 @@
 
 <main role="main">
 	<div class="cover-header">
-			<h1>Billet simple pour l'Alaska</h1>
-			<p>Le roman en ligne de Jean Forteroche</p>
-			<a class="btn btn-primary" href="index.php?route=roman" role="button">Lire le roman en ligne</a>
-			<a class="btn btn-secondary" href="#page-content" role="button">Plus d'infos</a>
+		<h1>Billet simple pour l'Alaska</h1>
+		<p>Le roman en ligne de Jean Forteroche</p>
+		<a class="btn btn-primary" href="index.php?route=roman" role="button">Lire le roman en ligne</a>
+		<a class="btn btn-secondary" href="#page-content" role="button">Plus d'infos</a>
 	</div>
 
 	<section id="page-content" class="mb-5 pb-5">
@@ -20,8 +20,8 @@
 			<div class=" w-100 "><img src="img/mountains.png" class="" width="100%" alt="..."></div>
 			<div class="w-100 text-justify p-5">
 				<h2 class="text-center text-primary pb-3">Un roman à découvrir en ligne</h2>
-				<p>Ce roman sera intégralement publié en ligne sous forme d'épisodes, au rythme moyen d'un épisode par semaine. Pourquoi ce choix ? 
-					L'intention de l'auteur est de placer le personnage principal sur la même ligne temporelle que le lecteur.  Simon sera confronté à des choix difficile qu'il doit murrir, et ses décision lui prendront du temps. Cette attente fera évoluer la psychologie du lecteur et du personnage au même rythme ancrant cette fiction dans le réel et renforcant l'expérience de lecture.</p>
+				<p>Ce roman sera intégralement publié en ligne sous forme d'épisodes, au rythme moyen d'un épisode par semaine. Pourquoi ce choix ?
+					L'intention de l'auteur est de placer le personnage principal sur la même ligne temporelle que le lecteur. Simon sera confronté à des choix difficile qu'il doit murrir, et ses décision lui prendront du temps. Cette attente fera évoluer la psychologie du lecteur et du personnage au même rythme ancrant cette fiction dans le réel et renforcant l'expérience de lecture.</p>
 			</div>
 		</div>
 
@@ -37,10 +37,11 @@
 					<li>Commenter les épisodes</li>
 				</ul>
 				<div class="text-center">
-					<a class="btn btn-primary" type="button" href="index.php?route=inscription">Inscription</a>     
+					<a class="btn btn-primary" type="button" href="index.php?route=inscription">Inscription</a>
 				</div>
 			</div>
 
 		</div>
 	</section>
+	<?php include('testajaxform.php') ?>
 </main>

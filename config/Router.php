@@ -84,7 +84,6 @@ class Router
                     case "editComment":
                         $this->frontController->editComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
-
                     case "reportComment":
                         $this->frontController->reportComment($this->request->getGet()->get('commentId'));
                     break;
@@ -99,6 +98,9 @@ class Router
                     break;
                     case "hideComment":
                         $this->backController->hideComment($this->request->getGet()->get('commentId'));
+                    break;
+                    case "ajax":
+                        $this->uploadController->_ajaxTest();
                     break;
                     default:$this->errorController->errorNotFound();
                 }
