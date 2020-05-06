@@ -136,10 +136,11 @@
 		</div>
 	</footer>
 
-
+	<script src="js/init.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
 	<script>
 		feather.replace();
 		$(window).scroll(function() {
@@ -221,36 +222,44 @@
 				url: 'index?route=ajax',
 				data: new FormData(this),
 				contentType: false,
-            	processData: false,
-				xhr: function(){
-				//upload Progress
-				var xhr = $.ajaxSettings.xhr();
-				if (xhr.upload) {
-					xhr.upload.addEventListener('progress', function(event) {
-						var percent = 0;
-						var position = event.loaded || event.position;
-						var total = event.total;
-						if (event.lengthComputable) {
-							percent = Math.ceil(position / total * 100);
-						}
-						if (percent == 100){
-							$('.progress-bar').text("Envoi terminé");
-							$('.progress-bar').width(percent +"%")
-						}
-						else {
-							$('.progress-bar').text(percent +"%");
-							$('.progress-bar').width(percent +"%");
-						}
-					}, true);
-				}
-				return xhr;
+				processData: false,
+				xhr: function() {
+					//upload Progress
+					var xhr = $.ajaxSettings.xhr();
+					if (xhr.upload) {
+						xhr.upload.addEventListener('progress', function(event) {
+							var percent = 0;
+							var position = event.loaded || event.position;
+							var total = event.total;
+							if (event.lengthComputable) {
+								percent = Math.ceil(position / total * 100);
+							}
+							if (percent == 100) {
+								$('.progress-bar').text("Envoi terminé, compression en cours...");
+								$('.progress-bar').width(percent + "%");
+								$('.progress-bar').addClass('progress-bar-striped progress-bar-animated');
+
+							} else {
+								$('.progress-bar').text(percent + "%");
+								$('.progress-bar').width(percent + "%");
+							}
+						}, true);
+					}
+					return xhr;
 				},
 				//end upload progress
 				success: function(data) {
-					alert(data);
+					$('.progress-bar').removeClass('progress-bar-striped progress-bar-animated');
+					$('.progress-bar').text("Terminé");
+					const response = JSON.parse(data);
+					if (response["error"] === null) {
+						showAlert("<strong>Upload réussi</strong>", "success", 5000);
+					} else {
+						showAlert(response["message"], "danger", 5000);
+					}
 				},
 				error: function() {
-					alert('La requête n\'a pas abouti');
+					showAlert("<strong>Erreur</strong>, la reqête n'a pu aboutir", "danger", 5000);
 				}
 			});
 		});

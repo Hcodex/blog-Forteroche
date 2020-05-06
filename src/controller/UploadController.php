@@ -57,6 +57,9 @@ class UploadController extends Controller
 					$this->session->set('error_message', '<Strong>Echec de l\'upload</strong>');
 				}
 			}
+			else{
+			$this->session->set('error_message', '<Strong>Echec de l\'upload </strong>' . $errors . $limit);
+			}
 			header($callback);
 			exit();
 		}
@@ -74,16 +77,13 @@ class UploadController extends Controller
 		$mime   = $img_info['mime'];
 
 		if (!in_array($extension, $extensions)) {
-			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong> Vous devez uploader un fichier de type png, gif, jpg ou jpeg');
-			return 'Erreur Type';
+			return 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
 		}
 		if ($size > $max_size) {
-			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong> Le fichier est trop gros (Max 5Mo)');
-			return 'Fichier trop lourd';
+			return 'Le fichier est trop gros (Max 5Mo)';
 		}
 		if (!$mime) {
-			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong> Le fichier est corrompu');
-			return 'Fichier corrompu';
+			return 'Le fichier est corrompu';
 		}
 	}
 
@@ -98,8 +98,7 @@ class UploadController extends Controller
 			}
 		}
 		if ($count >= $limit) {
-			$this->session->set('error_message', '<Strong>Upload impossible !</strong> Vous ne pourvez pas avoir plus de ' . $limit . ' images enregistrées');
-			return 'Max atteint';
+			return 'Vous ne pourvez pas avoir plus de ' . $limit . ' images enregistrées';
 		}
 	}
 
@@ -218,6 +217,7 @@ class UploadController extends Controller
 
 	public function filesDelete(Parameter $post)
 	{
+
 		if ($post->get('submit')) {
 			foreach ($post->get('file_selector') as $file) {
 				if (!unlink($file)) {
@@ -242,20 +242,24 @@ class UploadController extends Controller
 
 
 
-    public function _ajaxTest()
-    {   
-        $file = $_FILES['fileToUpload'];
-        var_dump($file);
-        if (move_uploaded_file($file['tmp_name'], "../public/testajax/".$file['name'])) {
-                echo "ok";
-            } else {
-                echo "Pas ok";
-            }
-    }
+	public function _ajaxTest()
+	{
 
+		$file = $_FILES['fileToUpload'];
+		$extension = strrchr($file['name'], '.');
 
+		$errors = $this->fileValidation($file, $extension);
+		if (!$errors) {
+			if (!move_uploaded_file($file['tmp_name'], "../public/testajax/" . $file['name'])) {
+				$errors = 'Erreur lors l\'envoi du fichier';
+			} elseif(!$this->imagethumb("../public/testajax/" . $file['name'], "../public/testajax/thumb/" . $file['name'], 400)) {
+				$errors = 'Erreur lors de la compression';
+			}
 
-
-
-
+		}
+		echo json_encode(array(
+			'error' =>  $errors,
+			'message' => '<Strong>Echec de l\'upload </strong>' . $errors
+		));
+	}
 }

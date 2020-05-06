@@ -158,14 +158,4 @@ class FrontController extends Controller
         exit();
     }
 
-    public function _ajaxTest()
-    {   
-        $file = $_FILES['fileToUpload'];
-        var_dump($file);
-        if (move_uploaded_file($file['tmp_name'], "../public/testajax/".$file['name'])) {
-                echo "ok";
-            } else {
-                echo "Pas ok";
-            }
-    }
 }
