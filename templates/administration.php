@@ -1,4 +1,8 @@
-<?php $this->title = "Billet simple pour l'Alaska - Admin"; ?>
+<?php
+
+use App\src\services\DateFormater;
+
+$this->title = "Billet simple pour l'Alaska - Admin"; ?>
 
 <main role="main">
 
@@ -31,8 +35,8 @@
                             <td><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
                             <td><?= htmlspecialchars($article->getAuthor()); ?></td>
                             <td> <img src="<?= $article->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
-                            <td><?= htmlspecialchars($article->getCreatedAt('CONDENSED')); ?></td>
-                            <td><?= htmlspecialchars($article->getUpdatedAt('CONDENSED')); ?></td>
+                            <td><?= DateFormater::formatCondensed(htmlspecialchars($article->getCreatedAt())); ?></td>
+                            <td><?= DateFormater::formatCondensed(htmlspecialchars($article->getUpdatedAt())); ?></td>
                             <td><?= htmlspecialchars($article->getStatus()); ?></td>
                             <td class="text-center">
                                 <a href="index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
@@ -85,7 +89,7 @@
                                     <?= htmlspecialchars($comment->getContent()) ?>
                                 </a>
                             </td>
-                            <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
@@ -130,7 +134,7 @@
                                     <?= htmlspecialchars($comment->getContent()) ?>
                                 </a>
                             </td>
-                            <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
                                 <a href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
@@ -168,7 +172,7 @@
                         <tr>
                             <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                             <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                            <td class="text-center"><?= htmlspecialchars($comment->getCreatedAt("CONDENSED")); ?></td>
+                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>

@@ -1,4 +1,8 @@
-<?php $this->title = "Billet simple pour l'Alaska - Le roman"; ?>
+<?php
+
+use App\src\services\DateFormater;
+
+$this->title = "Billet simple pour l'Alaska - Le roman"; ?>
 <main role="main">
     <div class="page-header">
         <h1 class="text-center">Le roman</h1>
@@ -22,7 +26,7 @@
                                 <a href="index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>" class="card-link">Lire la suite</a>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">Publié le : <?= htmlspecialchars($article->getCreatedAt("FR")); ?></small>
+                                <small class="text-muted">Publié le : <?= DateFormater::formatFR(htmlspecialchars($article->getCreatedAt("FR"))); ?></small>
                             </div>
                         </div>
                     </div>

@@ -48,11 +48,10 @@ class Comment
         $this->content = $content;
     }
 
-    public function getCreatedAt($format = null)
+    public function getCreatedAt()
     {
-        return $this->DateFormat($format, $this->created_at);
+        return $this->created_at;
     }
-
 
     public function setCreatedAt($created_at)
     {
@@ -68,24 +67,6 @@ class Comment
     {
         $this->reported = $reported;
     }
-
-    public function DateFormat($format, $date)
-    {
-        if ($date !== NULL){
-            switch ($format){
-                case "FR":
-                    setlocale(LC_TIME, "fr_FR");
-                    return strftime("%a %d %b %G à %Hh%M ", strtotime($date));
-                break;
-                case "CONDENSED":
-                    return date("d-m-Y à H:i", strtotime($date));
-                break;
-                default: 
-                return $date;
-            }
-        }
-    }
-
 
     public function getAvatar()
     {

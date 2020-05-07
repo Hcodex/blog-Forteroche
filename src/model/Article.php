@@ -56,24 +56,31 @@ class Article
         return $this->author;
     }
 
- 
+
     public function setAuthor($author)
     {
         $this->author = $author;
     }
 
-
+    /*
     public function getCreatedAt($format = null)
     {
        return $this->DateFormat($format, $this->created_at);
 
     }
 
+*/
+
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
 
     public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
     }
+
 
     public function getPictureFileName()
     {
@@ -109,9 +116,9 @@ class Article
     }
 
 
-    public function getUpdatedAt($format = null)
+    public function getUpdatedAt()
     {
-        return $this->DateFormat($format, $this->updated_at);
+        return $this->updated_at;
     }
 
 
@@ -120,36 +127,18 @@ class Article
         $this->updated_at = $updated_at;
     }
 
-
-    public function DateFormat($format, $date)
-    {
-        if ($date !== NULL){
-            switch ($format){
-                case "FR":
-                    setlocale(LC_TIME, "fr_FR");
-                    return strftime("%a %d %b %G à %Hh%M ", strtotime($date));
-                break;
-                case "CONDENSED":
-                    return date("d-m-Y à H:i", strtotime($date));
-                break;
-                default: 
-                return $date;
-            }
-        }
-    }
-
     public function setStatus($status)
     {
-        switch ($status){
+        switch ($status) {
             case "0":
                 $this->status = "brouillon";
-            break;
+                break;
             case "1":
                 $this->status = "publié";
-            break;
+                break;
             case "2":
                 $this->status = "A relire";
-            break;
+                break;
         }
     }
 
@@ -157,7 +146,4 @@ class Article
     {
         return $this->status;
     }
-
-
-
 }

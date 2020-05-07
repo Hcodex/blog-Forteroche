@@ -1,4 +1,8 @@
-<?php $this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
+<?php
+
+use App\src\services\DateFormater;
+
+$this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
 
 
 <?php
@@ -83,7 +87,7 @@ $index = (array_search($article->getId(), $article_list));
 									</div>
 								</div>
 								<div class="card-footer table-active">
-									<small class="text-muted"> Posté le <?= htmlspecialchars($comment->getCreatedAt("FR")); ?></small>
+									<small class="text-muted"> Posté le <?= DateFormater::formatFR(htmlspecialchars($comment->getCreatedAt())); ?></small>
 									<?php
 									if ($comment->isReported() == 1) {
 									?>
