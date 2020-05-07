@@ -89,6 +89,7 @@ class FrontController extends Controller
         $article = $this->articleDAO->getArticle($articleId);
         PictureManager::findArticlePictures($article);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+        PictureManager::findCommentsPictures($comments);
         return $this->view->render('single', [
             'article' => $article,
             'articles' => $articles,
@@ -144,7 +145,9 @@ class FrontController extends Controller
         }
         $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
+        PictureManager::findArticlePictures($article);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+        PictureManager::findCommentsPictures($comments);
         return $this->view->render('single', [
             'article' => $article,
             'articles' => $articles,

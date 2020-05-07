@@ -33,4 +33,17 @@ class PictureManager
             }
         }
     }
+
+    static function findCommentsPictures($comments)
+    {
+        foreach ($comments as $comment) {
+            $userId = $comment->getUser();
+            $picture = $comment->getAvatar();
+            if (file_exists(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture) && $picture != NULL) {
+                $comment->setAvatar(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture);
+            } else {
+                $comment->setAvatar(DEFAULT_AVATAR_IMG);
+            }
+        }
+    }
 }

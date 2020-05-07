@@ -34,13 +34,6 @@ class CommentDAO extends DAO
         $comments = [];
         foreach ($result as $row) {
             $commentId = $row['id'];
-            $userId = $row['user_id'];
-            $picture = $row['avatar'];
-            if (file_exists(AVATAR_IMG_DIR. $userId.'/thumb/' . $picture) && $picture != NULL) {
-                $row['avatar'] =  AVATAR_IMG_DIR. $userId.'/thumb/' . $picture;
-            } else {
-                $row['avatar'] = DEFAULT_AVATAR_IMG;
-            }
             $comments[$commentId] = $this->buildObject($row);
         }
         $result->closeCursor();
