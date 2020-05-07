@@ -255,6 +255,7 @@
 					if (response["error"] === null) {
 						showAlert("<strong>Upload réussi</strong>", "success", 5000);
 						$('#image_manager #file_selector').append('<option value="'+response["imageThumbail"]+'" data-filename="'+response["imageName"]+'"></option>');
+						$('#image_manager #file_selector').append('<option value="'+response["imageSrc"]+'" data-filename="'+response["imageName"]+'"></option>');
 						$('#image_manager #uploaded-img-list').append('<img class="img-select" alt="" src="'+response["imageThumbail"]+'" style=" max-width : 100%; max-height:80px" data-img="'+response["imageName"]+'">');
 
 					} else {
