@@ -157,4 +157,5 @@ class FrontController extends Controller
         header("Location: " . $_SERVER["HTTP_REFERER"]);
         exit();
     }
+
 }
