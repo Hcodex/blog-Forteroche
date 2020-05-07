@@ -56,6 +56,7 @@
             <?php
             include('image_manager.php');
             include('form_upload.php');
+            include('testajaxform.php');
             ?>
         </div>
     </section>

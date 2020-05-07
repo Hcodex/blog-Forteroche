@@ -100,7 +100,7 @@ class Router
                         $this->backController->hideComment($this->request->getGet()->get('commentId'));
                     break;
                     case "ajax":
-                        $this->uploadController->_ajaxTest();
+                        $this->uploadController->_ajaxUpload($this->request->getPost());
                     break;
                     default:$this->errorController->errorNotFound();
                 }

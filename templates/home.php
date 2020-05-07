@@ -43,5 +43,4 @@
 
 		</div>
 	</section>
-	<?php include('testajaxform.php') ?>
 </main>

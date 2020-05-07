@@ -56,9 +56,8 @@ class UploadController extends Controller
 				} else {
 					$this->session->set('error_message', '<Strong>Echec de l\'upload</strong>');
 				}
-			}
-			else{
-			$this->session->set('error_message', '<Strong>Echec de l\'upload </strong>' . $errors . $limit);
+			} else {
+				$this->session->set('error_message', '<Strong>Echec de l\'upload </strong>' . $errors . $limit);
 			}
 			header($callback);
 			exit();
@@ -238,28 +237,44 @@ class UploadController extends Controller
 
 
 
-
-
-
-
-	public function _ajaxTest()
+	public function _ajaxUpload(Parameter $post)
 	{
+		$upload_mode = $post->get('mode');
 
-		$file = $_FILES['fileToUpload'];
-		$extension = strrchr($file['name'], '.');
+		switch ($upload_mode) {
+			case "article":
+				$img_dir = ARTICLE_IMG_DIR;
+				$thumb_dir = ARTICLE_THUMB_DIR;
+				$this->setDir($img_dir, $thumb_dir);
+				break;
+			case "avatar":
+				$img_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
+				$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
+				$this->setDir($img_dir, $thumb_dir);
+				$errors = $this->uploadLimit($img_dir, 3);
+				break;
+			default:
+				$errors = "Erreur interne";
+		}
 
-		$errors = $this->fileValidation($file, $extension);
 		if (!$errors) {
-			if (!move_uploaded_file($file['tmp_name'], "../public/testajax/" . $file['name'])) {
-				$errors = 'Erreur lors l\'envoi du fichier';
-			} elseif(!$this->imagethumb("../public/testajax/" . $file['name'], "../public/testajax/thumb/" . $file['name'], 400)) {
-				$errors = 'Erreur lors de la compression';
+			$file = $_FILES['fileToUpload'];
+			$extension = strrchr($file['name'], '.');
+			$errors = $this->fileValidation($file, $extension);
+			$newName = md5(session_id() . microtime());
+			$img_src =  $img_dir . $newName . $extension;
+			$img_dest = $thumb_dir . $newName . $extension;
+			if (!$errors) {
+				if (!move_uploaded_file($file['tmp_name'], $img_dir . $newName . $extension)) {
+					$errors = 'Erreur lors l\'envoi du fichier';
+				} elseif (!$this->imagethumb($img_src, $img_dest, 400)) {
+					$errors = 'Erreur lors de la compression';
+				}
 			}
-
 		}
 		echo json_encode(array(
 			'error' =>  $errors,
-			'message' => '<Strong>Echec de l\'upload </strong>' . $errors
+			'message' => '<Strong>Echec de l\'upload </strong>' . $errors,
 		));
 	}
 }
