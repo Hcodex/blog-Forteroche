@@ -275,6 +275,9 @@ class UploadController extends Controller
 		echo json_encode(array(
 			'error' =>  $errors,
 			'message' => '<Strong>Echec de l\'upload </strong>' . $errors,
+			'imageSrc' => $img_src,
+			'imageName' => $newName. $extension,
+			'imageThumbail' => $img_dest
 		));
 	}
 }

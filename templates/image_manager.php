@@ -6,7 +6,7 @@ if ($route === "profile") {
     $default_img = DEFAULT_AVATAR_IMG;
     $current_img = $this->session->get('avatar');
     $select_btn_text = "Choisir comme avatar";
-} elseif ($route  === "editArticle")  {
+} elseif ($route  === "editArticle") {
     $dir = ARTICLE_IMG_DIR;
     $thumb_dir = ARTICLE_THUMB_DIR;
     $default_img = DEFAULT_ARTICLE_IMG;
@@ -65,19 +65,20 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
 
                         ?>
                     </select>
-                    <?php
-                    foreach ($img_list as $img) {
-                    ?>
-                        <img class="img-select" alt="" src="<?= $img['thumbail'] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img['fileName'] ?>" />
-                    <?php
-                    }
-                    ?>
+                    <div id="uploaded-img-list">
+                        <?php
+                        foreach ($img_list as $img) {
+                        ?>
+                            <img class="img-select" alt="" src="<?= $img['thumbail'] ?>" style=" max-width : 100%; max-height:80px" data-img="<?= $img['fileName'] ?>" />
+                        <?php
+                        }
+                        ?>
+                    </div>
                     <div>
                         <p class="mt-3 mb-0">Image par défaut :</p>
                         <img class="img-select" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="submit" name="submit" disabled>
                     <?

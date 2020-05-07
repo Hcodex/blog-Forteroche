@@ -163,7 +163,7 @@
 
 		});
 
-		$(".img-select").click(function() {
+		$("#uploaded-img-list").on('click', '.img-select', function() {
 			$val = $(this).attr('data-img')
 			$('.custom-select>option[data-filename="' + $val + '"]').attr('selected') ?
 				$('.custom-select>option[data-filename="' + $val + '"]').removeAttr('selected') : $('.custom-select>option[data-filename="' + $val + '"]').attr('selected', 'selected');
@@ -254,6 +254,9 @@
 					const response = JSON.parse(data);
 					if (response["error"] === null) {
 						showAlert("<strong>Upload réussi</strong>", "success", 5000);
+						$('#image_manager #file_selector').append('<option value="'+response["imageThumbail"]+'" data-filename="'+response["imageName"]+'"></option>');
+						$('#image_manager #uploaded-img-list').append('<img class="img-select" alt="" src="'+response["imageThumbail"]+'" style=" max-width : 100%; max-height:80px" data-img="'+response["imageName"]+'">');
+
 					} else {
 						showAlert(response["message"], "danger", 5000);
 					}
