@@ -27,7 +27,7 @@ class UploadController extends Controller
 					$img_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
 					$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
 					$this->setDir($img_dir, $thumb_dir);
-					$limit = $this->uploadLimit($img_dir, 3);
+					$limit = $this->uploadLimit($img_dir, AVATAR_LIMIT);
 					$callback = "Location: index.php?route=profile#picked_img";
 					break;
 				default:
@@ -66,20 +66,15 @@ class UploadController extends Controller
 
 	public function fileValidation($file, $extension)
 	{
-
-		$max_size = 5242880; //5Mo
 		$size = filesize($file['tmp_name']);
-		$extensions = array('.png', '.gif', '.jpg', '.jpeg');
 		$img_info = getimagesize($file['tmp_name']);
 		$mime   = $img_info['mime'];
 
-		if (!in_array($extension, $extensions)) {
-			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong> Vous devez uploader un fichier de type png, gif, jpg ou jpeg');
-			return 'Erreur Type';
+		if (!in_array($extension, IMG_ALLOWED_EXTENSIONS)) {
+			return 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
 		}
-		if ($size > $max_size) {
-			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong> Le fichier est trop gros (Max 5Mo)');
-			return 'Fichier trop lourd';
+		if ($size > UPLOAD_MAX_SIZE) {
+			return 'Le fichier est trop gros (Max 5Mo)';
 		}
 		if (!$mime) {
 			$this->session->set('error_message', '<Strong>Echec de l\'upload !</strong> Le fichier est corrompu');
