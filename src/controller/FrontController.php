@@ -3,6 +3,7 @@
 namespace App\src\controller;
 
 use App\config\Parameter;
+use App\src\services\PictureManager;
 
 class FrontController extends Controller
 {
@@ -76,6 +77,7 @@ class FrontController extends Controller
     public function roman()
     {
         $articles = $this->articleDAO->getPublishedArticles();
+        PictureManager::findArticlesPictures($articles);
         return $this->view->render('roman', [
             'articles' => $articles
         ]);
@@ -85,6 +87,7 @@ class FrontController extends Controller
     {
         $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
+        PictureManager::findArticlePictures($article);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
         return $this->view->render('single', [
             'article' => $article,
@@ -110,6 +113,7 @@ class FrontController extends Controller
         }
         $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
+        PictureManager::findArticlePictures($article);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
 
         return $this->view->render('single', [

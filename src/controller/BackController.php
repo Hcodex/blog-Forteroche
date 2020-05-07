@@ -3,6 +3,7 @@
 namespace App\src\controller;
 
 use App\config\Parameter;
+use App\src\services\PictureManager;
 
 class BackController extends Controller
 {
@@ -23,6 +24,7 @@ class BackController extends Controller
     {
         $this->checkAdmin();
         $articles = $this->articleDAO->getArticles();
+        PictureManager::findArticlesPictures($articles);
         $comments = $this->commentDAO->getReportedComments();
 
         $commentsReported = array();
@@ -94,6 +96,7 @@ class BackController extends Controller
     {
         $this->checkAdmin();
         $article = $this->articleDAO->getArticle($articleId);
+        PictureManager::findArticlePictures($article);
         if ($post->get('publish') || $post->get('draft') || $post->get('toCorrect')) {
             $errors = $this->validation->validate($post, 'Article');
 
