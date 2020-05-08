@@ -45,8 +45,18 @@ class ArticleDAO extends DAO
         $sql = 'SELECT COUNT(title) FROM article WHERE title = ?';
         $result = $this->createQuery($sql, [$post->get('title')]);
         $isUnique = $result->fetchColumn();
-        if($isUnique) {
+        if ($isUnique) {
             return 'Ce titre est déjà utilisé<br>';
+        }
+    }
+
+    public function checkArticle($articleId)
+    {
+        $sql = 'SELECT COUNT(*) FROM article WHERE id = ?';
+        $result = $this->createQuery($sql, [$articleId]);
+        $exist = $result->fetchColumn();
+        if ($exist) {
+            return true;
         }
     }
 
@@ -55,7 +65,7 @@ class ArticleDAO extends DAO
         $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at, article.status FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
         $result = $this->createQuery($sql);
         $articles = [];
-        foreach ($result as $row){
+        foreach ($result as $row) {
             $articleId = $row['id'];
             $articles[$articleId] = $this->buildObject($row);
         }
@@ -68,7 +78,7 @@ class ArticleDAO extends DAO
         $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at FROM article INNER JOIN user ON article.user_id = user.id WHERE article.status = 1 ORDER BY article.id DESC ';
         $result = $this->createQuery($sql);
         $articles = [];
-        foreach ($result as $row){
+        foreach ($result as $row) {
             $articleId = $row['id'];
             $articles[$articleId] = $this->buildObject($row);
         }
@@ -93,6 +103,6 @@ class ArticleDAO extends DAO
         $this->createQuery($sql, [$articleId]);
         $sql = 'DELETE FROM article WHERE id = ?';
         $this->createQuery($sql, [$articleId]);
+        return true;
     }
-
 }

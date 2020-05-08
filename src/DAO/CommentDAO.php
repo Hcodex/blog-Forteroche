@@ -55,13 +55,29 @@ class CommentDAO extends DAO
 
     public function editComment(Parameter $post, $articleId, $userId)
     {
-        $sql = 'UPDATE comment SET content=:content, reported=:reported WHERE article_id=:articleId AND user_id=:userId';
-        $this->createQuery($sql, [
-            'content' => $post->get('content'),
-            'userId' => $userId,
-            'articleId' => $articleId,
-            'reported' => 0
-        ]);
+        $sql = 'SELECT COUNT(*) FROM comment WHERE id = ? AND user_id= ?';
+        $result = $this->createQuery($sql, [$articleId, $userId]);
+        $exist = $result->fetchColumn();
+        if ($exist) {
+            $sql = 'UPDATE comment SET content=:content, reported=:reported WHERE article_id=:articleId AND user_id=:userId';
+            $this->createQuery($sql, [
+                'content' => $post->get('content'),
+                'userId' => $userId,
+                'articleId' => $articleId,
+                'reported' => 0
+            ]);
+            return true;
+        }
+    }
+
+    public function checkComment($commentId)
+    {
+        $sql = 'SELECT COUNT(*) FROM comment WHERE id = ?';
+        $result = $this->createQuery($sql, [$commentId]);
+        $exist = $result->fetchColumn();
+        if ($exist) {
+            return true;
+        }
     }
 
     public function reportComment($commentId)
@@ -93,6 +109,4 @@ class CommentDAO extends DAO
         $sql = 'UPDATE comment SET reported = ? WHERE id = ?';
         $this->createQuery($sql, [3, $commentId]);
     }
-
 }
-

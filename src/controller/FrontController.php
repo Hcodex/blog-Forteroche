@@ -56,7 +56,7 @@ class FrontController extends Controller
                 $this->session->set('role', $result['result']['name']);
                 $this->session->set('email', $post->get('email'));
                 $this->session->set('pseudo', $result['result']['pseudo']);
-                $this->session->set('avatar', $result['result']['avatar']); 
+                $this->session->set('avatar', $result['result']['avatar']);
                 $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
                 header('Location: index.php?route=profile');
                 exit();
@@ -83,16 +83,20 @@ class FrontController extends Controller
 
     public function article($articleId)
     {
-        $articles = $this->articleDAO->getPublishedArticles();
         $article = $this->articleDAO->getArticle($articleId);
-        PictureManager::findArticlePictures($article);
-        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
-        PictureManager::findCommentsPictures($comments);
-        return $this->view->render('single', [
-            'article' => $article,
-            'articles' => $articles,
-            'comments' => $comments,
-        ]);
+        if ($this->articleDAO->checkArticle($articleId)) {
+            PictureManager::findArticlePictures($article);
+            $articles = $this->articleDAO->getPublishedArticles();
+            $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+            PictureManager::findCommentsPictures($comments);
+            return $this->view->render('single', [
+                'article' => $article,
+                'articles' => $articles,
+                'comments' => $comments,
+            ]);
+        }
+        header('Location: index.php?route=roman');
+        exit();
     }
 
     public function addComment(Parameter $post, $articleId)
@@ -127,40 +131,53 @@ class FrontController extends Controller
 
     public function editComment(Parameter $post, $articleId)
     {
-        if ($this->checkLoggedIn()) {
+
+        $this->checkLoggedIn();
+        if ($this->articleDAO->checkArticle($articleId)) {
             $article = $this->articleDAO->getArticle($articleId);
             if ($post->get('submit')) {
                 $errors = $this->validation->validate($post, 'Comment');
                 if (!$errors) {
                     $userId = $this->session->get('id');
-                    $this->commentDAO->editComment($post, $articleId, $userId);
-                    $this->session->set('success_message', '<strong>Votre commentaire a bien été modifié</strong>');
+                    if ($this->commentDAO->editComment($post, $articleId, $userId)) {
+                        $this->session->set('success_message', '<strong>Votre commentaire a bien été modifié</strong>');
+                        header("Location: " . $_SERVER["HTTP_REFERER"]);
+                        exit();
+                    }
+                    $this->session->set('error_message', '<strong>Ce commentaire n\'existe pas</strong>');
                     header("Location: " . $_SERVER["HTTP_REFERER"]);
                     exit();
                 }
                 $this->session->set('error_message', '<Strong>Echec !</strong> Votre commentaire n\'a pas été mise à jour');
             }
+            $articles = $this->articleDAO->getPublishedArticles();
+            $article = $this->articleDAO->getArticle($articleId);
+            PictureManager::findArticlePictures($article);
+            $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+            PictureManager::findCommentsPictures($comments);
+            return $this->view->render('single', [
+                'article' => $article,
+                'articles' => $articles,
+                'post' => $post,
+                'errors' => $errors,
+                'comments' => $comments
+            ]);
         }
-        $articles = $this->articleDAO->getPublishedArticles();
-        $article = $this->articleDAO->getArticle($articleId);
-        PictureManager::findArticlePictures($article);
-        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
-        PictureManager::findCommentsPictures($comments);
-        return $this->view->render('single', [
-            'article' => $article,
-            'articles' => $articles,
-            'post' => $post,
-            'errors' => $errors,
-            'comments' => $comments
-        ]);
+        $this->session->set('error_message', '<strong>Edition impossible</strong>');
+        header('Location: index.php?route=roman');
+        exit();
     }
 
     public function reportComment($commentId)
     {
-        $this->commentDAO->reportComment($commentId);
-        $this->session->set('success_message', '<strong>Commentaire signalé</strong>');
-        header("Location: " . $_SERVER["HTTP_REFERER"]);
+        if ($this->commentDAO->checkComment($commentId)) {
+            $this->commentDAO->reportComment($commentId);
+            $this->session->set('success_message', '<strong>Commentaire signalé</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
+        }
+        $this->session->set('error_message', '<strong>Signalement impossible</strong>');
+        header('Location: index.php?route=roman');
         exit();
     }
-
 }
