@@ -12,7 +12,7 @@ class User
     private $role;
     private $avatar;
     private $thumbail;
-    private $avatar_file_name;
+    private $avatar_src;
 
     public function getId()
     {
@@ -76,15 +76,15 @@ class User
         $this->role = $role;
     }
 
-    public function getAvatarFileName()
+    public function getAvatarSrc()
     {
-        return $this->avatar_file_name;
+        return $this->avatar_src;
     }
 
 
-    public function setAvatarFileName($avatar_file_name)
+    public function setAvatarSrc($avatar_src)
     {
-        $this->avatar_file_name = $avatar_file_name;
+        $this->avatar_src = $avatar_src;
     }
 
     public function getAvatar()

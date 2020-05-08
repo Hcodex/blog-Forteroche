@@ -56,9 +56,7 @@ class FrontController extends Controller
                 $this->session->set('role', $result['result']['name']);
                 $this->session->set('email', $post->get('email'));
                 $this->session->set('pseudo', $result['result']['pseudo']);
-                $this->session->set('avatar_file_name', $result['result']['avatar_file_name']);
-                $this->session->set('avatar', $result['result']['avatar']);
-                $this->session->set('avatar_thumbail', $result['result']['avatar_thumbail']);
+                $this->session->set('avatar', $result['result']['avatar']); 
                 $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
                 header('Location: index.php?route=profile');
                 exit();

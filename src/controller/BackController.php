@@ -154,7 +154,12 @@ class BackController extends Controller
     public function profile()
     {
         $this->checkLoggedIn();
-        return $this->view->render('profile');
+        $userId = $this->session->get('id');
+        $user = $this->userDAO->getUser($userId);
+        PictureManager::findAvatar($user);
+        return $this->view->render('profile',[
+            'user' => $user
+        ]);
     }
 
     public function logout()
@@ -183,11 +188,9 @@ class BackController extends Controller
         $this->checkLoggedIn();
         if ($post->get('submit')) {
             $userId = $this->session->get('id');
-            $this->userDAO->editUser($post,  $userId);
             $user = $this->userDAO->getUser($userId);
+            $this->userDAO->editUser($post,  $userId);
             $this->session->set('avatar', $user->getAvatar());
-            $this->session->set('avatar_file_name', $user->getAvatarFileName());
-            $this->session->set('avatar_thumbail', $user->getThumbail());
             $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
             header('Location: index.php?route=profile');
             exit();

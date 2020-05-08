@@ -13,16 +13,14 @@
             ?>
             <form method="post" action='index.php?route=editProfile'>
                 <div class="form-group">
-                    <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?=  htmlspecialchars($this->session->get('avatar_file_name')) ?>">
-
-                <h3 class="pt-4">Email</h3>
-                <p><?= htmlspecialchars($this->session->get('email')); ?></p>
-                <h3 class="pt-4">Rôle</h3>
-                <p><?=  htmlspecialchars($this->session->get('role')); ?></p>
-
-                <div class="text-center">
-                    <input type="submit" class="btn btn-primary" value="Mettre à jour" id="submit" name="submit">
-                </div>
+                    <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?= htmlspecialchars($this->session->get('avatar')) ?>">
+                    <h3 class="pt-4">Email</h3>
+                    <p><?= htmlspecialchars($this->session->get('email')); ?></p>
+                    <h3 class="pt-4">Rôle</h3>
+                    <p><?= htmlspecialchars($this->session->get('role')); ?></p>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary" value="Mettre à jour" id="submit" name="submit">
+                    </div>
 
             </form>
 

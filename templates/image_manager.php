@@ -1,10 +1,13 @@
 <?php
+
+use App\src\services\PictureManager;
+
 $route = $this->request->getGet()->get('route');
 if ($route === "profile") {
     $dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
     $thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
     $default_img = DEFAULT_AVATAR_IMG;
-    $current_img = $this->session->get('avatar');
+    $current_img = $user->getAvatarSrc();
     $select_btn_text = "Choisir comme avatar";
 } elseif ($route  === "editArticle") {
     $dir = ARTICLE_IMG_DIR;

@@ -46,4 +46,17 @@ class PictureManager
             }
         }
     }
+
+    static function findAvatar($user)
+    {
+        $userId = $user->getId();
+        $picture = $user->getAvatar();
+        if (file_exists(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture) && $picture != NULL) {
+            $user->setAvatarSrc(AVATAR_IMG_DIR . $userId .'/' . $picture);
+            $user->setThumbail(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture);
+        } else {
+            $user->setAvatarSrc(DEFAULT_AVATAR_IMG);
+            $user->setThumbail(DEFAULT_AVATAR_IMG);
+        }
+    }
 }
