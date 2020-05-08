@@ -9,7 +9,7 @@
             <h3 class="pt-4">Avatar</h3>
             <?php
             include('image_manager.php');
-            include('form_upload.php');
+            include('ajaxUpload.php');
             ?>
             <form method="post" action='index.php?route=editProfile'>
                 <div class="form-group">
