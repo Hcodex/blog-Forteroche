@@ -129,17 +129,7 @@ class Article
 
     public function setStatus($status)
     {
-        switch ($status) {
-            case "0":
-                $this->status = "brouillon";
-                break;
-            case "1":
-                $this->status = "publié";
-                break;
-            case "2":
-                $this->status = "A relire";
-                break;
-        }
+        $this->status = $status;
     }
 
     public function getStatus()

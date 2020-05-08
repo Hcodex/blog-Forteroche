@@ -1,6 +1,6 @@
 <?php
 
-use App\src\services\DateFormater;
+use App\src\services\Formater;
 
 $this->title = "Billet simple pour l'Alaska - Admin"; ?>
 
@@ -35,12 +35,12 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                             <td><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
                             <td><?= htmlspecialchars($article->getAuthor()); ?></td>
                             <td> <img src="<?= $article->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
-                            <td><?= DateFormater::formatCondensed(htmlspecialchars($article->getCreatedAt())); ?></td>
-                            <td><?= DateFormater::formatCondensed(htmlspecialchars($article->getUpdatedAt())); ?></td>
-                            <td><?= htmlspecialchars($article->getStatus()); ?></td>
+                            <td><?= Formater::formatCondensed(htmlspecialchars($article->getCreatedAt())); ?></td>
+                            <td><?= Formater::formatCondensed(htmlspecialchars($article->getUpdatedAt())); ?></td>
+                            <td><?= Formater::setStatusIcon(htmlspecialchars($article->getStatus())); ?></td>
                             <td class="text-center">
                                 <a href="index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
-                                    <i class="text-success" data-feather="edit" data-toggle="tooltip" data-placement="bottom" title="Editer"></i>
+                                    <i class="text-primary" data-feather="edit" data-toggle="tooltip" data-placement="bottom" title="Editer"></i>
                                 </a>
                                 <a href="#" onclick="setConfirmModal('index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
@@ -89,7 +89,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                                     <?= htmlspecialchars($comment->getContent()) ?>
                                 </a>
                             </td>
-                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                            <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
@@ -134,7 +134,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                                     <?= htmlspecialchars($comment->getContent()) ?>
                                 </a>
                             </td>
-                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                            <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
                                 <a href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
@@ -172,7 +172,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                         <tr>
                             <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
                             <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                            <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
@@ -222,7 +222,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                         <tr>
                             <td><?= htmlspecialchars($user->getPseudo()); ?></td>
                             <td class="text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
-                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
+                            <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
                             <td class="text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
                             <td class="text-center"><?= htmlspecialchars($user->getRole()); ?></td>
 

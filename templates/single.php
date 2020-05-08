@@ -1,6 +1,6 @@
 <?php
 
-use App\src\services\DateFormater;
+use App\src\services\Formater;
 
 $this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
 
@@ -87,7 +87,7 @@ $index = (array_search($article->getId(), $article_list));
 									</div>
 								</div>
 								<div class="card-footer table-active">
-									<small class="text-muted"> Posté le <?= DateFormater::formatFR(htmlspecialchars($comment->getCreatedAt())); ?></small>
+									<small class="text-muted"> Posté le <?= Formater::formatFR(htmlspecialchars($comment->getCreatedAt())); ?></small>
 									<?php
 									if ($comment->isReported() == 1) {
 									?>
