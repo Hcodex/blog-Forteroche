@@ -210,7 +210,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                     <tr class="text-center">
                         <th scope="col">Pseudo</th>
                         <th scope="col">email</th>
-                        <th scope="col">created_at</th>
+                        <th scope="col">Créé le</th>
                         <th scope="col">avatar</th>
                         <th scope="col">role</th>
                     </tr>
