@@ -51,15 +51,21 @@ class FrontController extends Controller
         if ($post->get('submit')) {
             $result = $this->userDAO->login($post);
             if ($result && $result['isPasswordValid']) {
-                $this->session->set('login', 'Bonne lecture');
-                $this->session->set('id', $result['result']['id']);
-                $this->session->set('role', $result['result']['name']);
-                $this->session->set('email', $post->get('email'));
-                $this->session->set('pseudo', $result['result']['pseudo']);
-                $this->session->set('avatar', $result['result']['avatar']);
-                $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
-                header('Location: index.php?route=profile');
-                exit();
+
+                if ($result['result']['status'] !== "3") {
+                    $this->session->set('login', 'Bonne lecture');
+                    $this->session->set('id', $result['result']['id']);
+                    $this->session->set('role', $result['result']['name']);
+                    $this->session->set('email', $post->get('email'));
+                    $this->session->set('pseudo', $result['result']['pseudo']);
+                    $this->session->set('avatar', $result['result']['avatar']);
+                    $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
+                    header('Location: index.php?route=profile');
+                    exit();
+                } else {
+                    $this->session->set('error_login', 'Votre compte est banni');
+                    $this->session->set('error_message', '<Strong>Echec connexion ! </strong> Votre compte est banni');
+                }
             } else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
                 $this->session->set('error_message', '<Strong>Echec connexion ! </strong> Le pseudo et/ou le mot de passe sont incorrects');
@@ -67,9 +73,8 @@ class FrontController extends Controller
                     'post' => $post,
                 ]);
             }
-        } else {
-            return $this->view->render('login');
         }
+        return $this->view->render('login');
     }
 
     public function roman()
