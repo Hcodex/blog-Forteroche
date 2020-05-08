@@ -113,16 +113,15 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Suppression</h5>
+					<h5 class="modal-title"><i data-feather="alert-triangle" class="text-danger"></i> Attention</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<p>Attention, l'élément sélectionné va être supprimé définitivement !</p>
 				</div>
 				<div class="modal-footer">
-					<a id="confirmBtn" href="" type="button" class="btn btn-danger">Supprimer</a>
+					<a id="confirmBtn" href="" type="button" class="btn btn-danger">Confirmer</a>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
 				</div>
 			</div>
@@ -186,10 +185,11 @@
 			$('.custom-select>option').removeAttr('selected')
 		});
 
-		function setConfirmModal(data) {
+		function setConfirmModal(data, message) {
 			//you can do anything with data, or pass more data to this function. i set this data to modal header for example
 			event.preventDefault();
 			$("#confirmModal #confirmBtn").attr('href', data);
+			$("#confirmModal .modal-body").html('<p>'+message+'</p>');
 			$("#confirmModal").modal();
 		}
 
