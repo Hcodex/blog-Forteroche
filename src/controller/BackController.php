@@ -48,11 +48,15 @@ class BackController extends Controller
             print_r($commentsHided);
             die();
             */
+        $users= $this->userDAO->getUsers();
+        PictureManager::findAvatars($users);
+
         return $this->view->render('administration', [
             'articles' => $articles,
             'commentsReported' => $commentsReported,
             'commentsApproved' => $commentsApproved,
-            'commentsHided' => $commentsHided
+            'commentsHided' => $commentsHided,
+            'users' => $users
         ]);
     }
 

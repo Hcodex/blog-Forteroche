@@ -14,7 +14,7 @@ class UserDAO extends DAO
         $user->setPseudo($row['pseudo']);
         $user->setEmail($row['email']);
         $user->setCreatedAt($row['created_at']);
-        $user->setRole($row['role_id']);
+        $user->setRole($row['name']);
         $user->setAvatar($row['avatar']);
         return $user;
     } 
@@ -78,6 +78,18 @@ class UserDAO extends DAO
         return $this->buildObject($user);
     }
 
+    public function getUsers()
+    {
+        $sql = 'SELECT user.id, user.email, user.email, user.pseudo, user.created_at, user.avatar, user.role_id, user.password, role.name  FROM user INNER JOIN role ON role.id = user.role_id ORDER BY user.id DESC';
+        $result = $this->createQuery($sql);
+        $users = [];
+        foreach ($result as $row) {
+            $userId = $row['id'];
+            $users[$userId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $users;
+    }
 
 
 

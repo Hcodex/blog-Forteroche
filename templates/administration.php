@@ -202,5 +202,36 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
             </table>
         </div>
     </section>
+    <section>
+        <div class="container pb-5">
+            <h2 class="text-primary">Gestion des utilisateurs</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">email</th>
+                        <th scope="col">created_at</th>
+                        <th scope="col">avatar</th>
+                        <th scope="col">role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($users as $user) {
+                    ?>
+                        <tr>
+                            <td><?= htmlspecialchars($user->getPseudo()); ?></td>
+                            <td class="text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
+                            <td class="text-center"><?= DateFormater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
+                            <td class="text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
+                            <td class="text-center"><?= htmlspecialchars($user->getRole()); ?></td>
 
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </main>
