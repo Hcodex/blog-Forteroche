@@ -102,6 +102,18 @@ class Router
                     case "ajax":
                         $this->uploadController->_ajaxUpload($this->request->getPost());
                     break;
+                    case "setRole":
+                        $this->backController->setRole($this->request->getGet()->get('userId'),$this->request->getGet()->get('role'));
+                    break;
+                    case "banUser":
+                        $this->backController->banUser($this->request->getGet()->get('userId'));
+                    break;
+                    case "unbanUser":
+                        $this->backController->unbanUser($this->request->getGet()->get('userId'));
+                    break;
+                    /*case "deleteUser":
+                        $this->backController->deleteUser($this->request->getGet()->get('userId'));
+                    break;*/
                     default:$this->errorController->errorNotFound();
                 }
             }

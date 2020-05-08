@@ -23,7 +23,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                         <th scope="col">Créé le</th>
                         <th scope="col">Mis à jour</th>
                         <th scope="col">Statut</th>
-                        <th scope="col">Actions</th>
+                        <th class="col-sm-1" scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,12 +37,12 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                             <td> <img src="<?= $article->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
                             <td><?= Formater::formatCondensed(htmlspecialchars($article->getCreatedAt())); ?></td>
                             <td><?= Formater::formatCondensed(htmlspecialchars($article->getUpdatedAt())); ?></td>
-                            <td><?= Formater::setStatusIcon(htmlspecialchars($article->getStatus())); ?></td>
+                            <td class="text-center"><?= Formater::setStatusIcon(htmlspecialchars($article->getStatus())); ?></td>
                             <td class="text-center">
-                                <a href="index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
                                     <i class="text-primary" data-feather="edit" data-toggle="tooltip" data-placement="bottom" title="Editer"></i>
                                 </a>
-                                <a href="#" onclick="setConfirmModal('index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>')">
+                                <a class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>', 'L\'article et les commentaires qui lui sont liés vont être supprimés définitivement')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
                             </td>
@@ -91,16 +91,16 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                             </td>
                             <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
-                                <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                                 </a>
-                                <a href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
                                 </a>
-                                <a href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                 </a>
-                                <a href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                <a class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>', 'Le commentaire sélectionné va être supprimé définitivement')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
 
@@ -137,13 +137,13 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                             <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
                                 <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
-                                <a href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
                                 </a>
-                                <a href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                 </a>
-                                <a href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                                <a class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>', 'Le commentaire sélectionné va être supprimé définitivement')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
                             </td>
@@ -170,11 +170,11 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                     foreach ($commentsHided as $comment) {
                     ?>
                         <tr>
-                            <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                            <td><?= htmlspecialchars($comment->getPseudo()); ?></td>
                             <td><?= htmlspecialchars($comment->getContent()) ?></td>
                             <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                             <td class="text-center">
-                                <a href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+                                <a class="btn p-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                     <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                                 </a>
                                 <i class="text-success" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est masqué"></i>
@@ -184,13 +184,13 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                                 <?php
                                 } else {
                                 ?>
-                                    <a href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+                                    <a class="btn p-0" href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
                                         <i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
                                     </a>
                                 <?php
                                 }
                                 ?>
-                                <a href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+                               <a class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>', 'Le commentaire sélectionné va être supprimé définitivement')">
                                     <i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
                                 </a>
                             </td>
@@ -205,6 +205,7 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
     <section>
         <div class="container pb-5">
             <h2 class="text-primary">Gestion des utilisateurs</h2>
+            <h3 class="h4 mt-4">Utilisateurs enregistrés</h3>
             <table class="table table-striped">
                 <thead>
                     <tr class="text-center">
@@ -213,19 +214,68 @@ $this->title = "Billet simple pour l'Alaska - Admin"; ?>
                         <th scope="col">Créé le</th>
                         <th scope="col">avatar</th>
                         <th scope="col">role</th>
+                        <th class="col-sm-2" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($users as $user) {
+                    foreach ($usersRegistered as $user) {
                     ?>
                         <tr>
                             <td><?= htmlspecialchars($user->getPseudo()); ?></td>
                             <td class="text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
                             <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
                             <td class="text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
-                            <td class="text-center"><?= htmlspecialchars($user->getRole()); ?></td>
+                            <td class="text-center"><?= Formater::setRoleIcon(htmlspecialchars($user->getRole())); ?></td>
 
+                            <td class="text-center">
+                                <a  class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=setRole&role=1&userId=<?= $user->getId();?>', 'Vous allez donner les doit d\'administeur à l\'utilisateur sélectionné')">
+                                    <i class="text-secondary" data-feather="star" data-toggle="tooltip" data-placement="bottom" title="Définir administrateur"></i>
+                                </a>
+                                <a  class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=setRole&role=3&userId=<?= $user->getId();?>', 'Vous allez donner les doit de correcteur à l\'utilisateur sélectionné')">
+                                    <i class="text-secondary" data-feather="pen-tool" data-toggle="tooltip" data-placement="bottom" title="Définir correcteur"></i>
+                                </a>
+                                <a  class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=setRole&role=2&userId=<?= $user->getId();?>', 'Vous allez retirer tous les privilièges accordés à l\'utilisateur sélectionné')">
+                                    <i class="text-secondary" data-feather="user" data-toggle="tooltip" data-placement="bottom" title="Définir utilisateur"></i>
+                                </a>
+                                <a  class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=banUser&userId=<?= $user->getId();?>', 'Vous allez banir l\'utilisateur sélectionné')">
+                                    <i class="text-danger" data-feather="minus-circle" data-toggle="tooltip" data-placement="bottom" title="banir"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <h3 class="h4 mt-4">Utilisateurs banis</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">email</th>
+                        <th scope="col">Créé le</th>
+                        <th scope="col">avatar</th>
+                        <th scope="col">role</th>
+                        <th class="col-sm-2" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($usersBanned as $user) {
+                    ?>
+                        <tr>
+                            <td><?= htmlspecialchars($user->getPseudo()); ?></td>
+                            <td class="text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
+                            <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
+                            <td class="text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
+                            <td class="text-center"><?= Formater::setRoleIcon("banned"); ?></td>
+
+                            <td class="text-center">
+                                <a  class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=unbanUser&userId=<?= $user->getId();?>', 'Vous allez réactiver le compte de l\'utilisateur sélectionné')">
+                                    <i class="text-primary" data-feather="share" data-toggle="tooltip" data-placement="bottom" title="Réactiver"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php
                     }

@@ -14,7 +14,8 @@ class UserDAO extends DAO
         $user->setPseudo($row['pseudo']);
         $user->setEmail($row['email']);
         $user->setCreatedAt($row['created_at']);
-        $user->setRole($row['name']);
+        $user->setStatus($row['status']);
+        $user->setRole($row['role_id']);
         $user->setAvatar($row['avatar']);
         return $user;
     } 
@@ -68,6 +69,17 @@ class UserDAO extends DAO
         ]);
     }
 
+    public function checkUser($userId)
+    {
+        $sql = 'SELECT COUNT(*) FROM user WHERE id = ?';
+        $result = $this->createQuery($sql, [$userId]);
+        $exist = $result->fetchColumn();
+        if ($exist) {
+            return true;
+        }
+    }
+
+
 
     public function getUser($UserId)
     {
@@ -80,7 +92,7 @@ class UserDAO extends DAO
 
     public function getUsers()
     {
-        $sql = 'SELECT user.id, user.email, user.email, user.pseudo, user.created_at, user.avatar, user.role_id, user.password, role.name  FROM user INNER JOIN role ON role.id = user.role_id ORDER BY user.id DESC';
+        $sql = 'SELECT user.id, user.email, user.email, user.pseudo, user.created_at, user.status, user.avatar, user.role_id, user.password, role.name  FROM user INNER JOIN role ON role.id = user.role_id ORDER BY user.status ASC, user.id DESC';
         $result = $this->createQuery($sql);
         $users = [];
         foreach ($result as $row) {
@@ -91,8 +103,45 @@ class UserDAO extends DAO
         return $users;
     }
 
+    public function setRole($userId, $roleID)
+    {
+        $sql = 'UPDATE user SET role_id=:role WHERE id=:id';
+        $this->createQuery($sql, [
+            'role' => $roleID,
+            'id' => $userId
+        ]);
+    }
 
+    public function banUser($userId)
+    {
+        $sql = 'UPDATE user SET status=:status WHERE id=:id';
+        $this->createQuery($sql, [
+            'status' => 3,
+            'id' => $userId
+        ]);
+    }
 
+    public function unbanUser($userId)
+    {
+        $sql = 'UPDATE user SET status=:status WHERE id=:id';
+        $this->createQuery($sql, [
+            'status' => 0,
+            'id' => $userId
+        ]);
+    }
+
+    /*
+    public function deleteUser($userId)
+    {
+        $sql = 'UPDATE comment SET user_id = ? WHERE user_id= ? ';
+        $this->createQuery($sql, [0,  $userId]);
+        $sql = 'DELETE FROM comment WHERE user_id = ?';
+        $this->createQuery($sql, [$userId]);
+        $sql = 'DELETE FROM user WHERE id = ?';
+        $this->createQuery($sql, [$userId]);
+        return true;
+    }
+*/
 
 
 }

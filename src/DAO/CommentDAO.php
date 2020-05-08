@@ -42,7 +42,7 @@ class CommentDAO extends DAO
 
     public function getReportedComments()
     {
-        $sql = 'SELECT comment.id, user_id, comment.content, comment.created_at, comment.reported, comment.article_id, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported <> ? ORDER BY reported ASC, created_at DESC';
+        $sql = 'SELECT comment.id, comment.user_id, comment.content, comment.created_at, comment.reported, comment.article_id, user.pseudo, user.avatar FROM comment INNER JOIN user ON user.id=comment.user_id WHERE reported <> ? ORDER BY reported ASC, created_at DESC';
         $result = $this->createQuery($sql, [0]);
         $comments = [];
         foreach ($result as $row) {

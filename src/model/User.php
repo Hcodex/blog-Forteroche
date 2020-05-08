@@ -9,6 +9,7 @@ class User
     private $email; 
     private $password;
     private $created_at;
+    private $status;
     private $role;
     private $avatar;
     private $thumbail;
@@ -63,6 +64,16 @@ class User
     public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     public function getRole()

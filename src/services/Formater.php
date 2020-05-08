@@ -30,4 +30,23 @@ class Formater
                 break;
         }
     }
+
+
+    static function setRoleIcon($role)
+    {
+        switch ($role) {
+            case "1":
+                return '<i class="text-primary" data-feather="star" data-toggle="tooltip" data-placement="bottom" title="Admin"></i>';
+                break;
+            case "2":
+                return '<i class="text-primary" data-feather="user" data-toggle="tooltip" data-placement="bottom" title="Utilisateur"></i>';
+                break;
+            case "3":
+                return '<i class="text-primary" data-feather="pen-tool" data-toggle="tooltip" data-placement="bottom" title="Correcteur"></i>';
+                break;
+            case "banned":
+                return '<i class="text-danger" data-feather="minus-circle" data-toggle="tooltip" data-placement="bottom" title="Banni"></i>';
+                break;
+        }
+    }
 }

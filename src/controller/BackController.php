@@ -51,12 +51,21 @@ class BackController extends Controller
         $users= $this->userDAO->getUsers();
         PictureManager::findAvatars($users);
 
+        foreach ($users as $user) {
+            if ($user->getStatus() == 3) {
+                $usersBanned[] = $user;
+            } elseif ($user->getStatus() == 0) {
+                $usersRegistered[] = $user;
+            }
+        }
+
         return $this->view->render('administration', [
             'articles' => $articles,
             'commentsReported' => $commentsReported,
             'commentsApproved' => $commentsApproved,
             'commentsHided' => $commentsHided,
-            'users' => $users
+            'usersRegistered' => $usersRegistered,
+            'usersBanned' => $usersBanned
         ]);
     }
 
@@ -264,4 +273,59 @@ class BackController extends Controller
         header('Location: index.php?route=roman');
         exit();
     }
+
+    public function setRole($userId, $role)
+    {
+        $this->checkAdmin();
+        if ($this->userDAO->checkUser($userId)) {
+            $this->userDAO->setRole($userId, $role);
+            $this->session->set('success_message', '<strong>L\'utilsateur est désomais administrateur</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
+        }
+        $this->session->set('error_message', '<strong>Action impossible</strong>');
+        header('Location: index.php?route=administration');
+        exit();
+    }
+
+    public function banUser($userId)
+    {
+        $this->checkAdmin();
+        if ($this->userDAO->checkUser($userId)) {
+            $this->userDAO->banUser($userId);
+            $this->session->set('success_message', '<strong>L\'utilsateur est désomais bani</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
+        }
+        $this->session->set('error_message', '<strong>Action impossible</strong>');
+        header('Location: index.php?route=administration');
+        exit();
+    }
+
+    public function unbanUser($userId)
+    {
+        $this->checkAdmin();
+        if ($this->userDAO->checkUser($userId)) {
+            $this->userDAO->unbanUser($userId);
+            $this->session->set('success_message', '<strong>Le compte de l\'utilisateur est réactivé</strong>');
+            header("Location: " . $_SERVER["HTTP_REFERER"]);
+            exit();
+        }
+        $this->session->set('error_message', '<strong>Action impossible</strong>');
+        header('Location: index.php?route=administration');
+        exit();
+    }
+    /*
+    public function deleteUser($userId)
+    {
+        $this->checkAdmin();
+        if ($this->userDAO->checkUser($userId)) {
+            $this->userDAO->deleteUser($userId);
+            $this->session->set('success_message', '<strong>L\'utilisateur a bien été supprimé</strong>');
+        } else {
+            $this->session->set('error_message', '<strong>Supression impossible</strong>');
+        }
+        header('Location: index.php?route=administration');
+        exit();
+    }*/
 }
