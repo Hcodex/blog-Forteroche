@@ -104,7 +104,7 @@ $index = (array_search($article->getId(), $article_list));
 										<a class="btn float-right py-0 text-muted" href="index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
 									<?php
 									}
-									if ($this->session->get('role') === 'admin') {
+									if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector' ) {
 									?>
 										<a class="btn float-right py-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
 											<i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>

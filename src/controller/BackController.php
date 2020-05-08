@@ -20,9 +20,21 @@ class BackController extends Controller
         }
     }
 
+    private function checkCorrector()
+    {
+        $this->checkLoggedIn();
+        if (!($this->session->get('role') === 'corrector' || $this->session->get('role') === 'admin')) {
+            $this->session->set('error_message', 'Vous n\'avez pas le droit d\'accéder à cette page');
+            header('Location: index.php?route=profile');
+            exit();
+        } else {
+            return true;
+        }
+    }
+
     public function administration()
     {
-        $this->checkAdmin();
+        $this->checkCorrector();
         $articles = $this->articleDAO->getArticles();
         PictureManager::findArticlesPictures($articles);
         $comments = $this->commentDAO->getReportedComments();
@@ -41,24 +53,18 @@ class BackController extends Controller
             }
         }
 
-        /*
-            echo '<pre>';
-            print_r($commentsReported);
-            print_r($commentsApproved);
-            print_r($commentsHided);
-            die();
-            */
-        $users= $this->userDAO->getUsers();
-        PictureManager::findAvatars($users);
+        if ($this->session->get('role') === 'admin') {
+            $users = $this->userDAO->getUsers();
+            PictureManager::findAvatars($users);
 
-        foreach ($users as $user) {
-            if ($user->getStatus() == 3) {
-                $usersBanned[] = $user;
-            } elseif ($user->getStatus() == 0) {
-                $usersRegistered[] = $user;
+            foreach ($users as $user) {
+                if ($user->getStatus() == 3) {
+                    $usersBanned[] = $user;
+                } elseif ($user->getStatus() == 0) {
+                    $usersRegistered[] = $user;
+                }
             }
         }
-
         return $this->view->render('administration', [
             'articles' => $articles,
             'commentsReported' => $commentsReported,
@@ -68,7 +74,6 @@ class BackController extends Controller
             'usersBanned' => $usersBanned
         ]);
     }
-
 
     public function addArticle(Parameter $post)
     {
@@ -107,7 +112,7 @@ class BackController extends Controller
 
     public function editArticle(Parameter $post, $articleId)
     {
-        $this->checkAdmin();
+        $this->checkCorrector();
         if ($this->articleDAO->checkArticle($articleId)) {
             $article = $this->articleDAO->getArticle($articleId);
             PictureManager::findArticlePictures($article);
@@ -148,7 +153,6 @@ class BackController extends Controller
                 $post->set('picture', $article->getPicture());
                 $post->set('thumbail', $article->getThumbail());
                 $post->set('content', $article->getContent());
-                $post->set('author', $article->getAuthor());
 
                 return $this->view->render('edit_article', [
                     'post' => $post,
@@ -220,7 +224,7 @@ class BackController extends Controller
 
     public function approveComment($commentId)
     {
-        $this->checkAdmin();
+        $this->checkCorrector();
         if ($this->commentDAO->checkComment($commentId)) {
             $this->commentDAO->approveComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire approuvé</strong>');
@@ -234,7 +238,7 @@ class BackController extends Controller
 
     public function deleteComment($commentId)
     {
-        $this->checkAdmin();
+        $this->checkCorrector();
         if ($this->commentDAO->checkComment($commentId)) {
             $this->commentDAO->deleteComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire supprimé</strong>');
@@ -248,7 +252,7 @@ class BackController extends Controller
 
     public function archiveComment($commentId)
     {
-        $this->checkAdmin();
+        $this->checkCorrector();
         if ($this->commentDAO->checkComment($commentId)) {
             $this->commentDAO->archiveComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire archivé</strong>');
@@ -262,7 +266,7 @@ class BackController extends Controller
 
     public function hideComment($commentId)
     {
-        $this->checkAdmin();
+        $this->checkCorrector();
         if ($this->commentDAO->checkComment($commentId)) {
             $this->commentDAO->hideComment($commentId);
             $this->session->set('success_message', '<strong>Commentaire masqué</strong>');
@@ -279,7 +283,7 @@ class BackController extends Controller
         $this->checkAdmin();
         if ($this->userDAO->checkUser($userId)) {
             $this->userDAO->setRole($userId, $role);
-            $this->session->set('success_message', '<strong>L\'utilsateur est désomais administrateur</strong>');
+            $this->session->set('success_message', '<strong>Les permisions de l\'utilisateur on été mises à jour</strong>');
             header("Location: " . $_SERVER["HTTP_REFERER"]);
             exit();
         }

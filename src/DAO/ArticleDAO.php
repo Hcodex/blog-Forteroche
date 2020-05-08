@@ -29,13 +29,12 @@ class ArticleDAO extends DAO
 
     public function editArticle(Parameter $post, $articleId, $userId, $status)
     {
-        $sql = 'UPDATE article SET title=:title, content=:content, picture=:picture, updated_at=NOW(), status=:status, user_id=:user_id WHERE id=:articleId';
+        $sql = 'UPDATE article SET title=:title, content=:content, picture=:picture, updated_at=NOW(), status=:status WHERE id=:articleId';
         $this->createQuery($sql, [
             'title' => $post->get('title'),
             'content' => $post->get('content'),
             'picture' => $post->get('picture_file_name'),
             'status' => $status,
-            'user_id' => $userId,
             'articleId' => $articleId
         ]);
     }

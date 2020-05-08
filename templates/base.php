@@ -43,7 +43,7 @@
 					<li class="nav-item">
 						<a class="nav-link btn btn-danger text-white" type="button" href="index.php?route=logout">Deconnexion</a>
 					</li>
-					<?php if ($this->session->get('role') === 'admin') { ?>
+					<?php if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector' ) { ?>
 						<li class="nav-item">
 							<a class="nav-link btn btn-warning text-dark" type="button" href="index.php?route=administration">Admin</a>
 						</li>
