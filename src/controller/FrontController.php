@@ -29,8 +29,10 @@ class FrontController extends Controller
                     $errors['email'] = $this->userDAO->checkUserEmail($post);
                 }
                 if (!$errors) {
-                    $this->session->set('success_message', '<strong>Cotre compte a été créé avec succès</strong>');
-                    $success = $this->userDAO->register($post);
+                    $token = md5(session_id() . microtime());
+                    $success = $this->userDAO->register($post, $token);
+                    $this->session->set('success_message', '<strong>Cotre compte a été créé avec succès, vous allez recevoir un mail pour l\'activer</strong>');
+                    $this->sendMail($post->get('email'), $token);
                 } else {
                     $this->session->set('error_message', '<strong>Erreur dans le formulaire. </strong>Votre compte n\'a pas été crée');
                 }
@@ -184,5 +186,19 @@ class FrontController extends Controller
         $this->session->set('error_message', '<strong>Signalement impossible</strong>');
         header('Location: index.php?route=roman');
         exit();
+    }
+
+
+
+    public function sendMail($to, $token)
+    {
+            $headers = "From: \"Jean Forteroche\"<account@a-peterlini.fr>\n";
+            $headers .= "Reply-To: account@a-peterlini.fr\n";
+            $headers .= "Content-Type: text/html; charset=\"utf8\"";
+            $message = 'Bienvenue sur Billet simple pour l\'Alaska<br><br>';
+            $message .='Votre compte à été créé avec succès, pour l\'activer, cliquer sur le lien suivant :<br>';
+            $message .="<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=".$to."&token=".$token."'>Activer mon compte</a>";
+            $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
+            mail($to, $subject, $message, $headers);
     }
 }

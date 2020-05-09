@@ -20,10 +20,10 @@ class UserDAO extends DAO
         return $user;
     } 
 
-    public function register(Parameter $post)
+    public function register(Parameter $post, $token)
     {
-        $sql = 'INSERT INTO user (pseudo, email, password, created_at, role_id) VALUES (?, ?, ?, NOW(), ?)';
-        $this->createQuery($sql, [$post->get('pseudo'), $post->get('email'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2]);
+        $sql = 'INSERT INTO user (pseudo, email, password, created_at, role_id, token) VALUES (?, ?, ?, NOW(), ?, ?)';
+        $this->createQuery($sql, [$post->get('pseudo'), $post->get('email'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2, $token]);
         return 'Votre compte a été crée avec succès';
     }
 
