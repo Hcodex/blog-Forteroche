@@ -130,6 +130,23 @@ class UserDAO extends DAO
         ]);
     }
 
+    /*A optimiser*/
+    public function confirmAccount($email,$token)
+    {
+        $sql = 'SELECT COUNT(*) FROM user WHERE email = ? AND token = ?';
+        $result = $this->createQuery($sql, [$email, $token]);
+        $exist = $result->fetchColumn();
+        if($exist) {
+            $sql = 'UPDATE user SET status=:status, token=:token WHERE email=:email';
+            $this->createQuery($sql, [
+                'status' => 1,
+                'token' => NULL,
+                'email' => $email
+            ]);
+            return true;
+        }
+    }
+
     /*
     public function deleteUser($userId)
     {

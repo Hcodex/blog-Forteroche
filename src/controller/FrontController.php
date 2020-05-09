@@ -201,4 +201,15 @@ class FrontController extends Controller
             $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
             mail($to, $subject, $message, $headers);
     }
+
+    public function confirmAccount($email,$token){
+        if ($this->userDAO->confirmAccount($email,$token)){
+            $this->session->set('success_message', '<strong>Compte activé, vous pouvez maintenant vous connerter</strong>');
+            return $this->view->render('login');
+            exit();
+        }
+        $this->session->set('error_message', 'Votre compte n\'a pas été activé');
+        header('Location: index.php?route=login');
+        exit();
+    }
 }

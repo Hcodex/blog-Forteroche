@@ -111,6 +111,9 @@ class Router
                     case "unbanUser":
                         $this->backController->unbanUser($this->request->getGet()->get('userId'));
                     break;
+                    case "confirmAccount":
+                        $this->frontController->confirmAccount($this->request->getGet()->get('email'),$this->request->getGet()->get('token'));
+                    break;
                     /*case "deleteUser":
                         $this->backController->deleteUser($this->request->getGet()->get('userId'));
                     break;*/
