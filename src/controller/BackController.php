@@ -60,7 +60,7 @@ class BackController extends Controller
             foreach ($users as $user) {
                 if ($user->getStatus() == 3) {
                     $usersBanned[] = $user;
-                } elseif ($user->getStatus() == 0) {
+                } elseif ($user->getStatus() === "0" || $user->getStatus() === "1") {
                     $usersRegistered[] = $user;
                 }
             }
