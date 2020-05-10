@@ -1,7 +1,5 @@
 <?php
 
-use App\src\services\PictureManager;
-
 $route = $this->request->getGet()->get('route');
 if ($route === "profile") {
     $dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
