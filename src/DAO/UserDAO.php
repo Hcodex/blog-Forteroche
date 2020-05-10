@@ -114,25 +114,40 @@ class UserDAO extends DAO
 
     public function banUser($userId)
     {
-        $sql = 'UPDATE user SET status=:status WHERE id=:id';
+        $sql = 'UPDATE user SET status=:status, token=:token WHERE id=:id';
         $this->createQuery($sql, [
             'status' => 3,
+            'token' => NULL,
             'id' => $userId
         ]);
     }
 
     public function unbanUser($userId)
     {
-        $sql = 'UPDATE user SET status=:status WHERE id=:id';
+        $sql = 'UPDATE user SET status=:status, token=:token WHERE id=:id';
         $this->createQuery($sql, [
             'status' => 0,
+            'token' => NULL,
             'id' => $userId
         ]);
     }
 
+    public function checkBanned(Parameter $post)
+    {
+        $sql = 'SELECT COUNT(*) FROM user WHERE email = ? AND status = ?';
+        $result = $this->createQuery($sql, [
+            $post->get('email'),
+            3
+        ]);
+        $exist = $result->fetchColumn();
+        if ($exist) {
+            return true;
+        }
+    }
+
     public function confirmAccount(Parameter $post)
     {
-        $sql = 'UPDATE user SET status=:status, token=:token WHERE email=:email';
+        $sql = 'UPDATE user SET status=:status, token=:token WHERE email=:email AND status <> 3';
         $this->createQuery($sql, [
             'status' => 1,
             'token' => NULL,
@@ -142,7 +157,7 @@ class UserDAO extends DAO
 
     public function setToken(Parameter $post, $token)
     {
-        $sql = 'UPDATE user SET token=:token WHERE email=:email';
+        $sql = 'UPDATE user SET token=:token WHERE email=:email AND status <> 3';
         $this->createQuery($sql, [
             'token' => password_hash($token, PASSWORD_BCRYPT),
             'email' => $post->get('email')
@@ -166,6 +181,28 @@ class UserDAO extends DAO
         $this->createQuery($sql, [
             'password' => password_hash($post->get('password'), PASSWORD_BCRYPT),
             'email' => $post->get('email')
+        ]);
+    }
+
+
+    public function checkOldPassWord(Parameter $post, $userId)
+    {
+        $sql = 'SELECT * FROM user WHERE id = ?';
+        $data = $this->createQuery($sql, [$userId]);
+        $result = $data->fetch();
+        $isPasswordValid = password_verify($post->get('old_password'), $result['password']);
+        return [
+            'result' => $result,
+            'isPasswordValid' => $isPasswordValid
+        ];
+    }
+
+    public function setPassword(Parameter $post, $userId)
+    {
+        $sql = 'UPDATE user SET password=:password WHERE id=:id';
+        $this->createQuery($sql, [
+            'password' => password_hash($post->get('password'), PASSWORD_BCRYPT),
+            'id' => $userId
         ]);
     }
 

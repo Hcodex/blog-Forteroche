@@ -16,6 +16,7 @@
                     <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?= htmlspecialchars($this->session->get('avatar')) ?>">
                     <h3 class="pt-4">Email</h3>
                     <p><?= htmlspecialchars($this->session->get('email')); ?></p>
+                    <a class="btn btn-primary" type="button" href="index.php?route=passwordModify" >Changer mot de passe</a>
                     <h3 class="pt-4">Rôle</h3>
                     <p><?= htmlspecialchars($this->session->get('role')); ?></p>
                     <div class="text-center">

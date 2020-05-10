@@ -239,15 +239,20 @@ class FrontController extends Controller
     public function requestAccountRecovery(Parameter $post)
     {
         if ($post->get('submit')) {
-            if ($this->userDAO->checkUserEmail($post)) {
-                $token = md5(session_id() . microtime());
-                $this->userDAO->setToken($post, $token);
-                $this->sendMail($post->get('email'), $token, "accountRecovery");
-                $this->session->set('success_message', '<Strong>E-mail envoyé.</strong> Consultez votre boite mail pour récupérer votre lien de réinitialisation de mot de passe.');
-                header('Location: index.php?route=home');
-                exit();
+            if (!$this->userDAO->checkBanned($post)) {
+                if ($this->userDAO->checkUserEmail($post)) {
+                    $token = md5(session_id() . microtime());
+                    $this->userDAO->setToken($post, $token);
+                    $this->sendMail($post->get('email'), $token, "accountRecovery");
+                    $this->session->set('success_message', '<Strong>E-mail envoyé.</strong> Consultez votre boite mail pour récupérer votre lien de réinitialisation de mot de passe.');
+                    header('Location: index.php?route=home');
+                    exit();
+                }
+
+                $this->session->set('error_message', '<Strong>Echec ! </strong> Identifiant incorrect');
+            } else{
+            $this->session->set('error_message', '<Strong>Opération impossible, </strong> Ce compte est banni');
             }
-            $this->session->set('error_message', '<Strong>Echec</strong> Identifiant incorrect');
         }
         return $this->view->render('request_account_recovery');
     }
@@ -271,6 +276,32 @@ class FrontController extends Controller
             }
         }
         return $this->view->render('account_recovery', [
+            'post' => $post,
+            'errors' => $errors,
+        ]);
+    }
+
+    public function passwordModify(Parameter $post)
+    {
+        $this->checkLoggedIn();
+        if ($post->get('submit')) {
+            $errors = $this->validation->validate($post, 'User');
+            if (!$errors) {
+                $userId = $this->session->get('id');
+                $result = $this->userDAO->checkOldPassWord($post, $userId);
+                if ($result['isPasswordValid']) {
+                    $this->userDAO->setPassword($post, $userId);
+                    $this->session->set('success_message', '<strong>Votre mot de passe a été modifié avec succès. </strong>');
+                    header('Location: index.php?route=profile');
+                    exit();
+                } else {
+                    $this->session->set('error_message', '<strong>Erreur ! </strong>Ancien mot de passe incorrect');
+                }
+            } else {
+                $this->session->set('error_message', '<strong>Erreur dans le formulaire. </strong>Votre mot de passe n\'a pas été réinitialisé');
+            }
+        }
+        return $this->view->render('password_modify', [
             'post' => $post,
             'errors' => $errors,
         ]);

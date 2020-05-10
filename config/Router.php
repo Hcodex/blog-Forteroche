@@ -123,6 +123,9 @@ class Router
                     case "accountRecovery":
                         $this->frontController->accountRecovery($this->request->getPost());
                     break;
+                    case "passwordModify":
+                        $this->frontController->passwordModify($this->request->getPost());
+                    break;
                     /*case "deleteUser":
                         $this->backController->deleteUser($this->request->getGet()->get('userId'));
                     break;*/
