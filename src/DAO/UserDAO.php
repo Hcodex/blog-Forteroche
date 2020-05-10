@@ -17,6 +17,7 @@ class UserDAO extends DAO
         $user->setStatus($row['status']);
         $user->setRole($row['role_id']);
         $user->setAvatar($row['avatar']);
+        $user->setLastArticle($row['avatar']);
         return $user;
     }
 
@@ -50,7 +51,7 @@ class UserDAO extends DAO
 
     public function login(Parameter $post)
     {
-        $sql = 'SELECT user.id, user.email, user.pseudo, user.avatar, user.status, user.role_id, user.password, role.name FROM user INNER JOIN role ON role.id = user.role_id WHERE email = ?';
+        $sql = 'SELECT user.id, user.email, user.pseudo, user.avatar, user.status, user.role_id, user.password, role.name, user.last_article_id FROM user INNER JOIN role ON role.id = user.role_id WHERE email = ?';
         $data = $this->createQuery($sql, [$post->get('email')]);
         $result = $data->fetch();
         $isPasswordValid = password_verify($post->get('password'), $result['password']);
@@ -202,6 +203,15 @@ class UserDAO extends DAO
         $sql = 'UPDATE user SET password=:password WHERE id=:id';
         $this->createQuery($sql, [
             'password' => password_hash($post->get('password'), PASSWORD_BCRYPT),
+            'id' => $userId
+        ]);
+    }
+
+    public function setBookmark($articleId, $userId)
+    {
+        $sql = 'UPDATE user SET last_article_id=:last_article_id WHERE id=:id';
+        $this->createQuery($sql, [
+            'last_article_id' => $articleId,
             'id' => $userId
         ]);
     }

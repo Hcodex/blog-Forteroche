@@ -126,6 +126,9 @@ class Router
                     case "passwordModify":
                         $this->frontController->passwordModify($this->request->getPost());
                     break;
+                    case "setBookmark":
+                        $this->frontController->setBookmark($this->request->getGet()->get('articleId'));
+                    break;
                     /*case "deleteUser":
                         $this->backController->deleteUser($this->request->getGet()->get('userId'));
                     break;*/

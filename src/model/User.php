@@ -14,6 +14,7 @@ class User
     private $avatar;
     private $thumbail;
     private $avatar_src;
+    private $last_article_id;
 
     public function getId()
     {
@@ -120,5 +121,15 @@ class User
         $this->thumbail = $thumbail;
     }
 
+    public function getLastArticle()
+    {
+        return $this->last_article_id;
+    }
+
+
+    public function setLastArticle($last_article_id)
+    {
+        $this->last_article_id = $last_article_id;
+    }
 
 }

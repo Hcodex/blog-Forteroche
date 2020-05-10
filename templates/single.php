@@ -54,6 +54,19 @@ $index = (array_search($article->getId(), $article_list));
 			<?= $article->getContent(); ?>
 		</div>
 		<div class="container">
+			<div class="text-center">
+				<?php
+				if ($this->session->get('pseudo')) {
+				?>
+					<a class="btn btn-warning" href="index.php?route=setBookmark&articleId=<?= $article->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Sauvegarder votre lecture, en plaçant un marque page sur ce chapitre">Positionner le marque page ici</a>
+				<?php
+				} else {
+				?>
+					<a class="btn btn-warning text-muted" data-toggle="tooltip" data-placement="bottom" title="Veuillez vous connecter pour utiliser la fonction marque page">Positionner le marque page ici</a>
+				<?php
+				}
+				?>
+			</div>
 			<hr>
 			<h2 class="text-primary">Commentaires</h2>
 
@@ -104,7 +117,7 @@ $index = (array_search($article->getId(), $article_list));
 										<a class="btn float-right py-0 text-muted" href="index.php?route=reportComment&commentId=<?= $comment->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Signaler le commentaire"><i data-feather="alert-triangle"></i> </a>
 									<?php
 									}
-									if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector' ) {
+									if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector') {
 									?>
 										<a class="btn float-right py-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
 											<i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>

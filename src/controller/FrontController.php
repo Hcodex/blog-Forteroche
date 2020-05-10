@@ -67,6 +67,7 @@ class FrontController extends Controller
                         $this->session->set('email', $post->get('email'));
                         $this->session->set('pseudo', $result['result']['pseudo']);
                         $this->session->set('avatar', $result['result']['avatar']);
+                        $this->session->set('last_article_id', $result['result']['last_article_id']);
                         $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
                         header('Location: index.php?route=profile');
                         exit();
@@ -340,5 +341,17 @@ class FrontController extends Controller
         }
         $headers = MAIL_FROM . MAIL_REPLY_TO . MAIL_CONTENT_TYPE;
         mail($to, $subject, $message, $headers);
+    }
+
+    public function setBookmark($articleId)
+    {
+        $this->checkLoggedIn();
+        $userId = $this->session->get('id');
+        $this->userDAO->setBookmark($articleId, $userId);
+        $this->session->set('last_article_id', $articleId);
+        $this->session->set('success_message', '<strong>Marque page positionné.</strong>');
+        header('Location: index.php?route=roman');
+        exit();
+
     }
 }
