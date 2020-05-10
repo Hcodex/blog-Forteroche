@@ -6,7 +6,7 @@ use App\config\Parameter;
 use App\src\model\User;
 
 class UserDAO extends DAO
-{   
+{
     private function buildObject($row)
     {
         $user = new User();
@@ -18,7 +18,7 @@ class UserDAO extends DAO
         $user->setRole($row['role_id']);
         $user->setAvatar($row['avatar']);
         return $user;
-    } 
+    }
 
     public function register(Parameter $post, $token)
     {
@@ -32,18 +32,18 @@ class UserDAO extends DAO
         $sql = 'SELECT COUNT(pseudo) FROM user WHERE pseudo = ?';
         $result = $this->createQuery($sql, [$post->get('pseudo')]);
         $isUnique = $result->fetchColumn();
-        if($isUnique) {
+        if ($isUnique) {
             return '<p>Ce pseudo existe déjà</p>';
         }
     }
 
-    
+
     public function checkUserEmail(Parameter $post)
     {
         $sql = 'SELECT COUNT(email) FROM user WHERE email = ?';
         $result = $this->createQuery($sql, [$post->get('email')]);
         $isUnique = $result->fetchColumn();
-        if($isUnique) {
+        if ($isUnique) {
             return '<p>Cet email est déjà utilisé</p>';
         }
     }
@@ -131,12 +131,12 @@ class UserDAO extends DAO
     }
 
     /*A optimiser*/
-    public function confirmAccount($email,$token)
+    public function confirmAccount($email, $token)
     {
         $sql = 'SELECT COUNT(*) FROM user WHERE email = ? AND token = ?';
         $result = $this->createQuery($sql, [$email, $token]);
         $exist = $result->fetchColumn();
-        if($exist) {
+        if ($exist) {
             $sql = 'UPDATE user SET status=:status, token=:token WHERE email=:email';
             $this->createQuery($sql, [
                 'status' => 1,
@@ -147,7 +147,16 @@ class UserDAO extends DAO
         }
     }
 
+    public function setToken(Parameter $post, $token)
+    {
+        $sql = 'UPDATE user SET token=:token WHERE email=:email';
+        $this->createQuery($sql, [
+            'token' => $token,
+            'email' => $post->get('email')
+        ]);
+    }
     /*
+
     public function deleteUser($userId)
     {
         $sql = 'UPDATE comment SET user_id = ? WHERE user_id= ? ';
@@ -159,6 +168,4 @@ class UserDAO extends DAO
         return true;
     }
 */
-
-
 }

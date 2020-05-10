@@ -114,6 +114,9 @@ class Router
                     case "confirmAccount":
                         $this->frontController->confirmAccount($this->request->getGet()->get('email'),$this->request->getGet()->get('token'));
                     break;
+                    case "requestToken":
+                        $this->frontController->requestToken($this->request->getPost());
+                    break;
                     /*case "deleteUser":
                         $this->backController->deleteUser($this->request->getGet()->get('userId'));
                     break;*/

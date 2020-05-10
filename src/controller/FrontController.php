@@ -212,4 +212,38 @@ class FrontController extends Controller
         header('Location: index.php?route=login');
         exit();
     }
+
+
+    public function requestToken(Parameter $post)
+    {
+        if ($post->get('submit')) {
+            $result = $this->userDAO->login($post);
+            if ($result && $result['isPasswordValid']) {
+
+                if ($result['result']['status'] === "0") {     
+                    $token = md5(session_id() . microtime());
+                    $this->userDAO->setToken($post, $token);
+                    $this->sendMail($post->get('email'), $token);
+                    $this->session->set('success_message', '<Strong>E-mail envoyé </strong> Consurlter votre boite mail pour récupérer votre lien d\'activation');
+                    header('Location: index.php?route=home');
+                    exit();
+                } else {
+                    $this->session->set('error_login', 'Ce compte est déjà activé');
+                    $this->session->set('error_message', 'Ce compte est déjà activé');
+                }
+            } else {
+                $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
+                $this->session->set('error_message', '<Strong>Echec</strong> Le pseudo et/ou le mot de passe sont incorrects');
+                return $this->view->render('requestToken', [
+                    'post' => $post,
+                ]);
+            }
+        }
+        return $this->view->render('requestToken');
+    }
+
+
+
+
+
 }
