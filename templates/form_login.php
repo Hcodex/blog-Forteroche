@@ -6,6 +6,7 @@
         <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Saisir votre mot de passe" value="" required>
+            <small class="form-text text-muted"><a href="index.php?route=requestAccountRecovery">Mot de passe Oublié ?</a></small>
         </div>  
         <input type="submit" class="btn btn-primary" value="Se connecter" id="submit" name="submit">
 </form>

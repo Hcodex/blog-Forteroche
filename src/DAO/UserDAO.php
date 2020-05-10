@@ -23,7 +23,7 @@ class UserDAO extends DAO
     public function register(Parameter $post, $token)
     {
         $sql = 'INSERT INTO user (pseudo, email, password, created_at, role_id, token) VALUES (?, ?, ?, NOW(), ?, ?)';
-        $this->createQuery($sql, [$post->get('pseudo'), $post->get('email'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2, $token]);
+        $this->createQuery($sql, [$post->get('pseudo'), $post->get('email'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2, password_hash($token, PASSWORD_BCRYPT)]);
         return 'Votre compte a été crée avec succès';
     }
 
@@ -130,31 +130,45 @@ class UserDAO extends DAO
         ]);
     }
 
-    /*A optimiser*/
-    public function confirmAccount($email, $token)
+    public function confirmAccount(Parameter $post)
     {
-        $sql = 'SELECT COUNT(*) FROM user WHERE email = ? AND token = ?';
-        $result = $this->createQuery($sql, [$email, $token]);
-        $exist = $result->fetchColumn();
-        if ($exist) {
-            $sql = 'UPDATE user SET status=:status, token=:token WHERE email=:email';
-            $this->createQuery($sql, [
-                'status' => 1,
-                'token' => NULL,
-                'email' => $email
-            ]);
-            return true;
-        }
+        $sql = 'UPDATE user SET status=:status, token=:token WHERE email=:email';
+        $this->createQuery($sql, [
+            'status' => 1,
+            'token' => NULL,
+            'email' => $post->get('email')
+        ]);
     }
 
     public function setToken(Parameter $post, $token)
     {
         $sql = 'UPDATE user SET token=:token WHERE email=:email';
         $this->createQuery($sql, [
-            'token' => $token,
+            'token' => password_hash($token, PASSWORD_BCRYPT),
             'email' => $post->get('email')
         ]);
     }
+
+    public function checkToken(Parameter $post)
+    {
+        $sql = 'SELECT * FROM user WHERE email = ?';
+        $data = $this->createQuery($sql, [$post->get('email')]);
+        $result = $data->fetch();
+        $isTokenValid = password_verify($post->get('token'), $result['token']);
+        return [
+            'isTokenValid' => $isTokenValid
+        ];
+    }
+
+    public function resetPassword(Parameter $post)
+    {
+        $sql = 'UPDATE user SET password=:password, token=NULL WHERE email=:email';
+        $this->createQuery($sql, [
+            'password' => password_hash($post->get('password'), PASSWORD_BCRYPT),
+            'email' => $post->get('email')
+        ]);
+    }
+
     /*
 
     public function deleteUser($userId)
