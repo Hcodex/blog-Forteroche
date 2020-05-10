@@ -53,20 +53,28 @@ class FrontController extends Controller
         if ($post->get('submit')) {
             $result = $this->userDAO->login($post);
             if ($result && $result['isPasswordValid']) {
-
-                if ($result['result']['status'] !== "3") {
-                    $this->session->set('login', 'Bonne lecture');
-                    $this->session->set('id', $result['result']['id']);
-                    $this->session->set('role', $result['result']['name']);
-                    $this->session->set('email', $post->get('email'));
-                    $this->session->set('pseudo', $result['result']['pseudo']);
-                    $this->session->set('avatar', $result['result']['avatar']);
-                    $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
-                    header('Location: index.php?route=profile');
-                    exit();
-                } else {
-                    $this->session->set('error_login', 'Votre compte est banni');
-                    $this->session->set('error_message', '<Strong>Echec connexion ! </strong> Votre compte est banni');
+                switch ($result['result']['status']) {
+                    case "0":
+                        $this->session->set('error_message', '<Strong>Echec connexion ! </strong> Votre compte n\'est pas activé.<br> Pour activer votre compte, utilisez le lien qui vous a été communiqué par e-mail lors de la création de votre compte, ou demandez en un nouveau.');
+                        return $this->view->render('requestToken', [
+                            'post' => $post,
+                        ]);
+                        break;
+                    case "1":
+                        $this->session->set('login', 'Bonne lecture');
+                        $this->session->set('id', $result['result']['id']);
+                        $this->session->set('role', $result['result']['name']);
+                        $this->session->set('email', $post->get('email'));
+                        $this->session->set('pseudo', $result['result']['pseudo']);
+                        $this->session->set('avatar', $result['result']['avatar']);
+                        $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
+                        header('Location: index.php?route=profile');
+                        exit();
+                        break;
+                    case "3":
+                        $this->session->set('error_login', 'Votre compte est banni');
+                        $this->session->set('error_message', '<Strong>Echec connexion ! </strong> Votre compte est banni');
+                        break;
                 }
             } else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
@@ -192,18 +200,19 @@ class FrontController extends Controller
 
     public function sendMail($to, $token)
     {
-            $headers = "From: \"Jean Forteroche\"<account@a-peterlini.fr>\n";
-            $headers .= "Reply-To: account@a-peterlini.fr\n";
-            $headers .= "Content-Type: text/html; charset=\"utf8\"";
-            $message = 'Bienvenue sur Billet simple pour l\'Alaska<br><br>';
-            $message .='Votre compte à été créé avec succès, pour l\'activer, cliquer sur le lien suivant :<br>';
-            $message .="<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=".$to."&token=".$token."'>Activer mon compte</a>";
-            $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
-            mail($to, $subject, $message, $headers);
+        $headers = "From: \"Jean Forteroche\"<account@a-peterlini.fr>\n";
+        $headers .= "Reply-To: account@a-peterlini.fr\n";
+        $headers .= "Content-Type: text/html; charset=\"utf8\"";
+        $message = 'Bienvenue sur Billet simple pour l\'Alaska<br><br>';
+        $message .= 'Votre compte à été créé avec succès, pour l\'activer, cliquer sur le lien suivant :<br>';
+        $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a>";
+        $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
+        mail($to, $subject, $message, $headers);
     }
 
-    public function confirmAccount($email,$token){
-        if ($this->userDAO->confirmAccount($email,$token)){
+    public function confirmAccount($email, $token)
+    {
+        if ($this->userDAO->confirmAccount($email, $token)) {
             $this->session->set('success_message', '<strong>Compte activé, vous pouvez maintenant vous connerter</strong>');
             return $this->view->render('login');
             exit();
@@ -220,17 +229,16 @@ class FrontController extends Controller
             $result = $this->userDAO->login($post);
             if ($result && $result['isPasswordValid']) {
 
-                if ($result['result']['status'] === "0") {     
+                if ($result['result']['status'] === "0") {
                     $token = md5(session_id() . microtime());
                     $this->userDAO->setToken($post, $token);
                     $this->sendMail($post->get('email'), $token);
-                    $this->session->set('success_message', '<Strong>E-mail envoyé </strong> Consurlter votre boite mail pour récupérer votre lien d\'activation');
-                    header('Location: index.php?route=home');
-                    exit();
+                    $this->session->set('success_message', '<Strong>E-mail envoyé.</strong> Consultez votre boite mail pour récupérer votre lien d\'activation.');
                 } else {
-                    $this->session->set('error_login', 'Ce compte est déjà activé');
                     $this->session->set('error_message', 'Ce compte est déjà activé');
                 }
+                header('Location: index.php?route=home');
+                exit();
             } else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
                 $this->session->set('error_message', '<Strong>Echec</strong> Le pseudo et/ou le mot de passe sont incorrects');
@@ -241,9 +249,4 @@ class FrontController extends Controller
         }
         return $this->view->render('requestToken');
     }
-
-
-
-
-
 }
