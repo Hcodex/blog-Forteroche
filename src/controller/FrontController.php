@@ -32,7 +32,7 @@ class FrontController extends Controller
                     $token = md5(session_id() . microtime());
                     $success = $this->userDAO->register($post, $token);
                     $this->session->set('success_message', '<strong>Votre compte a été créé avec succès, vous allez recevoir un mail pour l\'activer</strong>');
-                    $this->sendMail($post->get('email'), $token);
+                    $this->sendMail($post->get('email'), $token, "accountCreation");
                 } else {
                     $this->session->set('error_message', '<strong>Erreur dans le formulaire. </strong>Votre compte n\'a pas été crée');
                 }
@@ -218,7 +218,7 @@ class FrontController extends Controller
                 if ($result['result']['status'] === "0") {
                     $token = md5(session_id() . microtime());
                     $this->userDAO->setToken($post, $token);
-                    $this->sendMail($post->get('email'), $token);
+                    $this->sendMail($post->get('email'), $token, "tokenRequest");
                     $this->session->set('success_message', '<Strong>E-mail envoyé.</strong> Consultez votre boite mail pour récupérer votre lien d\'activation.');
                 } else {
                     $this->session->set('error_message', 'Ce compte est déjà activé');
@@ -242,7 +242,7 @@ class FrontController extends Controller
             if ($this->userDAO->checkUserEmail($post)) {
                 $token = md5(session_id() . microtime());
                 $this->userDAO->setToken($post, $token);
-                $this->sendMail2($post->get('email'), $token);
+                $this->sendMail($post->get('email'), $token, "accountRecovery");
                 $this->session->set('success_message', '<Strong>E-mail envoyé.</strong> Consultez votre boite mail pour récupérer votre lien de réinitialisation de mot de passe.');
                 header('Location: index.php?route=home');
                 exit();
@@ -277,30 +277,37 @@ class FrontController extends Controller
     }
 
 
-    public function sendMail($to, $token)
+    public function sendMail($to, $token, $mailtype)
     {
+        switch ($mailtype) {
+            case "accountCreation":
+                $message = 'Bienvenue sur Un billet simple pour l\'Alaska<br><br>';
+                $message .= 'Votre compte à été créé avec succès, pour l\'activer, cliquez sur le lien suivant :<br>';
+                $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
+                $message .= "A très vite,<br>";
+                $message .= "Jean Forteroche";
+                $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
+                break;
+            case "tokenRequest":
+                $message = 'Bonjour<br><br>';
+                $message .= 'Pour activer votre compte, cliquez sur le lien suivant :<br>';
+                $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
+                $message .= "A très vite,<br>";
+                $message .= "Jean Forteroche";
+                $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
+                break;
+            case "accountRecovery":
+                $message = 'Bonjour<br><br>';
+                $message .= 'Une demande de réinitialisation de mot de passe pour votre compte a été effectuée. Si vous êtes à l\'origine de cette demande et que vous souhaitez toujours remplacer votre mot de passe, cliquez sur le lien ci-dessous<br>';
+                $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=accountRecovery&token=" . $token . "'>Réinitialiser mon mot de passe</a><br><br>";
+                $message .= "A très vite,<br>";
+                $message .= "Jean Forteroche";
+                $subject = 'Reinitialisation mot de passe - Billet simple pour l\'Alaska';
+                break;
+            default:
+                exit();
+        }
         $headers = MAIL_FROM . MAIL_REPLY_TO . MAIL_CONTENT_TYPE;
-
-
-
-        $message = 'Bienvenue sur Un billet simple pour l\'Alaska<br><br>';
-        $message .= 'Votre compte à été créé avec succès, pour l\'activer, cliquez sur le lien suivant :<br>';
-        $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
-        $message .= "A très vite,<br>";
-        $message .= "Jean Forteroche";
-        $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
-        mail($to, $subject, $message, $headers);
-    }
-
-    public function sendMail2($to, $token)
-    {
-        $headers = MAIL_FROM . MAIL_REPLY_TO . MAIL_CONTENT_TYPE;
-        $message = 'Bonjour<br><br>';
-        $message .= 'Une demande de réinitialisation de mot de passe pour votre compte a été effectuée. Si vous êtes à l\'origine de cette demande et que vous souhaitez toujours remplacer votre mot de passe, cliquez sur le lien ci-dessous<br>';
-        $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=accountRecovery&token=" . $token . "'>Réinitialiser mon mot de passe</a><br><br>";
-        $message .= "A très vite,<br>";
-        $message .= "Jean Forteroche";
-        $subject = 'Reinitialisation mot de passe - Billet simple pour l\'Alaska';
         mail($to, $subject, $message, $headers);
     }
 }
