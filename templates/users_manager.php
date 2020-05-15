@@ -45,7 +45,7 @@
                     ?>
                 </tbody>
             </table>
-            <h3 class="h4 mt-4">Utilisateurs banis</h3>
+            <h3 class="h4 mt-4">Utilisateurs bannis</h3>
             <table class="table table-striped">
                 <thead>
                     <tr class="text-center">
