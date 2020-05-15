@@ -8,7 +8,7 @@ if ($route === "administration") {
 ?>
 
 <b>Envoyer une image</b>
-<form id="myForm" method="post" action="index.php?route=ajax" enctype="multipart/form-data">
+<form id="uploadForm" method="post" action="index.php?route=ajax" enctype="multipart/form-data">
 	<div class="input-group my-2 ">
 		<div class="input-group-prepend">
 			<input type="submit" class="btn btn-primary" value="Envoyer" id="submit" name="submit">

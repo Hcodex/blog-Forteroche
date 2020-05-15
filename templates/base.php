@@ -214,7 +214,7 @@
 
 
 
-		$("#myForm").submit(function(e) {
+		$("#uploadForm").submit(function(e) {
 			e.preventDefault();
 
 			$.ajax({
