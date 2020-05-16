@@ -37,17 +37,37 @@
 					<a class="nav-link" href="index.php?route=auteur">L'auteur</a>
 				</li>
 				<?php if ($this->session->get('pseudo')) { ?>
-					<li class="nav-item">
-						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=profile">Mon compte</a>
+
+					<li class="nav-item dropdown ">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							<?= $this->session->get('pseudo') ?>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item text-dark" href="index.php?route=profile">Mon profil</a>
+							<?php
+							if ($this->session->get('last_article_id') !== NULL) {
+							?>
+								<a class="dropdown-item text-dark" href="index.php?route=article&articleId=<?= $this->session->get('last_article_id'); ?>">
+									Reprendre la lecture
+								</a>
+							<?php
+							} else {
+							?>
+								<span data-toggle="tooltip" data-placement="bottom" title="Marque page non placé">
+									<a class="dropdown-item disabled text-muted" href="#">Reprendre la lecture</a>
+								</span>
+							<?php
+							}
+							?>
+							<?php if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector') { ?>
+								<a class="dropdown-item text-warning" href="index.php?route=administration">Administration</a>
+							<? } ?>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item text-danger" href="index.php?route=logout">
+								<i data-feather="power"></i> Déconnexion
+							</a>
+						</div>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link btn btn-danger text-white" type="button" href="index.php?route=logout">Deconnexion</a>
-					</li>
-					<?php if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector' ) { ?>
-						<li class="nav-item">
-							<a class="nav-link btn btn-warning text-dark" type="button" href="index.php?route=administration">Admin</a>
-						</li>
-					<? } ?>
 				<? } else { ?>
 					<li class="nav-item">
 						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=inscription">Inscription</a>
@@ -58,8 +78,6 @@
 				<? } ?>
 			</ul>
 		</div>
-
-
 	</nav>
 </header>
 <!-- The Modal -->
@@ -136,10 +154,12 @@
 	</footer>
 
 	<script src="js/init.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+	<!--<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>-->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	
+
 	<script>
 		feather.replace();
 		$(window).scroll(function() {
@@ -189,7 +209,7 @@
 			//you can do anything with data, or pass more data to this function. i set this data to modal header for example
 			event.preventDefault();
 			$("#confirmModal #confirmBtn").attr('href', data);
-			$("#confirmModal .modal-body").html('<p>'+message+'</p>');
+			$("#confirmModal .modal-body").html('<p>' + message + '</p>');
 			$("#confirmModal").modal();
 		}
 
@@ -254,9 +274,9 @@
 					const response = JSON.parse(data);
 					if (response["error"] === null) {
 						showAlert("<strong>Upload réussi</strong>", "success", 5000);
-						$('#image_manager #file_selector').append('<option value="'+response["imageThumbail"]+'" data-filename="'+response["imageName"]+'"></option>');
-						$('#image_manager #file_selector').append('<option value="'+response["imageSrc"]+'" data-filename="'+response["imageName"]+'"></option>');
-						$('#image_manager #uploaded-img-list').append('<img class="img-select" alt="" src="'+response["imageThumbail"]+'" style=" max-width : 100%; max-height:80px" data-img="'+response["imageName"]+'">');
+						$('#image_manager #file_selector').append('<option value="' + response["imageThumbail"] + '" data-filename="' + response["imageName"] + '"></option>');
+						$('#image_manager #file_selector').append('<option value="' + response["imageSrc"] + '" data-filename="' + response["imageName"] + '"></option>');
+						$('#image_manager #uploaded-img-list').append('<img class="img-select" alt="" src="' + response["imageThumbail"] + '" style=" max-width : 100%; max-height:80px" data-img="' + response["imageName"] + '">');
 
 					} else {
 						showAlert(response["message"], "danger", 5000);
