@@ -109,6 +109,12 @@ h2, h1{
 	color: black;
 }
 
+.addBookmark{
+	top: 72px;
+	right : 5%;
+	z-index : 1020;
+}
+
 
 #page-content{
 	padding-top : 100px;
@@ -172,6 +178,7 @@ h2, h1{
 	max-height : 100px;
 }
 
+
 @media screen and (max-width: 1280px)
 {
 	.cover-header{
@@ -188,6 +195,12 @@ h2, h1{
 	.cover-header p{
 		font-size : 1.2em;
 	}
+
+	.addBookmark{
+		right : 20px;
+	}
+
+
 }
 
 @media screen and (max-width: 992px)
@@ -195,6 +208,12 @@ h2, h1{
 .nav.sticky-top{
 	top: 50px;
 }
+
+.addBookmark{
+	top: 58px;
+	right : 20px;
+}
+
 }
 
 @media screen and (max-width: 700px)

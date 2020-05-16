@@ -33,7 +33,7 @@ $index = (array_search($article->getId(), $article_list));
 			?>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link  px-0" href="#" data-toggle="modal" data-target="#modalchapitres">Sélection du chapitre</a>
+			<a class="nav-link  px-2" href="#" data-toggle="modal" data-target="#modalchapitres">Sélection du chapitre</a>
 		</li>
 		<li class="nav-item">
 			<?php
@@ -48,25 +48,33 @@ $index = (array_search($article->getId(), $article_list));
 			?>
 		</li>
 	</ul>
+
+
+	<div class="addBookmark float-right my-2 sticky-top rounded-circle bg-warning shadow">
+		<?php
+		if ($this->session->get('pseudo')) {
+		?>
+			<a href="index.php?route=setBookmark&articleId=<?= $article->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Marquer cette page">
+				<i class="text-white m-2" data-feather="bookmark"></i>
+			</a>
+		<?php
+		} else {
+		?>
+			<a data-toggle="tooltip" data-placement="bottom" title="Veuillez vous connecter pour utiliser la fonction marque page">
+				<i class="text-muted m-2" data-feather="bookmark"></i>
+			</a>
+		<?php
+		}
+		?>
+	</div>
+
 	<section class="paper">
 		<div class="container roman text-justify ">
 			<h2 class="title text-primary"><?= htmlspecialchars($article->getTitle()); ?></h2>
 			<?= $article->getContent(); ?>
 		</div>
 		<div class="container">
-			<div class="text-center">
-				<?php
-				if ($this->session->get('pseudo')) {
-				?>
-					<a class="btn btn-warning" href="index.php?route=setBookmark&articleId=<?= $article->getId(); ?>" data-toggle="tooltip" data-placement="bottom" title="Sauvegarder votre lecture, en plaçant un marque page sur ce chapitre">Positionner le marque page ici</a>
-				<?php
-				} else {
-				?>
-					<a class="btn btn-warning text-muted" data-toggle="tooltip" data-placement="bottom" title="Veuillez vous connecter pour utiliser la fonction marque page">Positionner le marque page ici</a>
-				<?php
-				}
-				?>
-			</div>
+
 			<hr>
 			<h2 class="text-primary">Commentaires</h2>
 
@@ -165,10 +173,6 @@ $index = (array_search($article->getId(), $article_list));
 						}
 						?>
 					</div>
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
