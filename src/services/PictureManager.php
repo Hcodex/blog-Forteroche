@@ -21,16 +21,7 @@ class PictureManager
     static function findArticlesPictures($articles)
     {
         foreach ($articles as $article) {
-            $picture = $article->getPicture();
-            $article->setPictureFileName($picture);
-
-            if (file_exists(ARTICLE_THUMB_DIR . $picture) && $picture != NULL) {
-                $article->setThumbail(ARTICLE_THUMB_DIR . $picture);
-                $article->setPicture(ARTICLE_IMG_DIR . $picture);
-            } else {
-                $article->setThumbail(DEFAULT_ARTICLE_IMG);
-                $article->setPicture(DEFAULT_ARTICLE_IMG);
-            }
+            PictureManager::findArticlePictures($article);
         }
     }
 
@@ -52,7 +43,7 @@ class PictureManager
         $userId = $user->getId();
         $picture = $user->getAvatar();
         if (file_exists(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture) && $picture != NULL) {
-            $user->setAvatarSrc(AVATAR_IMG_DIR . $userId .'/' . $picture);
+            $user->setAvatarSrc(AVATAR_IMG_DIR . $userId . '/' . $picture);
             $user->setThumbail(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture);
         } else {
             $user->setAvatarSrc(DEFAULT_AVATAR_IMG);
@@ -63,15 +54,7 @@ class PictureManager
     static function findAvatars($users)
     {
         foreach ($users as $user) {
-        $userId = $user->getId();
-        $picture = $user->getAvatar();
-        if (file_exists(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture) && $picture != NULL) {
-            $user->setAvatarSrc(AVATAR_IMG_DIR . $userId .'/' . $picture);
-            $user->setThumbail(AVATAR_IMG_DIR . $userId . '/thumb/' . $picture);
-        } else {
-            $user->setAvatarSrc(DEFAULT_AVATAR_IMG);
-            $user->setThumbail(DEFAULT_AVATAR_IMG);
+            PictureManager::findAvatar($user);
         }
-    }
     }
 }
