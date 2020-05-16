@@ -251,8 +251,8 @@ class FrontController extends Controller
                 }
 
                 $this->session->set('error_message', '<Strong>Echec ! </strong> Identifiant incorrect');
-            } else{
-            $this->session->set('error_message', '<Strong>Opération impossible, </strong> Ce compte est banni');
+            } else {
+                $this->session->set('error_message', '<Strong>Opération impossible, </strong> Ce compte est banni');
             }
         }
         return $this->view->render('request_account_recovery');
@@ -292,6 +292,7 @@ class FrontController extends Controller
                 $result = $this->userDAO->checkOldPassWord($post, $userId);
                 if ($result['isPasswordValid']) {
                     $this->userDAO->setPassword($post, $userId);
+                    $this->sendMail($this->session->get('email'), "", "passwordModify");
                     $this->session->set('success_message', '<strong>Votre mot de passe a été modifié avec succès. </strong>');
                     header('Location: index.php?route=profile');
                     exit();
@@ -336,6 +337,13 @@ class FrontController extends Controller
                 $message .= "Jean Forteroche";
                 $subject = 'Reinitialisation mot de passe - Billet simple pour l\'Alaska';
                 break;
+            case "passwordModify":
+                $message = 'Bonjour<br><br>';
+                $message .= 'Votre mot de passe a été modifié.<br><br> Si vous n\'êtes pas à l\'origine de cette action il est probable qu\'un tiers connaisse votre passe.<br> Si vous utilisez ce mot de passe sur d\'autres services il est recommandé de le changer au plus vite.<br><br>';
+                $message .= "A très vite,<br>";
+                $message .= "Jean Forteroche";
+                $subject = 'Mot de passe modifié - Billet simple pour l\'Alaska';
+                break;
             default:
                 exit();
         }
@@ -352,6 +360,5 @@ class FrontController extends Controller
         $this->session->set('success_message', '<strong>Marque page positionné.</strong>');
         header('Location: index.php?route=roman');
         exit();
-
     }
 }
