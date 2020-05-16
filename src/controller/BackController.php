@@ -295,11 +295,13 @@ class BackController extends Controller
     public function banUser($userId)
     {
         $this->checkAdmin();
-        if ($this->userDAO->checkUser($userId)) {
-            $this->userDAO->banUser($userId);
-            $this->session->set('success_message', '<strong>L\'utilsateur est désomais bani</strong>');
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
+        if ($userId !== $this->session->get('id')) {
+            if ($this->userDAO->checkUser($userId)) {
+                $this->userDAO->banUser($userId);
+                $this->session->set('success_message', '<strong>L\'utilsateur est désomais bani</strong>');
+                header("Location: " . $_SERVER["HTTP_REFERER"]);
+                exit();
+            }
         }
         $this->session->set('error_message', '<strong>Action impossible</strong>');
         header('Location: index.php?route=administration');
