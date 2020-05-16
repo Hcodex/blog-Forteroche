@@ -19,17 +19,16 @@ $this->title = "Billet simple pour l'Alaska - Le roman"; ?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card">
                             <img class="d-none" src="<?= $article->getThumbail() ?>" alt="Card image cap">
-
                             <div class="card-img-top " style="background-image: url('<?= $article->getThumbail() ?>')" alt="Card image cap">
-                             <?php
-                              if ($this->session->get('last_article_id') === $article->getId()){
-                                   ?>
-                            <div class="float-right m-2 rounded-circle bg-white shadow">
-                                    <i class="text-primary m-2"data-feather="bookmark" data-toggle="tooltip" data-placement="bottom" title="Marque page"></i>
-                                </div>
                                 <?php
-                            }
-                            ?> 
+                                if ($this->session->get('last_article_id') === $article->getId()) {
+                                ?>
+                                    <div class="float-right m-2 rounded-circle bg-white shadow">
+                                        <i class="text-primary m-2" data-feather="bookmark" data-toggle="tooltip" data-placement="bottom" title="Marque page"></i>
+                                    </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                             <div class="card-body">
                                 <h3><?= htmlspecialchars($article->getTitle()); ?></h3>
