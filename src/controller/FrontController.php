@@ -102,13 +102,17 @@ class FrontController extends Controller
         $article = $this->articleDAO->getArticle($articleId);
         if ($this->articleDAO->checkArticle($articleId)) {
             PictureManager::findArticlePictures($article);
-            $articles = $this->articleDAO->getPublishedArticles();
+            $articlesIndex = $this->articleDAO->getArticlesIndex();
+            $previousArticleIndex = $this->articleDAO->getPreviousArticleIndex($articleId);
+            $nextArticleIndex = $this->articleDAO->getNextArticleIndex($articleId);
             $comments = $this->commentDAO->getCommentsFromArticle($articleId);
             PictureManager::findCommentsPictures($comments);
             return $this->view->render('single', [
                 'article' => $article,
-                'articles' => $articles,
+                'articlesIndex' => $articlesIndex,
                 'comments' => $comments,
+                'nextArticleIndex' => $nextArticleIndex,
+                'previousArticleIndex' => $previousArticleIndex
             ]);
         }
         header('Location: index.php?route=roman');

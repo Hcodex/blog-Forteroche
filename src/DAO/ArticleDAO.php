@@ -85,6 +85,37 @@ class ArticleDAO extends DAO
         return $articles;
     }
 
+    public function getArticlesIndex()
+    {
+        $sql = 'SELECT id, title FROM article WHERE status = 1 ORDER BY id DESC ';
+        $result = $this->createQuery($sql);
+        $articles = [];
+        foreach ($result as $row) {
+            $articleId = $row['id'];
+            $articles[$articleId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $articles;
+    }
+
+    public function getPreviousArticleIndex($articleId)
+    {
+        $sql = 'SELECT id FROM article WHERE status = 1 AND id < ?  ORDER BY id DESC LIMIT 1';
+        $result = $this->createQuery($sql, [$articleId]);
+        $previousArticle =  $result->fetchColumn();
+        $result->closeCursor();
+        return  $previousArticle;
+    }
+
+    public function getNextArticleIndex($articleId)
+    {
+        $sql = 'SELECT id FROM article WHERE status = 1 AND id > ?  ORDER BY id ASC LIMIT 1';
+        $result = $this->createQuery($sql, [$articleId]);
+        $previousArticle =  $result->fetchColumn();
+        $result->closeCursor();
+        return  $previousArticle;
+    }
+
     public function getArticle($articleId)
     {
         $sql = 'SELECT article.id, article.title, article.content, article.picture, user.pseudo, article.created_at, article.updated_at FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';

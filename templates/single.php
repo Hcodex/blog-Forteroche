@@ -4,16 +4,6 @@ use App\src\services\Formater;
 
 $this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
 
-
-<?php
-$article_list = array();
-foreach ($articles as $articleIndex) {
-	array_push($article_list, $articleIndex->getId());
-}
-$index = (array_search($article->getId(), $article_list));
-?>
-
-
 <main role="main">
 
 	<div class="page-header" style="background-image : url('<?= $article->getPicture() ?>')">
@@ -22,10 +12,9 @@ $index = (array_search($article->getId(), $article_list));
 	<ul class="nav justify-content-center sticky-top bg-dark">
 		<li class="nav-item">
 			<?php
-			if ($index + 1 < count($article_list)) {
-				$previous_article = $article_list[$index + 1];
+			if ($previousArticleIndex) {
 			?>
-				<a class="nav-link px-0" href="index.php?route=article&articleId=<?= $previous_article; ?>">
+				<a class="nav-link px-0" href="index.php?route=article&articleId=<?= $previousArticleIndex; ?>">
 					<i data-feather="chevron-left" data-toggle="tooltip" data-placement="bottom" title="Chapitre précédent"></i>
 				</a>
 			<?php
@@ -37,10 +26,9 @@ $index = (array_search($article->getId(), $article_list));
 		</li>
 		<li class="nav-item">
 			<?php
-			if ($index > 0) {
-				$next_article = $article_list[$index - 1];
+			if ($nextArticleIndex) {
 			?>
-				<a class="nav-link px-0" href="index.php?route=article&articleId=<?= $next_article; ?>">
+				<a class="nav-link px-0" href="index.php?route=article&articleId=<?= $nextArticleIndex; ?>">
 					<i data-feather="chevron-right" data-toggle="tooltip" data-placement="bottom" title="Chapitre suivant"></i>
 				</a>
 			<?php
@@ -48,7 +36,6 @@ $index = (array_search($article->getId(), $article_list));
 			?>
 		</li>
 	</ul>
-
 
 	<div class="addBookmark float-right my-2 sticky-top rounded-circle bg-warning shadow">
 		<?php
@@ -153,7 +140,6 @@ $index = (array_search($article->getId(), $article_list));
 			</div>
 	</section>
 
-
 	<div class="modal fade" id="modalchapitres" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -166,7 +152,7 @@ $index = (array_search($article->getId(), $article_list));
 				<div class="modal-body">
 					<div class="list-group">
 						<?php
-						foreach ($articles as $articleIndex) {
+						foreach ($articlesIndex as $articleIndex) {
 						?>
 							<a href="index.php?route=article&articleId=<?= $articleIndex->getId() ?>" class="list-group-item list-group-item-action <?= $articleIndex->getId() === $article->getId() ? 'active' : ''; ?>"><?= $articleIndex->getTitle() ?></a>
 						<?php
