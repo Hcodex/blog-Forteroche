@@ -40,7 +40,7 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
 }
 ?>
 <div class="my-2">
-    <a class="col-md-2 btn btn-primary text-white" type="button" href="" data-toggle="modal" data-target="#image_manager">Parcourir les images</a>
+    <a class="btn btn-primary text-white" type="button" href="" data-toggle="modal" data-target="#image_manager">Parcourir les images</a>
 </div>
 
 <div class="modal fade" id="image_manager">
