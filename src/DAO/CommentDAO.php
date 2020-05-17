@@ -55,7 +55,7 @@ class CommentDAO extends DAO
 
     public function editComment(Parameter $post, $articleId, $userId)
     {
-        $sql = 'SELECT COUNT(*) FROM comment WHERE id = ? AND user_id= ?';
+        $sql = 'SELECT COUNT(*) FROM comment WHERE article_id = ? AND user_id= ?';
         $result = $this->createQuery($sql, [$articleId, $userId]);
         $exist = $result->fetchColumn();
         if ($exist) {
