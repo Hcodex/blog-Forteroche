@@ -66,7 +66,7 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
 
                         ?>
                     </select>
-                    <div id="uploaded-img-list">
+                    <div id="uploaded-img-list" class="d-flex flex-wrap">
                         <?php
                         foreach ($img_list as $img) {
                         ?>
