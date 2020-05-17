@@ -70,10 +70,10 @@
 					</li>
 				<? } else { ?>
 					<li class="nav-item">
-						<a class="nav-link btn btn-primary text-white" type="button" href="index.php?route=inscription">Inscription</a>
+						<a class="nav-link btn btn-primary text-white border-0" type="button" href="index.php?route=inscription">Inscription</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link btn btn-danger text-white" type="button" href="#" data-toggle="modal" data-target="#myModal1">Connexion</a>
+						<a class="nav-link btn btn-danger text-white border-0" type="button" href="#" data-toggle="modal" data-target="#myModal1">Connexion</a>
 					</li>
 				<? } ?>
 			</ul>
