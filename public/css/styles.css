@@ -10,7 +10,6 @@ htlm, body {
 
 .navbar{
 	transition:500ms ease;
-	background:transparent;
 	color : white !important;
   }
 
@@ -85,7 +84,7 @@ htlm, body {
 
 }
 
-h2, h1{
+h3, h2, h1{
 	font-family: 'Anton', sans-serif;
 	text-transform: uppercase;
 }
@@ -214,6 +213,17 @@ h2, h1{
 	top: 58px;
 	right : 20px;
 }
+
+.navbar{
+	background:white;
+	color : black;
+	box-shadow: 0px 0px 5px black;
+  }
+
+.navbar a{
+	color : black;
+  }
+
 
 }
 
