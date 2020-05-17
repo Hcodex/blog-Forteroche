@@ -44,7 +44,7 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<a class="dropdown-item text-dark" href="index.php?route=profile">
-							<i data-feather="user" class="mx-2"></i>Mon profil
+								<i data-feather="user" class="mx-2"></i>Mon profil
 							</a>
 							<?php
 							if ($this->session->get('last_article_id') !== NULL) {
@@ -319,12 +319,6 @@
 				}
 			});
 		});
-
-
-
-
 	</script>
-
 </body>
-
 </html>
