@@ -1,6 +1,6 @@
 <?php
 $route = $this->request->getGet()->get('route');
-if ($route === "administration") {
+if ($route === "administration" || $route === "editArticle" ) {
     $upload_mode = "article";
 }elseif   ($route === "profile"){
     $upload_mode = "avatar";

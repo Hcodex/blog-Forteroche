@@ -75,12 +75,16 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
                         }
                         ?>
                     </div>
+
                     <div>
                         <p class="mt-3 mb-0">Image par défaut :</p>
                         <img class="img-select" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a class="mr-auto" type="button" href="" data-toggle="collapse" data-target="#collapseExample">
+                        <i data-feather="file-plus" data-toggle="tooltip" data-placement="bottom" title="Uploader une image"></i>
+                    </a>
                     <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="submit" name="submit" disabled>
                     <?
                     if ($route === "profile" || $route === "editArticle" || $route === "addArticle") {
@@ -91,6 +95,11 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
                     ?>
                 </div>
             </form>
+            <div class="collapse p-3" id="collapseExample">
+                <?php
+                include('ajaxUpload.php');
+                ?>
+            </div>
         </div>
     </div>
 </div>
