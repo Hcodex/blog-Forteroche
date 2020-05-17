@@ -6,10 +6,11 @@ function showAlert(message, type, closeDelay) {
         // alerts-container does not exist, create it
         $cont = $('<div id="alerts-container">')
             .css({
-                 position: "fixed"
-                ,width: "50%"
-                ,left: "25%"
-                ,top: "10%"
+                 position: "fixed",
+                width: "50%",
+                left: "25%",
+                top: "10%",
+                zIndex:"2000"
             })
             .appendTo($("body"));
     }

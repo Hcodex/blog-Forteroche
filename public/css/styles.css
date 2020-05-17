@@ -158,6 +158,7 @@ h3, h2, h1{
 
 .msg-box{
 	top : 70px;
+	z-index : 2000;
 }
 
 #file_selector{
