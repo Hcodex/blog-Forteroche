@@ -176,6 +176,14 @@ class UserDAO extends DAO
         ];
     }
 
+    public function purgeToken($userId)
+    {
+        $sql = 'UPDATE user SET token = NULL WHERE id=:id';
+        $this->createQuery($sql, [
+            'id' => $userId
+        ]);
+    }
+
     public function resetPassword(Parameter $post)
     {
         $sql = 'UPDATE user SET password=:password, token=NULL WHERE email=:email';

@@ -69,6 +69,7 @@ class FrontController extends Controller
                         $this->session->set('avatar', $result['result']['avatar']);
                         $this->session->set('last_article_id', $result['result']['last_article_id']);
                         $this->session->set('success_message', '<Strong>Connexion réussie ! </strong> Bonne lecture');
+                        $this->userDAO->purgeToken($this->session->get('id'));
                         header('Location: index.php?route=profile');
                         exit();
                         break;
@@ -270,6 +271,7 @@ class FrontController extends Controller
                 $result = $this->userDAO->checkToken($post);
                 if ($result['isTokenValid']) {
                     $this->userDAO->resetPassword($post);
+                    $this->sendMail($post->get('email'), "", "passwordModify");
                     $this->session->set('success_message', '<strong>Votre mot de passe a été réinitlaisé avec succès. </strong> Vous pouvez maintenant vous connecter');
                     header('Location: index.php?route=login');
                     exit();
