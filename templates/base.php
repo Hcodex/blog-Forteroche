@@ -253,6 +253,7 @@
 							var total = event.total;
 							if (event.lengthComputable) {
 								percent = Math.ceil(position / total * 100);
+								$('.progress').removeClass('d-none');
 							}
 							if (percent == 100) {
 								$('.progress-bar').text("Envoi terminé, compression en cours...");

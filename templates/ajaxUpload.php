@@ -20,7 +20,7 @@ if ($route === "administration") {
 		</div>
 	</div>
 </form>
-<div class="progress">
+<div class="progress d-none">
 	<div class="progress-bar" role="progressbar"></div>
 </div>
 
@@ -37,5 +37,3 @@ if ($route === "administration") {
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-
-<div id='testdiv'></div>
