@@ -201,9 +201,24 @@ class BackController extends Controller
             $this->session->set($param, 'Vous avez été correctement déconnecté, a bientôt.');
             $this->session->set('success_message', 'Vous avez été correctement déconnecté, a bientôt.');
         } else {
+            $this->session->set('success_message', 'Votre compte a bien été supprimé.');
             $this->session->set($param, 'Votre compte a bien été supprimé');
         }
         header('Location: index.php');
+        exit();
+    }
+
+
+    public function deleteUser($userId)
+    {
+        $this->checkLoggedIn();
+        if ($userId === $this->session->get('id')) {
+            $this->userDAO->deleteUser($userId);
+            $this->logoutOrDelete('delete');
+        } else {
+            $this->session->set('error_message', '<strong>Supression impossible</strong>');
+        }
+        header('Location: index.php?route=profile');
         exit();
     }
 
@@ -321,17 +336,4 @@ class BackController extends Controller
         header('Location: index.php?route=administration');
         exit();
     }
-    /*
-    public function deleteUser($userId)
-    {
-        $this->checkAdmin();
-        if ($this->userDAO->checkUser($userId)) {
-            $this->userDAO->deleteUser($userId);
-            $this->session->set('success_message', '<strong>L\'utilisateur a bien été supprimé</strong>');
-        } else {
-            $this->session->set('error_message', '<strong>Supression impossible</strong>');
-        }
-        header('Location: index.php?route=administration');
-        exit();
-    }*/
 }
