@@ -12,7 +12,7 @@
                         <div class="col-md-6 col-sm-12 text-md-center">
                             <h3 class="pt-4 text-muted">Email</h3>
                             <p><?= htmlspecialchars($this->session->get('email')); ?>
-                            <a href="index.php?route=passwordModify"><i class="text-primary m-2 " data-feather="key" data-toggle="tooltip" data-placement="bottom" title="Changer le mot de passe"></i></a>
+                                <a href="index.php?route=passwordModify"><i class="text-primary m-2 " data-feather="key" data-toggle="tooltip" data-placement="bottom" title="Changer le mot de passe"></i></a>
                             </p>
                         </div>
                         <div class="col-md-6 col-sm-12 text-md-center">
@@ -45,7 +45,11 @@
                     <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?= htmlspecialchars($this->session->get('avatar')) ?>">
                     <div class="text-center">
                         <input type="submit" class="btn btn-primary" value="Mettre à jour" id="submit" name="submit">
+                        <a class="btn btn-danger" href="#" onclick="setConfirmModal('index.php?route=deleteUser&userId=<?= htmlspecialchars($this->session->get('id')); ?>', 'Votre compte va être supprimé définitivement')">
+                            Supprimer mon compte
+                        </a>
                     </div>
+
             </form>
 
 

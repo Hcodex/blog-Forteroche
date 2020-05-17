@@ -135,9 +135,9 @@ class Router
                     case "setBookmark":
                         $this->frontController->setBookmark($this->request->getGet()->get('articleId'));
                     break;
-                    /*case "deleteUser":
+                    case "deleteUser":
                         $this->backController->deleteUser($this->request->getGet()->get('userId'));
-                    break;*/
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }

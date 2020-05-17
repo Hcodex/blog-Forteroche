@@ -152,7 +152,7 @@ class FrontController extends Controller
 
     public function editComment(Parameter $post, $articleId)
     {
-
+        
         $this->checkLoggedIn();
         if ($this->articleDAO->checkArticle($articleId)) {
             $article = $this->articleDAO->getArticle($articleId);
@@ -165,6 +165,7 @@ class FrontController extends Controller
                         header("Location: " . $_SERVER["HTTP_REFERER"]);
                         exit();
                     }
+                    var_dump($userId ." ". $articleId);
                     $this->session->set('error_message', '<strong>Ce commentaire n\'existe pas</strong>');
                     header("Location: " . $_SERVER["HTTP_REFERER"]);
                     exit();
