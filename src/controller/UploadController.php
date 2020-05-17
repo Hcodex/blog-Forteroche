@@ -6,6 +6,7 @@ use App\config\Parameter;
 
 class UploadController extends Controller
 {
+	/*
 	public function upload(Parameter $post, $upload_mode)
 	{
 		// rendre les méthodes dynamiques (post chapitre/profil)
@@ -65,7 +66,7 @@ class UploadController extends Controller
 		header('Location: index.php?route=forbiden');
 		exit();
 	}
-
+*/
 	public function fileValidation($file, $extension)
 	{
 		$size = filesize($file['tmp_name']);
@@ -232,8 +233,6 @@ class UploadController extends Controller
 		exit();
 	}
 
-
-
 	public function _ajaxUpload(Parameter $post)
 	{
 		$upload_mode = $post->get('mode');
@@ -262,18 +261,22 @@ class UploadController extends Controller
 			$img_src =  $img_dir . $newName . $extension;
 			$img_dest = $thumb_dir . $newName . $extension;
 			if (!$errors) {
-				if (!move_uploaded_file($file['tmp_name'], $img_dir . $newName . $extension)) {
+				if (move_uploaded_file($file['tmp_name'], $img_dir . $newName . $extension)) {
+					if ($this->imagethumb($img_src, $img_dest, 400)) {
+						$success = true;
+					} else {
+						$errors = 'Erreur lors de la compression';
+					}
+				} else {
 					$errors = 'Erreur lors l\'envoi du fichier';
-				} elseif (!$this->imagethumb($img_src, $img_dest, 400)) {
-					$errors = 'Erreur lors de la compression';
 				}
 			}
 		}
 		echo json_encode(array(
-			'error' =>  $errors,
-			'message' => '<Strong>Echec de l\'upload </strong>' . $errors,
+			'success' =>  $success,
+			'errorMessage' => '<Strong>Echec de l\'upload </strong>' . $errors,
 			'imageSrc' => $img_src,
-			'imageName' => $newName. $extension,
+			'imageName' => $newName . $extension,
 			'imageThumbail' => $img_dest
 		));
 	}

@@ -279,14 +279,14 @@
 					$('.progress-bar').removeClass('progress-bar-striped progress-bar-animated');
 					$('.progress-bar').text("Terminé");
 					const response = JSON.parse(data);
-					if (response["error"] === null) {
+					if (response["success"] === true) {
 						showAlert("<strong>Upload réussi</strong>", "success", 5000);
 						$('#image_manager #file_selector').append('<option value="' + response["imageThumbail"] + '" data-filename="' + response["imageName"] + '"></option>');
 						$('#image_manager #file_selector').append('<option value="' + response["imageSrc"] + '" data-filename="' + response["imageName"] + '"></option>');
 						$('#image_manager #uploaded-img-list').append('<img class="img-select" alt="" src="' + response["imageThumbail"] + '" style=" max-width : 100%; max-height:80px" data-img="' + response["imageName"] + '">');
 
 					} else {
-						showAlert(response["message"], "danger", 5000);
+						showAlert(response["errorMessage"], "danger", 5000);
 					}
 				},
 				error: function() {
