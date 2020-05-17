@@ -294,6 +294,35 @@
 				}
 			});
 		});
+
+		$("#filesDelete").submit(function(e) {
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: 'index?route=ajaxFilesDelete',
+				data: new FormData(this),
+				contentType: false,
+				processData: false,
+				success: function(data) {
+					console.log(data);
+					const response = JSON.parse(data);
+					if (response["success"] === true) {
+						showAlert("<strong>Supression réussie</strong>", "success", 5000);
+						$('#image_manager #file_selector>option[selected="selected"]').remove();
+						$('#image_manager #uploaded-img-list .selected').remove();
+					} else {
+						showAlert(response["errorMessage"], "danger", 5000);
+					}
+				},
+				error: function() {
+					showAlert("<strong>Erreur</strong>, la reqête n'a pu aboutir", "danger", 5000);
+				}
+			});
+		});
+
+
+
+
 	</script>
 
 </body>

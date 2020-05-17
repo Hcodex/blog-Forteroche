@@ -72,12 +72,15 @@ class Router
                     case "editProfile":
                         $this->backController->editProfile($this->request->getPost());
                     break;
+                    /*
                     case "upload":
                         $this->uploadController->upload($this->request->getPost(), $this->request->getGet()->get('upload_mode'));
                     break;
+                    
                     case "filesdelete":
                         $this->uploadController->filesDelete($this->request->getPost());
                     break;
+                    */
                     case "addComment":
                         $this->frontController->addComment($this->request->getPost(), $this->request->getGet()->get('articleId'));
                     break;
@@ -101,6 +104,9 @@ class Router
                     break;
                     case "ajax":
                         $this->uploadController->_ajaxUpload($this->request->getPost());
+                    break;
+                    case "ajaxFilesDelete":
+                        $this->uploadController->_ajaxFilesDelete($this->request->getPost());
                     break;
                     case "setRole":
                         $this->backController->setRole($this->request->getGet()->get('userId'),$this->request->getGet()->get('role'));

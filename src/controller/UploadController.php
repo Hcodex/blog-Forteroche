@@ -212,6 +212,7 @@ class UploadController extends Controller
 		return TRUE;
 	}
 
+	/*
 	public function filesDelete(Parameter $post)
 	{
 
@@ -232,7 +233,7 @@ class UploadController extends Controller
 		header('Location: index.php?route=forbiden');
 		exit();
 	}
-
+*/
 	public function _ajaxUpload(Parameter $post)
 	{
 		$upload_mode = $post->get('mode');
@@ -278,6 +279,31 @@ class UploadController extends Controller
 			'imageSrc' => $img_src,
 			'imageName' => $newName . $extension,
 			'imageThumbail' => $img_dest
+		));
+	}
+
+
+
+	public function _ajaxfilesDelete(Parameter $post)
+	{
+
+		foreach ($post->get('file_selector') as $file) {
+
+			if (!file_exists($file)) {
+				$errors .= "Impossible de supprimer le fichier " . $file . "<br>";
+			} else {
+				!unlink($file);
+			}
+		}
+		if (!$errors) {
+			$success = true;
+		} else {
+			$success = false;
+		}
+
+		echo json_encode(array(
+			'success' =>  $success,
+			'errorMessage' => $errors
 		));
 	}
 }
