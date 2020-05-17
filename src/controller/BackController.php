@@ -213,8 +213,8 @@ class BackController extends Controller
         $this->checkLoggedIn();
         if ($post->get('submit')) {
             $userId = $this->session->get('id');
-            $user = $this->userDAO->getUser($userId);
             $this->userDAO->editUser($post,  $userId);
+            $user = $this->userDAO->getUser($userId);
             $this->session->set('avatar', $user->getAvatar());
             $this->session->set('success_message', '<strong>Profil mis à jour</strong>');
             header('Location: index.php?route=profile');
