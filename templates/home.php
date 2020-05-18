@@ -4,8 +4,8 @@
 	<div class="cover-header">
 		<h1>Billet simple pour l'Alaska</h1>
 		<p>Le roman en ligne de Jean Forteroche</p>
-		<a class="btn btn-primary" href="index.php?route=roman" role="button">Lire le roman en ligne</a>
-		<a class="btn btn-secondary" href="#page-content" role="button">Plus d'infos</a>
+		<a class="btn btn-primary m-1" href="index.php?route=roman" role="button">Lire le roman en ligne</a>
+		<a class="btn btn-secondary m-1" href="#page-content" role="button">Plus d'infos</a>
 	</div>
 
 	<section id="page-content" class="mb-5 pb-5">
