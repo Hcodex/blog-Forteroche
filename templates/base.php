@@ -113,8 +113,8 @@
 
 	<?php if ($this->session->get('success_message')) { ?>
 
-		<div class="row fixed-top msg-box">
-			<div class="mx-auto alert alert-success alert-dismissible fade show col-md-4 col-md-offset-4" role="alert">
+		<div class="row fixed-top msg-box p-0 col-md-6 mx-auto">
+			<div class="mx-auto alert alert-success alert-dismissible fade show col-12" role="alert">
 				<?= $this->session->show('success_message'); ?>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -123,8 +123,8 @@
 		</div>
 	<?php } ?>
 	<?php if ($this->session->get('error_message')) { ?>
-		<div class="row fixed-top msg-box">
-			<div class="mx-auto alert alert-danger alert-dismissible fade show col-md-4 col-md-offset-4" role="alert">
+		<div class="row fixed-top msg-box p-0 col-md-6 mx-auto">
+			<div class="mx-auto alert alert-danger alert-dismissible fade show col-12" role="alert">
 				<?= $this->session->show('error_message'); ?>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
