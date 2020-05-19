@@ -6,73 +6,12 @@ use App\config\Parameter;
 
 class UploadController extends Controller
 {
-	/*
-	public function upload(Parameter $post, $upload_mode)
-	{
-		// rendre les méthodes dynamiques (post chapitre/profil)
-		// créer des constantes (ne pas oublié deux répertoire différents)
-		// vérifier l'existance d'un upload
-		// appelle méthode vérif files
-		// création de miniature
-		// enregistrement de la miniature / photo
-		if ($post->get('submit')) {
 
-			switch ($upload_mode) {
-				case "article":
-					$img_dir = ARTICLE_IMG_DIR;
-					$thumb_dir = ARTICLE_THUMB_DIR;
-					$this->setDir($img_dir, $thumb_dir);
-					$callback = "Location: index.php?route=administration";
-					break;
-				case "avatar":
-					$img_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
-					$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
-					$this->setDir($img_dir, $thumb_dir);
-					$limit = $this->uploadLimit($img_dir, AVATAR_LIMIT);
-					$callback = "Location: index.php?route=profile#picked_img";
-					break;
-				default:
-					$this->session->set('error_message', '<Strong>Erreur interne</strong>');
-					header('Location: index.php?route=administration');
-					exit();
-			}
-
-			$file = $_FILES['fileToUpload'];
-			$extension = strrchr($file['name'], '.');
-
-			$errors = $this->fileValidation($file, $extension);
-
-			if (!$errors && !$limit) {
-
-				$newName = md5(session_id() . microtime());
-
-				if (move_uploaded_file($file['tmp_name'], $img_dir . $newName . $extension)) {
-					$img_src =  $img_dir . $newName . $extension;
-					$img_dest = $thumb_dir . $newName . $extension;
-					if ($this->imagethumb($img_src, $img_dest, 400)) {
-						$this->session->set('success_message', '<Strong>Upload réussi ! </strong>');
-					} else {
-						$this->session->set('error_message', '<Strong>Erreur lors de la la compression.</strong> ');
-					}
-				} else {
-					$this->session->set('error_message', '<Strong>Echec de l\'upload</strong>');
-				}
-			} else {
-				$this->session->set('error_message', '<Strong>Echec de l\'upload </strong>' . $errors . $limit);
-			}
-			header($callback);
-			exit();
-		}
-		header('Location: index.php?route=forbiden');
-		exit();
-	}
-*/
 	public function fileValidation($file, $extension)
 	{
 		$size = filesize($file['tmp_name']);
 		$img_info = getimagesize($file['tmp_name']);
 		$mime   = $img_info['mime'];
-
 		if (!in_array($extension, IMG_ALLOWED_EXTENSIONS)) {
 			return 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg';
 		}
@@ -164,7 +103,6 @@ class UploadController extends Controller
 			}
 		}
 
-
 		$func = 'imagecreatefrom' . $type;
 		if (!function_exists($func)) return FALSE;
 
@@ -212,28 +150,6 @@ class UploadController extends Controller
 		return TRUE;
 	}
 
-	/*
-	public function filesDelete(Parameter $post)
-	{
-
-		if ($post->get('submit')) {
-			foreach ($post->get('file_selector') as $file) {
-				if (!unlink($file)) {
-					$error = "Impossible de supprimer le fichier";
-				}
-			}
-			if (!$error) {
-				$this->session->set('success_message', '<Strong>Fichier(s) supprimé(s)</strong>');
-			} else {
-				$this->session->set('error_message', '<Strong>' . $error . '</strong>');
-			}
-			header("Location: " . $_SERVER["HTTP_REFERER"]);
-			exit();
-		}
-		header('Location: index.php?route=forbiden');
-		exit();
-	}
-*/
 	public function _ajaxUpload(Parameter $post)
 	{
 		$upload_mode = $post->get('mode');
@@ -248,7 +164,7 @@ class UploadController extends Controller
 				$img_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/';
 				$thumb_dir = AVATAR_IMG_DIR . $this->session->get('id') . '/thumb/';
 				$this->setDir($img_dir, $thumb_dir);
-				$errors = $this->uploadLimit($img_dir, 3);
+				$errors = $this->uploadLimit($img_dir, AVATAR_LIMIT);
 				break;
 			default:
 				$errors = "Erreur interne";
@@ -282,13 +198,9 @@ class UploadController extends Controller
 		));
 	}
 
-
-
 	public function _ajaxfilesDelete(Parameter $post)
 	{
-
 		foreach ($post->get('file_selector') as $file) {
-
 			if (!file_exists($file)) {
 				$errors .= "Impossible de supprimer le fichier " . $file . "<br>";
 			} else {

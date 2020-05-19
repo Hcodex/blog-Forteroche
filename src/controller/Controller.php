@@ -9,9 +9,8 @@ use App\src\DAO\CommentDAO;
 use App\src\model\View;
 use App\src\constraint\Validation;
 
-
 abstract class Controller
-{ 
+{
     public function __construct()
     {
         $this->view = new View();
