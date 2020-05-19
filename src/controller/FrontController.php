@@ -22,6 +22,11 @@ class FrontController extends Controller
         return $this->view->render('mentions_legales');
     }
 
+    public function politique()
+    {
+        return $this->view->render('politique_confidentialite');
+    }
+
     public function register(Parameter $post)
     {
         if (!$this->session->get('pseudo')) {

@@ -132,6 +132,9 @@ class Router
                     case "mentionsLegales":
                         $this->frontController->mentions();
                     break;
+                    case "politiqueConfidentialite":
+                        $this->frontController->politique();
+                    break;
                     default:$this->errorController->errorNotFound();
                 }
             }
