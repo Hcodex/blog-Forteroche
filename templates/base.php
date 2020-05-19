@@ -154,7 +154,7 @@
 
 	<footer class="bg-secondary">
 		<div class="footer-copyright bg-dark text-white text-center py-3">
-			<p>2020 © Tous droits réservés | <a href="index.php?route=mentions_legales">Mentions légales</a> | <a href="index.php?route=politique_confidentialite">Politique de confidentialité</a></p>
+			<p>2020 © Tous droits réservés | <a href="index.php?route=mentionsLegales">Mentions légales</a> | <a href="index.php?route=politiqueConfidentialite">Politique de confidentialité</a></p>
 			<p class="my-0">Avertissement : Ce site est un projet d'étude, l'intégralité de son contenu est purement fictif</p>
 		</div>
 	</footer>
