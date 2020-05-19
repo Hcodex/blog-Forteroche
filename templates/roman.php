@@ -18,8 +18,8 @@ $this->title = "Billet simple pour l'Alaska - Le roman"; ?>
                 ?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card">
-                            <img class="d-none" src="<?= $article->getThumbail() ?>" alt="Card image cap">
-                            <div class="card-img-top " style="background-image: url('<?= $article->getThumbail() ?>')" alt="Card image cap">
+                            <img class="d-none" src="<?= $article->getThumbail() ?>" alt="Image titre <?= htmlspecialchars($article->getTitle()); ?>">
+                            <div class="card-img-top " style="background-image: url('<?= $article->getThumbail() ?>')">
                                 <?php
                                 if ($this->session->get('last_article_id') === $article->getId()) {
                                 ?>
