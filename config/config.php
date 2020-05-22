@@ -14,3 +14,4 @@ const AVATAR_LIMIT = 3;
 const MAIL_FROM = "From: \"Jean Forteroche\"<account@a-peterlini.fr>\n";
 const MAIL_REPLY_TO = "Reply-To: account@a-peterlini.fr\n";
 const MAIL_CONTENT_TYPE = "Content-Type: text/html; charset=\"utf8\"";
+const HOST_ADRESS ="http://192.168.2.107/blog-Forteroche/public/";

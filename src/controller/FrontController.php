@@ -219,13 +219,12 @@ class FrontController extends Controller
         if ($result['isTokenValid']) {
             $this->userDAO->confirmAccount($get);
             $this->session->set('success_message', '<strong>Compte activé,</strong> vous pouvez maintenant vous connecter');
-        }
-        else{
-        $this->session->set('error_message', 'Votre compte est déjà activé ou le lien est cassé');
+        } else {
+            $this->session->set('error_message', 'Votre compte est déjà activé ou le lien est cassé');
         }
         return $this->view->render('login', [
             'post' => $get,
-         ]);
+        ]);
         exit();
     }
 
@@ -285,7 +284,6 @@ class FrontController extends Controller
                 if ($result['isTokenValid']) {
                     $this->userDAO->resetPassword($post);
                     $this->sendMail($post->get('email'), "", "passwordModify");
-                    $this->session->set('success_message', '<strong>Votre mot de passe a été réinitlaisé avec succès. </strong> Vous pouvez maintenant vous connecter');
                     $this->login($post);
                     exit();
                 } else {
@@ -334,7 +332,7 @@ class FrontController extends Controller
             case "accountCreation":
                 $message = 'Bienvenue sur Un billet simple pour l\'Alaska<br><br>';
                 $message .= 'Votre compte à été créé avec succès, pour l\'activer, cliquez sur le lien suivant :<br>';
-                $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
+                $message .= "<a href='" . HOST_ADRESS . "index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
                 $message .= "A très vite,<br>";
                 $message .= "Jean Forteroche";
                 $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
@@ -342,7 +340,7 @@ class FrontController extends Controller
             case "tokenRequest":
                 $message = 'Bonjour<br><br>';
                 $message .= 'Pour activer votre compte, cliquez sur le lien suivant :<br>';
-                $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
+                $message .= "<a href='" . HOST_ADRESS . "index.php?route=confirmAccount&email=" . $to . "&token=" . $token . "'>Activer mon compte</a><br><br>";
                 $message .= "A très vite,<br>";
                 $message .= "Jean Forteroche";
                 $subject = 'Activer votre compte - Billet simple pour l\'Alaska';
@@ -350,7 +348,7 @@ class FrontController extends Controller
             case "accountRecovery":
                 $message = 'Bonjour<br><br>';
                 $message .= 'Une demande de réinitialisation de mot de passe pour votre compte a été effectuée. Si vous êtes à l\'origine de cette demande et que vous souhaitez toujours remplacer votre mot de passe, cliquez sur le lien ci-dessous<br>';
-                $message .= "<a href='http://192.168.2.107/blog-Forteroche/public/index.php?route=accountRecovery&token=" . $token . "'>Réinitialiser mon mot de passe</a><br><br>";
+                $message .= "<a href='" . HOST_ADRESS . "index.php?route=accountRecovery&token=" . $token . "'>Réinitialiser mon mot de passe</a><br><br>";
                 $message .= "A très vite,<br>";
                 $message .= "Jean Forteroche";
                 $subject = 'Reinitialisation mot de passe - Billet simple pour l\'Alaska';
