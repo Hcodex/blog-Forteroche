@@ -286,7 +286,7 @@ class FrontController extends Controller
                     $this->userDAO->resetPassword($post);
                     $this->sendMail($post->get('email'), "", "passwordModify");
                     $this->session->set('success_message', '<strong>Votre mot de passe a été réinitlaisé avec succès. </strong> Vous pouvez maintenant vous connecter');
-                    header('Location: index.php?route=login');
+                    $this->login($post);
                     exit();
                 } else {
                     $this->session->set('error_message', '<strong>Erreur ! </strong>Impossible de réinitialiser votre mot de passe');
