@@ -131,6 +131,10 @@ h3, h2, h1{
 	margin-top : 20px;
 }
 
+.roman-card .card-body{
+	min-height : 220px;
+}
+
 .first{
 	background-image: url('../img/mountain.svg') ;
 	background-repeat: no-repeat;
@@ -193,7 +197,9 @@ h3, h2, h1{
 		right : 20px;
 	}
 
-
+	.roman-card .card-body{
+		min-height : 245px;
+	}
 }
 
 @media screen and (max-width: 992px)
@@ -264,6 +270,10 @@ h3, h2, h1{
 	.comment-avatar{
 		max-width: 50px;
 		max-height: 50px;
+	}
+
+	.roman-card .card-body{
+		min-height :auto;
 	}
 
 }

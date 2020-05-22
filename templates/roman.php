@@ -17,7 +17,7 @@ $this->title = "Billet simple pour l'Alaska - Le roman"; ?>
                 foreach ($articles as $article) {
                 ?>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card">
+                        <div class="card roman-card">
                             <img class="d-none" src="<?= $article->getThumbail() ?>" alt="Image titre <?= htmlspecialchars($article->getTitle()); ?>">
                             <div class="card-img-top " style="background-image: url('<?= $article->getThumbail() ?>')">
                                 <?php
