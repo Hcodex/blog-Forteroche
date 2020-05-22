@@ -219,11 +219,13 @@ class FrontController extends Controller
         if ($result['isTokenValid']) {
             $this->userDAO->confirmAccount($get);
             $this->session->set('success_message', '<strong>Compte activé,</strong> vous pouvez maintenant vous connecter');
-            return $this->view->render('login');
-            exit();
         }
+        else{
         $this->session->set('error_message', 'Votre compte est déjà activé ou le lien est cassé');
-        header('Location: index.php?route=login');
+        }
+        return $this->view->render('login', [
+            'post' => $get,
+         ]);
         exit();
     }
 
