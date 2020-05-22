@@ -46,7 +46,7 @@
                     <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="policy-checkbox" required>
                     <label class="form-check-label" for="policy-checkbox">
-                        J'accepte les termes de la <a href="index.php?route=politique_confidentialite">politique de confidentialité</a></p>
+                        J'accepte les termes de la <a href="index.php?route=politiqueConfidentialite">politique de confidentialité</a></p>
                     </label>
                     </div>
                 </div>
