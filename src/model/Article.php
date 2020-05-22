@@ -62,15 +62,6 @@ class Article
         $this->author = $author;
     }
 
-    /*
-    public function getCreatedAt($format = null)
-    {
-       return $this->DateFormat($format, $this->created_at);
-
-    }
-
-*/
-
     public function getCreatedAt()
     {
         return $this->created_at;
