@@ -19,94 +19,91 @@
 
 </head>
 
-<header>
-	<nav class="navbar fixed-top navbar-expand-lg">
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<i data-feather="menu"></i>
-		</button>
+<body>
+	<header>
+		<nav class="navbar fixed-top navbar-expand-lg">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<i data-feather="menu"></i>
+			</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto topnav">
-				<li class="nav-item active">
-					<a class="nav-link" href="index.php?route=home">Accueil <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="index.php?route=roman">Le roman</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="index.php?route=auteur">L'auteur</a>
-				</li>
-				<?php if ($this->session->get('pseudo')) { ?>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto topnav">
+					<li class="nav-item active">
+						<a class="nav-link" href="index.php?route=home">Accueil <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="index.php?route=roman">Le roman</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?route=auteur">L'auteur</a>
+					</li>
+					<?php if ($this->session->get('pseudo')) { ?>
 
-					<li class="nav-item dropdown ">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-							<?= $this->session->get('pseudo') ?>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item text-dark" href="index.php?route=profile">
-								<i data-feather="user" class="mx-2"></i>Mon profil
+						<li class="nav-item dropdown ">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+								<?= $this->session->get('pseudo') ?>
 							</a>
-							<?php
-							if ($this->session->get('last_article_id') !== NULL) {
-							?>
-								<a class="dropdown-item text-dark" href="index.php?route=article&articleId=<?= $this->session->get('last_article_id'); ?>">
-									<i data-feather="book-open" class="mx-2"></i>Reprendre la lecture
+							<div class="dropdown-menu dropdown-menu-right">
+								<a class="dropdown-item text-dark" href="index.php?route=profile">
+									<i data-feather="user" class="mx-2"></i>Mon profil
 								</a>
-							<?php
-							} else {
-							?>
-								<span data-toggle="tooltip" data-placement="bottom" title="Marque page non placé">
-									<a class="dropdown-item disabled text-muted" href="#">
+								<?php
+								if ($this->session->get('last_article_id') !== NULL) {
+								?>
+									<a class="dropdown-item text-dark" href="index.php?route=article&articleId=<?= $this->session->get('last_article_id'); ?>">
 										<i data-feather="book-open" class="mx-2"></i>Reprendre la lecture
 									</a>
-								</span>
-							<?php
-							}
-							?>
-							<?php if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector') { ?>
-								<a class="dropdown-item text-warning" href="index.php?route=administration">
-									<i data-feather="sliders" class="mx-2"></i>Administration
+								<?php
+								} else {
+								?>
+									<span data-toggle="tooltip" data-placement="bottom" title="Marque page non placé">
+										<a class="dropdown-item disabled text-muted" href="#">
+											<i data-feather="book-open" class="mx-2"></i>Reprendre la lecture
+										</a>
+									</span>
+								<?php
+								}
+								?>
+								<?php if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector') { ?>
+									<a class="dropdown-item text-warning" href="index.php?route=administration">
+										<i data-feather="sliders" class="mx-2"></i>Administration
+									</a>
+								<? } ?>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item text-danger" href="index.php?route=logout">
+									<i data-feather="power" class="mx-2"></i>Déconnexion
 								</a>
-							<? } ?>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item text-danger" href="index.php?route=logout">
-								<i data-feather="power" class="mx-2"></i>Déconnexion
-							</a>
-						</div>
-					</li>
-				<? } else { ?>
-					<li class="nav-item">
-						<a class="nav-link btn btn-primary text-white border-0" type="button" href="index.php?route=inscription">Inscription</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link btn btn-danger text-white border-0" type="button" href="#" data-toggle="modal" data-target="#myModal1">Connexion</a>
-					</li>
-				<? } ?>
-			</ul>
-		</div>
-	</nav>
-</header>
-<!-- The Modal -->
-<div class="modal fade" id="myModal1">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<h4 class="modal-title">Se connecter</h4>
-				<button type="button" class="close" data-dismiss="modal">×</button>
+							</div>
+						</li>
+					<? } else { ?>
+						<li class="nav-item">
+							<a class="nav-link btn btn-primary text-white border-0" type="button" href="index.php?route=inscription">Inscription</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link btn btn-danger text-white border-0" type="button" href="#" data-toggle="modal" data-target="#myModal1">Connexion</a>
+						</li>
+					<? } ?>
+				</ul>
 			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-				<?php
-				include '../templates/form_login.php';
-				?>
+		</nav>
+	</header>
+	<!-- The Modal -->
+	<div class="modal fade" id="myModal1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Se connecter</h4>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<?php include('form_login.php'); ?>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-
-<body>
 	<div id="content">
 		<?= $content ?>
 	</div>
