@@ -1,8 +1,10 @@
 
 feather.replace();
+
 $(window).scroll(function () {
     $('nav').toggleClass('scrolled', $(this).scrollTop() > 50);
 });
+
 tinymce.init({
     selector: '.tinyMCE',
     plugins: 'code autoresize',
@@ -36,7 +38,6 @@ $('.custom-file input').change(function (e) {
         $(this).next('.custom-file-label').html(e.target.files[0].name);
     }
 });
-
 
 $('#image_manager').on('hide.bs.modal', function (e) {
     $('.img-select.selected').removeClass('selected border-primary border');
