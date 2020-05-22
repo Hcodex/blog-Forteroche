@@ -66,7 +66,8 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
 
                         ?>
                     </select>
-                    <div id="uploaded-img-list" class="d-flex flex-wrap">
+                    <div id="img-list">
+                        <div id="uploaded-img-list" class="d-flex flex-wrap">
                         <?php
                         foreach ($img_list as $img) {
                         ?>
@@ -74,11 +75,11 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
                         <?php
                         }
                         ?>
-                    </div>
-
-                    <div>
-                        <p class="mt-3 mb-0">Image par défaut :</p>
-                        <img class="img-select" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
+                        </div>
+                        <div>
+                            <p class="mt-3 mb-0">Image par défaut :</p>
+                            <img class="img-select default-img" alt="" src="<?= $default_img ?>" style="height:80px" data-img="" />
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

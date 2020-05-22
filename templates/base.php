@@ -188,7 +188,7 @@
 
 		});
 
-		$("#uploaded-img-list").on('click', '.img-select', function() {
+		$("#img-list").on('click', '.img-select', function() {
 			$val = $(this).attr('data-img')
 			$('.custom-select>option[data-filename="' + $val + '"]').attr('selected') ?
 				$('.custom-select>option[data-filename="' + $val + '"]').removeAttr('selected') : $('.custom-select>option[data-filename="' + $val + '"]').attr('selected', 'selected');
