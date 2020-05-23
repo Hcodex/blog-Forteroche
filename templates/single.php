@@ -114,18 +114,20 @@ $this->title = "Billet simple pour l'Alaska - L'auteur"; ?>
 									}
 									if ($this->session->get('role') === 'admin' || $this->session->get('role') === 'corrector') {
 									?>
-										<a class="btn float-right py-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
-											<i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
-										</a>
-										<a class="btn float-right py-0" href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
-											<i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
-										</a>
-										<a class="btn float-right py-0" href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
-											<i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
-										</a>
-										<a class="btn float-right py-0" href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
-											<i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
-										</a>
+										<p class="my-1">
+											<a class="btn py-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
+												<i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
+											</a>
+											<a class="btn py-0" href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
+												<i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
+											</a>
+											<a class="btn py-0" href="index.php?route=archiveComment&commentId=<?= $comment->getId(); ?>">
+												<i class="text-secondary" data-feather="save" data-toggle="tooltip" data-placement="bottom" title="Archiver"></i>
+											</a>
+											<a class="btn py-0" href="#" onclick="setConfirmModal('index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>')">
+												<i class="text-danger" data-feather="trash-2" data-toggle="tooltip" data-placement="bottom" title="Supprimer"></i>
+											</a>
+										</p>
 									<?php
 									}
 									?>
