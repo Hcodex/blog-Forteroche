@@ -142,10 +142,14 @@
 	<script src="js/init.js"></script>
 
 	<?php if ($this->session->get('success_message')) { ?>
-		<script>showAlert("<?= $this->session->show('success_message') ?>", "success", 5000);</script>
+		<script>
+			showAlert("<?= $this->session->show('success_message') ?>", "success", 5000);
+		</script>
 	<?php } ?>
 	<?php if ($this->session->get('error_message')) { ?>
-		<script>showAlert("<?= $this->session->show('error_message') ?>", "danger", 5000);</script>
+		<script>
+			showAlert("<?= $this->session->show('error_message') ?>", "danger", 5000);
+		</script>
 	<?php } ?>
 
 </body>
