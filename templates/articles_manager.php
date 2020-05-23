@@ -18,14 +18,14 @@ use App\src\services\Formater; ?>
         <table class="table table-striped">
             <thead>
                 <tr class="text-center">
-                    <th scope="col">Titre</th>
-                    <th scope="col">Contenu</th>
-                    <th scope="col">Auteur</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Créé le</th>
-                    <th scope="col">Mis à jour</th>
-                    <th scope="col">Statut</th>
-                    <th class="col-sm-1" scope="col">Actions</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Titre</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Contenu</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Auteur</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Image</th>
+                    <th class="d-none d-sm-table-cell w10" scope="col">Créé le</th>
+                    <th class="d-none d-sm-table-cell w10" scope="col">Mis à jour</th>
+                    <th class="d-none d-sm-table-cell w10" scope="col">Statut</th>
+                    <th class="d-none d-sm-table-cell w10" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,14 +33,14 @@ use App\src\services\Formater; ?>
                 foreach ($articles as $article) {
                 ?>
                     <tr>
-                        <td><a href="index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>"><?= htmlspecialchars($article->getTitle()); ?></a></td>
-                        <td><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
-                        <td><?= htmlspecialchars($article->getAuthor()); ?></td>
-                        <td> <img src="<?= $article->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
-                        <td><?= Formater::formatCondensed(htmlspecialchars($article->getCreatedAt())); ?></td>
-                        <td><?= Formater::formatCondensed(htmlspecialchars($article->getUpdatedAt())); ?></td>
-                        <td class="text-center"><?= Formater::setStatusIcon(htmlspecialchars($article->getStatus())); ?></td>
-                        <td class="text-center">
+                        <td class="d-block"><a href="index.php?route=article&articleId=<?= htmlspecialchars($article->getId()); ?>"><?= htmlspecialchars($article->getTitle()); ?></a></td>
+                        <td class="d-none d-sm-table-cell"><?= substr(strip_tags($article->getContent()), 0, 100); ?>...</td>
+                        <td class="d-none d-sm-table-cell"><?= htmlspecialchars($article->getAuthor()); ?></td>
+                        <td class="d-none d-sm-table-cell"> <img src="<?= $article->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
+                        <td class="d-none d-sm-table-cell"><?= Formater::formatCondensed(htmlspecialchars($article->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell"><?= Formater::formatCondensed(htmlspecialchars($article->getUpdatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= Formater::setStatusIcon(htmlspecialchars($article->getStatus())); ?></td>
+                        <td class="d-block d-sm-table-cell text-center">
                             <a class="btn p-0" href="index.php?route=editArticle&articleId=<?= $article->getId(); ?>">
                                 <i class="text-primary" data-feather="edit" data-toggle="tooltip" data-placement="bottom" title="Editer"></i>
                             </a>

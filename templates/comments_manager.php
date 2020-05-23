@@ -10,10 +10,10 @@ use App\src\services\Formater; ?>
         <table class="table table-striped">
             <thead>
                 <tr class="text-center">
-                    <th class="col-sm-2" scope="col">Pseudo</th>
-                    <th class="col-sm-7" scope="col">Commentaire</th>
-                    <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
-                    <th class="col-sm-2" scope="col">Action</th>
+                    <th class="w15 d-none d-sm-table-cell" scope="col">Pseudo</th>
+                    <th class="w60 d-none d-sm-table-cell" scope="col">Commentaire</th>
+                    <th class="w10 d-none d-sm-table-cell" scope="col">Date</th>
+                    <th class="w15 d-none d-sm-table-cell" scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,14 +21,14 @@ use App\src\services\Formater; ?>
                 foreach ($commentsReported as $comment) {
                 ?>
                     <tr>
-                        <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
-                        <td>
+                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                        <td class="d-block d-sm-table-cell">
                             <a href="index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
                                 <?= htmlspecialchars($comment->getContent()) ?>
                             </a>
                         </td>
-                        <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
-                        <td class="text-center">
+                        <td class="d-block d-sm-table-cell" class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell" class="text-center">
                             <a class="btn p-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                 <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                             </a>
@@ -55,10 +55,10 @@ use App\src\services\Formater; ?>
         <table class="table table-striped">
             <thead>
                 <tr class="text-center">
-                    <th class="col-sm-2" scope="col">Pseudo</th>
-                    <th class="col-sm-7" scope="col">Commentaire</th>
-                    <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
-                    <th class="col-sm-2" scope="col">Action</th>
+                    <th class="w15 d-none d-sm-table-cell" scope="col">Pseudo</th>
+                    <th class="w60 d-none d-sm-table-cell" scope="col">Commentaire</th>
+                    <th class="w10 d-none d-sm-table-cell" scope="col">Date</th>
+                    <th class="w15 d-none d-sm-table-cell" scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,14 +66,14 @@ use App\src\services\Formater; ?>
                 foreach ($commentsApproved as $comment) {
                 ?>
                     <tr>
-                        <td><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
-                        <td>
+                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                        <td class="d-block d-sm-table-cell">
                             <a href="index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
                                 <?= htmlspecialchars($comment->getContent()) ?>
                             </a>
                         </td>
-                        <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
-                        <td class="text-center">
+                        <td class="d-block d-sm-table-cell" class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell" class="text-center">
                             <i class="text-success" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Ce commentaire est approuvé"></i>
                             <a class="btn p-0" href="index.php?route=hideComment&commentId=<?= $comment->getId(); ?>">
                                 <i class="text-secondary" data-feather="eye-off" data-toggle="tooltip" data-placement="bottom" title="Masquer"></i>
@@ -97,10 +97,10 @@ use App\src\services\Formater; ?>
         <table class="table table-striped">
             <thead>
                 <tr class="text-center">
-                    <th class="col-sm-2" scope="col">Pseudo</th>
-                    <th class="col-sm-7" scope="col">Commentaire</th>
-                    <th class="col-sm-1" class="col-sm-2" scope="col">Date</th>
-                    <th class="col-sm-2" scope="col">Action</th>
+                    <th class="w15 d-none d-sm-table-cell" scope="col">Pseudo</th>
+                    <th class="w60 d-none d-sm-table-cell" scope="col">Commentaire</th>
+                    <th class="w10 d-none d-sm-table-cell" scope="col">Date</th>
+                    <th class="w15 d-none d-sm-table-cell" scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,10 +108,10 @@ use App\src\services\Formater; ?>
                 foreach ($commentsHided as $comment) {
                 ?>
                     <tr>
-                        <td><?= htmlspecialchars($comment->getPseudo()); ?></td>
-                        <td><?= htmlspecialchars($comment->getContent()) ?></td>
-                        <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
-                        <td class="text-center">
+                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></td>
+                        <td class="d-block d-sm-table-cell"><?= htmlspecialchars($comment->getContent()) ?></td>
+                        <td class="d-block d-sm-table-cell" class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell" class="text-center">
                             <a class="btn p-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                 <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                             </a>

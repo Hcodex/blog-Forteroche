@@ -8,12 +8,12 @@ use App\src\services\Formater; ?>
         <table class="table table-striped">
             <thead>
                 <tr class="text-center">
-                    <th scope="col">Pseudo</th>
-                    <th scope="col">email</th>
-                    <th scope="col">Créé le</th>
-                    <th scope="col">avatar</th>
-                    <th scope="col">role</th>
-                    <th class="col-sm-2" scope="col">Action</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Pseudo</th>
+                    <th class="d-none d-sm-table-cell" scope="col">email</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Créé le</th>
+                    <th class="d-none d-sm-table-cell" scope="col">avatar</th>
+                    <th class="d-none d-sm-table-cell" scope="col">role</th>
+                    <th class="d-none d-sm-table-cell" class="w15" scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,13 +21,12 @@ use App\src\services\Formater; ?>
                 foreach ($usersRegistered as $user) {
                 ?>
                     <tr>
-                        <td><?= htmlspecialchars($user->getPseudo()); ?></td>
-                        <td class="text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
-                        <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
-                        <td class="text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
-                        <td class="text-center"><?= Formater::setRoleIcon(htmlspecialchars($user->getRole())); ?></td>
-
-                        <td class="text-center">
+                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($user->getPseudo()); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= Formater::setRoleIcon(htmlspecialchars($user->getRole())); ?></td>
+                        <td class="d-block d-sm-table-cell text-center">
                             <a class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=setRole&role=1&userId=<?= $user->getId(); ?>', 'Vous allez donner les doit d\'administeur à l\'utilisateur sélectionné')">
                                 <i class="text-secondary" data-feather="star" data-toggle="tooltip" data-placement="bottom" title="Définir administrateur"></i>
                             </a>
@@ -62,12 +61,12 @@ use App\src\services\Formater; ?>
         <table class="table table-striped">
             <thead>
                 <tr class="text-center">
-                    <th scope="col">Pseudo</th>
-                    <th scope="col">email</th>
-                    <th scope="col">Créé le</th>
-                    <th scope="col">avatar</th>
-                    <th scope="col">role</th>
-                    <th class="col-sm-2" scope="col">Action</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Pseudo</th>
+                    <th class="d-none d-sm-table-cell" scope="col">email</th>
+                    <th class="d-none d-sm-table-cell" scope="col">Créé le</th>
+                    <th class="d-none d-sm-table-cell" scope="col">avatar</th>
+                    <th class="d-none d-sm-table-cell" scope="col">role</th>
+                    <th class="d-none d-sm-table-cell" class="w15" scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,13 +74,12 @@ use App\src\services\Formater; ?>
                 foreach ($usersBanned as $user) {
                 ?>
                     <tr>
-                        <td><?= htmlspecialchars($user->getPseudo()); ?></td>
-                        <td class="text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
-                        <td class="text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
-                        <td class="text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
-                        <td class="text-center"><?= Formater::setRoleIcon("banned"); ?></td>
-
-                        <td class="text-center">
+                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($user->getPseudo()); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= htmlspecialchars($user->getEmail()); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= Formater::formatCondensed(htmlspecialchars($user->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell text-center"> <img src="<?= $user->getThumbail(); ?>" class="" width="60px" alt="Défaut"></td>
+                        <td class="d-block d-sm-table-cell text-center"><?= Formater::setRoleIcon("banned"); ?></td>
+                        <td class="d-block d-sm-table-cell text-center">
                             <a class="btn p-0" href="#" onclick="setConfirmModal('index.php?route=unbanUser&userId=<?= $user->getId(); ?>', 'Vous allez réactiver le compte de l\'utilisateur sélectionné')">
                                 <i class="text-primary" data-feather="share" data-toggle="tooltip" data-placement="bottom" title="Réactiver"></i>
                             </a>
