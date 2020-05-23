@@ -110,7 +110,7 @@ use App\src\services\Formater; ?>
                     <tr>
                         <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></td>
                         <td class="d-block d-sm-table-cell"><?= htmlspecialchars($comment->getContent()) ?></td>
-                        <td class="d-block d-sm-table-cell text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
                         <td class="d-block d-sm-table-cell text-center">
                             <a class="btn p-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                 <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
