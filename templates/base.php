@@ -108,27 +108,7 @@
 		<?= $content ?>
 	</div>
 
-	<?php if ($this->session->get('success_message')) { ?>
 
-		<div class="row fixed-top msg-box p-0 col-md-6 mx-auto">
-			<div class="mx-auto alert alert-success alert-dismissible fade show col-12" role="alert">
-				<?= $this->session->show('success_message'); ?>
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		</div>
-	<?php } ?>
-	<?php if ($this->session->get('error_message')) { ?>
-		<div class="row fixed-top msg-box p-0 col-md-6 mx-auto">
-			<div class="mx-auto alert alert-danger alert-dismissible fade show col-12" role="alert">
-				<?= $this->session->show('error_message'); ?>
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		</div>
-	<?php } ?>
 
 	<div id="confirmModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -160,6 +140,13 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="js/init.js"></script>
+
+	<?php if ($this->session->get('success_message')) { ?>
+		<script>showAlert("<?= $this->session->show('success_message') ?>", "success", 5000);</script>
+	<?php } ?>
+	<?php if ($this->session->get('error_message')) { ?>
+		<script>showAlert("<?= $this->session->show('error_message') ?>", "danger", 5000);</script>
+	<?php } ?>
 
 </body>
 

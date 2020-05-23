@@ -158,14 +158,7 @@ function showAlert(message, type, closeDelay) {
 
     if ($cont.length == 0) {
         // alerts-container does not exist, create it
-        $cont = $('<div id="alerts-container">')
-            .css({
-                position: "fixed",
-                width: "50%",
-                left: "25%",
-                top: "10%",
-                zIndex: "2000"
-            })
+        $cont = $('<div id="alerts-container" class="msg-box">')
             .appendTo($("body"));
     }
 
