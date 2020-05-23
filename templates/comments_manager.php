@@ -21,7 +21,7 @@ use App\src\services\Formater; ?>
                 foreach ($commentsReported as $comment) {
                 ?>
                     <tr>
-                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></a></td>
+                        <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></td>
                         <td class="d-block d-sm-table-cell">
                             <a href="index.php?route=article&articleId=<?= $comment->getArticleId(); ?>">
                                 <?= htmlspecialchars($comment->getContent()) ?>
@@ -110,8 +110,8 @@ use App\src\services\Formater; ?>
                     <tr>
                         <td class="d-block d-sm-table-cell font-weight-bold"><?= htmlspecialchars($comment->getPseudo()); ?></td>
                         <td class="d-block d-sm-table-cell"><?= htmlspecialchars($comment->getContent()) ?></td>
-                        <td class="d-block d-sm-table-cell" class="text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
-                        <td class="d-block d-sm-table-cell" class="text-center">
+                        <td class="d-block d-sm-table-cell text-center"><?= Formater::formatCondensed(htmlspecialchars($comment->getCreatedAt())); ?></td>
+                        <td class="d-block d-sm-table-cell text-center">
                             <a class="btn p-0" href="index.php?route=approveComment&commentId=<?= $comment->getId(); ?>">
                                 <i class="text-secondary" data-feather="check-circle" data-toggle="tooltip" data-placement="bottom" title="Approuver"></i>
                             </a>
