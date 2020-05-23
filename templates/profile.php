@@ -44,7 +44,7 @@
                 <div class="form-group pt-3 pt-md-1">
                     <input type="hidden" id="picture_file_name" name="picture_file_name" placeholder="Image d' illustration" value="<?= htmlspecialchars($this->session->get('avatar')) ?>">
                     <div class="text-center">
-                        <input type="submit" class="btn btn-primary" value="Mettre à jour" id="submit" name="submit">
+                        <input type="submit" class="btn btn-primary" value="Mettre à jour" id="update" name="update">
                         <a class="btn btn-danger" href="#" onclick="setConfirmModal('index.php?route=deleteUser&userId=<?= htmlspecialchars($this->session->get('id')); ?>', 'Votre compte va être supprimé définitivement')">
                             Supprimer mon compte
                         </a>

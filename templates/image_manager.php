@@ -86,7 +86,7 @@ if ($route === "profile" || $route === "editArticle" || $route === "addArticle")
                     <a class="mr-auto" type="button" href="" data-toggle="collapse" data-target="#collapseExample">
                         <i data-feather="file-plus" data-toggle="tooltip" data-placement="bottom" title="Uploader une image"></i>
                     </a>
-                    <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="submit" name="submit" disabled>
+                    <input type="submit" class="btn btn-danger img-delete-btn" value="Effacer du serveur" id="delete" name="delete" disabled>
                     <?
                     if ($route === "profile" || $route === "editArticle" || $route === "addArticle") {
                     ?>

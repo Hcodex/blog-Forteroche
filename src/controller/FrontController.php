@@ -60,7 +60,7 @@ class FrontController extends Controller
 
     public function login(Parameter $post)
     {
-        if ($post->get('submit')) {
+        if ($post->get('login')) {
             $result = $this->userDAO->login($post);
             if ($result && $result['isPasswordValid']) {
                 switch ($result['result']['status']) {

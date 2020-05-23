@@ -225,7 +225,7 @@ class BackController extends Controller
     public function editProfile(Parameter $post)
     {
         $this->checkLoggedIn();
-        if ($post->get('submit')) {
+        if ($post->get('update')) {
             $userId = $this->session->get('id');
             $this->userDAO->editUser($post,  $userId);
             $user = $this->userDAO->getUser($userId);
