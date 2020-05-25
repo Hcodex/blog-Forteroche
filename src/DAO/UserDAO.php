@@ -25,7 +25,7 @@ class UserDAO extends DAO
     {
         $sql = 'INSERT INTO user (pseudo, email, password, created_at, role_id, token) VALUES (?, ?, ?, NOW(), ?, ?)';
         $this->createQuery($sql, [$post->get('pseudo'), $post->get('email'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2, password_hash($token, PASSWORD_BCRYPT)]);
-        return 'Votre compte a été crée avec succès';
+        return 'Votre compte a été créé avec succès';
     }
 
     public function checkUserPseudo(Parameter $post)
